@@ -2,9 +2,10 @@ package com.suchangko.moneybook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.TabActivity;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends TabActivity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
