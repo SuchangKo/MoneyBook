@@ -21,24 +21,25 @@
 
         <EditText
             android:singleLine="true"
-            android:id="@+id/editText2"
+            android:id="@+id/edit_password"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText1"
-            android:layout_below="@+id/editText1"
+            android:layout_alignLeft="@+id/edit_id"
+            android:layout_below="@+id/edit_id"
+            android:hint="Input Password"
             android:ems="10" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_login"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText2"
-            android:layout_alignTop="@+id/editText1"
-            android:layout_toRightOf="@+id/editText2"
+            android:layout_alignBottom="@+id/edit_password"
+            android:layout_alignTop="@+id/edit_id"
+            android:layout_toRightOf="@+id/edit_password"
             android:text="Login" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/edit_id"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/imageView1"
@@ -46,15 +47,16 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="44dp"
             android:ems="10"
+            android:hint="Input ID"
             android:singleLine="true" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText2"
-            android:layout_alignRight="@+id/button1"
-            android:layout_below="@+id/editText2"
+            android:layout_alignLeft="@+id/edit_password"
+            android:layout_alignRight="@+id/button_login"
+            android:layout_below="@+id/edit_password"
             android:layout_marginTop="15dp"
             android:text="회원가입" />
 

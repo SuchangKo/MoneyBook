@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/progressBar1"
         android:layout_centerHorizontal="true"
-        android:text="Loading..."
+        android:text="Loading... "
         android:textSize="20dp" />
 
     <ProgressBar
