@@ -20,15 +20,13 @@ public class MainActivity extends TabActivity{
 		setContentView(R.layout.activity_main);
         tabHost = getTabHost();
         setTabs();
-
 	}
     private void setTabs(){
-        addTab("지출내역",R.drawable.ic_launcher,JoinActivity.class);
-        addTab("지출내역",R.drawable.ic_launcher,JoinActivity.class);
-        addTab("지출내역",R.drawable.ic_launcher,JoinActivity.class);
-        addTab("지출내역",R.drawable.ic_launcher,JoinActivity.class);
-        addTab("지출내역",R.drawable.ic_launcher,JoinActivity.class);
-
+        addTab("지출내역",R.drawable.tab_icon_1,Tab_OneActivity.class);
+        addTab("수입내역",R.drawable.tab_icon_2,JoinActivity.class);
+        addTab("예산관리",R.drawable.tab_icon_3,JoinActivity.class);
+        addTab("자료통계",R.drawable.tab_icon_4,JoinActivity.class);
+        addTab("자료차트",R.drawable.tab_icon_5,JoinActivity.class);
     }
     private void addTab(String title,int img_drawable , Class<?> c){
         Intent i = new Intent(this,c);
@@ -41,7 +39,6 @@ public class MainActivity extends TabActivity{
         spec.setIndicator(TabIndicator);
         spec.setContent(i);
         tabHost.addTab(spec);
-
     }
 	@Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,5 +46,4 @@ public class MainActivity extends TabActivity{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }

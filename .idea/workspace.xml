@@ -30,15 +30,19 @@
     <list default="true" id="af1010f9-1206-4064-bb00-c049de98efd1" name="Default" comment="" />
     <ignored path="MoneyBook.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364296518686" ignored="false" />
-    <file path="/fragment.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364297303955" ignored="false" />
-    <file path="/activity_login.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364297611541" ignored="false" />
+    <file path="/Dummy.txt" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364441843114" ignored="false" />
+    <file path="/fragment.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364443111101" ignored="false" />
+    <file path="/activity_login.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364443675378" ignored="false" />
     <file path="/a.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364063509856" ignored="false" />
-    <file path="/LoginActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364262911753" ignored="false" />
+    <file path="/LoginActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364443036092" ignored="false" />
     <file path="/AccountDB.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364228772695" ignored="false" />
-    <file path="/MainActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364305543708" ignored="false" />
+    <file path="/MainActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364393282407" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/plugins/android/lib/android.jar!/org/jetbrains/android/android.xsd" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364297624093" ignored="false" />
     <file path="/tab_indicator.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364306067608" ignored="false" />
+    <file path="/Tab_OneActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364393341759" ignored="false" />
+    <file path="/activity_tab1.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364442335366" ignored="false" />
+    <file path="/activity_main.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364393587756" ignored="false" />
+    <file path="/strings.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364425441158" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,16 +104,28 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="31" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0">
+            <state line="32" column="29" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JoinActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/JoinActivity.java">
+      <file leaf-file-name="activity_login.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="47" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
+            <state line="52" column="36" selection-start="2235" selection-end="2235" vertical-scroll-proportion="-14.16">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edittextbackground.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/res/drawable/edittextbackground.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="61" selection-start="469" selection-end="469" vertical-scroll-proportion="0.32478634">
               <folding />
             </state>
           </provider>
@@ -118,47 +134,77 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="50" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#337#369#0" expanded="true" />
-              </folding>
+            <state line="34" column="21" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tab_OneActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="49" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_tab1.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/activity_tab1.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="54" selection-start="344" selection-end="344" vertical-scroll-proportion="-6.08">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tab_indicator.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/tab_indicator.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="8" selection-start="556" selection-end="556" vertical-scroll-proportion="-10.64">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="52" selection-start="673" selection-end="673" vertical-scroll-proportion="-11.4">
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="android-designer">
             <state />
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccountDB.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/AccountDB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="45" selection-start="523" selection-end="523" vertical-scroll-proportion="-9.12">
-              <folding />
+            <state line="57" column="55" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_login.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="activity_splash.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/activity_splash.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="31" selection-start="507" selection-end="507" vertical-scroll-proportion="-6.84">
+            <state line="8" column="93" selection-start="479" selection-end="479" vertical-scroll-proportion="-6.08">
               <folding />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tab_indicator.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/layout/tab_indicator.xml">
           <provider editor-type-id="android-designer">
             <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="69" selection-start="549" selection-end="549" vertical-scroll-proportion="0.39290988">
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
@@ -191,11 +237,17 @@
       <list>
         <option value="$PROJECT_DIR$/res/layout/activity_splash.xml" />
         <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/AccountDB.java" />
-        <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java" />
         <option value="$PROJECT_DIR$/res/drawable/tab_unselected.xml" />
-        <option value="$PROJECT_DIR$/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/activity_tab1.xml" />
         <option value="$PROJECT_DIR$/res/layout/tab_indicator.xml" />
+        <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/res/drawable/edittextbackground.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_login.xml" />
       </list>
     </option>
   </component>
@@ -318,6 +370,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MoneyBook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MoneyBook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-hdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MoneyBook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MoneyBook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -325,16 +413,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="preferences.sourceCode.Java" />
+    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="AndroidLayoutSelectedEditor" value="text-editor" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="AndroidLayoutSelectedEditor" value="text-editor" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -343,6 +431,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SuChang_NT900X\Documents\GitHub\MoneyBook\res\drawable-hdpi" />
+      <recent name="C:\Users\SuChang_NT900X\Documents\GitHub\MoneyBook\res\layout" />
       <recent name="C:\Users\SuChang Ko\Documents\GitHub\MoneyBook\res\layout" />
       <recent name="C:\Users\SuChang Ko\Documents\GitHub\MoneyBook\res\values" />
       <recent name="C:\Users\SuChang Ko\Documents\GitHub\MoneyBook\res\drawable" />
@@ -474,8 +564,8 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
-      <option name="PREFERRED_AVD" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="AndroidDevice" />
       <option name="COMMAND_LINE" value="" />
       <option name="WIPE_USER_DATA" value="false" />
       <option name="DISABLE_BOOT_ANIMATION" value="false" />
@@ -528,16 +618,15 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32947233" sideWeight="0.6593407" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997253" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -547,6 +636,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34065935" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
@@ -611,36 +701,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/AccountDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="58" selection-start="585" selection-end="585" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="64" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/JoinActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="47" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="52" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -651,65 +711,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_splash.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="33" selection-start="798" selection-end="798" vertical-scroll-proportion="-6.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/AccountDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="35" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.7387218">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="31" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="31" selection-start="507" selection-end="507" vertical-scroll-proportion="-6.84">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="45" selection-start="523" selection-end="523" vertical-scroll-proportion="-9.12">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="50" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#337#369#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -720,12 +725,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/tab_indicator.xml">
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="114" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="42" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/tab_icon_1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="21" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/AccountDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="55" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="69" selection-start="549" selection-end="549" vertical-scroll-proportion="0.39290988">
+        <state line="15" column="52" selection-start="673" selection-end="673" vertical-scroll-proportion="-11.4">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/tab_indicator.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="8" selection-start="556" selection-end="556" vertical-scroll-proportion="-10.64">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="49" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="29" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_tab1.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="54" selection-start="344" selection-end="344" vertical-scroll-proportion="-6.08">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_splash.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="93" selection-start="479" selection-end="479" vertical-scroll-proportion="-6.08">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="36" selection-start="2235" selection-end="2235" vertical-scroll-proportion="-14.16">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/edittextbackground.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="61" selection-start="469" selection-end="469" vertical-scroll-proportion="0.32478634">
           <folding />
         </state>
       </provider>

@@ -15,9 +15,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>            
             <FrameLayout
+                android:layout_marginTop="10dp"
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="0dip"/>
+                android:layout_height="fill_parent"/>
         </LinearLayout>
     </TabHost>
 </RelativeLayout>

@@ -29,8 +29,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         if(view.getId()==R.id.button_login){
             String str_id = edit_id.getText().toString();
             String str_pw = edit_password.getText().toString();
-            Toast.makeText(getApplicationContext(),str_id,Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+            Intent i = new Intent(this,MainActivity.class);
             startActivity(i);
         }else if(view.getId()==R.id.button_join){
 
