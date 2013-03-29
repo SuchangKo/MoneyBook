@@ -37,7 +37,8 @@
             android:layout_toRightOf="@+id/edit_password"
             android:textColor="#11a8ff"
             android:textStyle="bold"
-            android:text="Login" />
+            android:text="Login"
+            android:background="@drawable/buttonbackground"/>
         <EditText
             android:id="@+id/edit_id"
             android:layout_width="175dp"
@@ -60,5 +61,6 @@
             android:layout_marginTop="15dp"
             android:textColor="#11a8ff"
             android:textStyle="bold"
-            android:text="회원가입" />
+            android:text="회원가입"
+            android:background="@drawable/buttonbackground"/>
 </RelativeLayout>

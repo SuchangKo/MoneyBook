@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+	android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/logintitle" />
+    <EditText
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:hint="Input ID"
+            android:id="@+id/edit_id"
+            android:layout_gravity="center"
+            android:background="@drawable/edittextbackground"/>
+    <EditText
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:hint="Input Password"
+            android:id="@+id/edit_password"
+            android:layout_gravity="center"
+            android:background="@drawable/edittextbackground"/>
+    <EditText
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:hint="Input Password_1"
+            android:id="@+id/edit_password1"
+            android:layout_gravity="center"
+            android:background="@drawable/edittextbackground"/>
+    <Button
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonbackground"
+            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:text="회원가입"
+            />
+
+
+
+</LinearLayout>
