@@ -3,38 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_marginTop="10dp" 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <Button
-            android:layout_marginLeft="10dp"
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="2013년 3월"
-            android:textSize="11dp"
-            android:textColor="#0657b8" 
-            android:background="@drawable/buttonbackground1"/>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="200,000원"
-            android:textSize="11dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#0657b8" 
-            android:background="@drawable/buttonbackground1" />
-
-    </RelativeLayout>
-    <RelativeLayout
+	<RelativeLayout
         android:layout_marginTop="10dp" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -42,37 +11,38 @@
         <Button
             android:layout_marginLeft="10dp"
             android:id="@+id/button1"
-            android:layout_width="90dp"
+            android:layout_width="30dp"
             android:textSize="11dp"
             android:layout_height="wrap_content"
-            android:text="카드별"            
+          	android:text="좌"            
             android:textColor="#0657b8" 
             android:background="@drawable/buttonbackground1"/>
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="90dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/buttonbackground1"
-            android:text="세부분류별"
+            android:text="우"
             android:textSize="11dp"
             android:textColor="#0657b8" />
 
         <Button
-            android:id="@+id/button1"
-            android:layout_width="90dp"
+            android:id="@+id/buttondate"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/buttonbackground1"
-            android:text="분류별"
+            android:text="mnmmmnmnmn"
             android:textSize="11dp"
             android:textColor="#0657b8" />
 
     </RelativeLayout>
+    
     <ListView
             android:id="@+id/listview1"
             android:layout_height="fill_parent"

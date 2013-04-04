@@ -23,10 +23,10 @@ public class MainActivity extends TabActivity{
 	}
     private void setTabs(){
         addTab("지출내역",R.drawable.tab_icon_1,Tab_OneActivity.class);
-        addTab("수입내역",R.drawable.tab_icon_2,JoinActivity.class);
-        addTab("예산관리",R.drawable.tab_icon_3,JoinActivity.class);
-        addTab("자료통계",R.drawable.tab_icon_4,JoinActivity.class);
-        addTab("자료차트",R.drawable.tab_icon_5,JoinActivity.class);
+        addTab("수입내역",R.drawable.tab_icon_3,Tab_TwoActivity.class);
+        addTab("예산관리",R.drawable.tab_icon_4,Tab_ThreeActivity.class);
+        addTab("자료통계",R.drawable.tab_icon_2,Tab_FourActivity.class);
+        addTab("자료차트",R.drawable.tab_icon_5,Tab_FiveActivity.class);
     }
     private void addTab(String title,int img_drawable , Class<?> c){
         Intent i = new Intent(this,c);
@@ -36,6 +36,7 @@ public class MainActivity extends TabActivity{
         tv_title.setText(title);
         ImageView icon = (ImageView)TabIndicator.findViewById(R.id.icon);
         icon.setImageResource(img_drawable);
+
         spec.setIndicator(TabIndicator);
         spec.setContent(i);
         tabHost.addTab(spec);

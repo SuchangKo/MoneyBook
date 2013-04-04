@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
+        android:layout_marginBottom="26dp"
         android:src="@drawable/logintitle" />
         <requestFocus />
         <EditText
@@ -37,6 +38,7 @@
             android:layout_toRightOf="@+id/edit_password"
             android:textColor="#11a8ff"
             android:textStyle="bold"
+            android:textSize="17dp"
             android:text="Login"
             android:background="@drawable/buttonbackground"/>
         <EditText
@@ -61,6 +63,7 @@
             android:layout_marginTop="15dp"
             android:textColor="#11a8ff"
             android:textStyle="bold"
+            android:textSize="17dp"
             android:text="회원가입"
             android:background="@drawable/buttonbackground"/>
 </RelativeLayout>

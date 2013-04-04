@@ -24,7 +24,11 @@
         </activity>
         <activity android:name="LoginActivity"></activity>
         <activity android:name="JoinActivity"></activity>
-        <activity android:name=".Tab_OneActivity"/>
+        <activity android:name="Tab_OneActivity"/>
+        <activity android:name="Tab_TwoActivity"/>
+        <activity android:name="Tab_ThreeActivity"/>
+        <activity android:name="Tab_FourActivity"/>
+        <activity android:name="Tab_FiveActivity"/>
     </application>
 
 </manifest>

@@ -7,12 +7,12 @@
                     android:angle="270" />
             <stroke
                     android:width="2dip" android:color="#11a8ff"/>
-            <corners android:radius="5dip"/>
+            <corners android:radius="30dip"/>
             <padding
-                    android:left="7dip"
-                    android:right="7dip"
-                    android:top="7dip"
-                    android:bottom="7dip" />
+                    android:left="11dip"
+                    android:right="11dip"
+                    android:top="9dip"
+                    android:bottom="9dip" />
         </shape>
     </item>
     <item android:state_focused="true" android:state_enabled="true">
@@ -22,12 +22,12 @@
                     android:angle="270" />
             <stroke
                     android:width="2dip" android:color="#11a8ff"/>
-            <corners android:radius="5dip"/>
+            <corners android:radius="30dip"/>
             <padding
                     android:left="7dip"
                     android:right="7dip"
-                    android:top="7dip"
-                    android:bottom="7dip" />
+                    android:top="9dip"
+                    android:bottom="9dip" />
         </shape>
     </item>
     <item android:state_enabled="false">
@@ -35,12 +35,12 @@
             <gradient
                     android:startColor="#ffffff" android:endColor="#dce3d1"
                     android:angle="270" />
-            <corners android:radius="5dip"/>
+            <corners android:radius="30dip"/>
             <padding
                     android:left="7dip"
                     android:right="7dip"
-                    android:top="7dip"
-                    android:bottom="7dip" />
+                    android:top="9dip"
+                    android:bottom="9dip" />
         </shape>
     </item>
     <item android:state_enabled="true">
@@ -52,13 +52,13 @@
             <stroke
                     android:width="0.5dip" android:color="#11a8ff"/>
 
-            <corners android:radius="5dip"/>
+            <corners android:radius="30dip"/>
 
             <padding
                     android:left="7dip"
                     android:right="7dip"
-                    android:top="7dip"
-                    android:bottom="7dip" />
+                    android:top="9dip"
+                    android:bottom="9dip" />
         </shape>
     </item>
 </selector>
