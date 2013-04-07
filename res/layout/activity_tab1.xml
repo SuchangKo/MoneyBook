@@ -73,9 +73,9 @@
             android:textColor="#0657b8" />
 
     </RelativeLayout>
-    <ListView
-            android:id="@+id/listview1"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            />
+    <ExpandableListView 
+        android:id="@+id/listview1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        ></ExpandableListView>
 </LinearLayout>
