@@ -2,11 +2,13 @@ package com.suchangko.moneybook;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,6 +37,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	private ArrayList<String> mGroupList = null;
 	private ArrayList<ArrayList<String>> mChildList = null;
 	private ArrayList<String> mChildListContent = null;
+	private ArrayList<String> mChildListContent1 = null;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,22 +45,31 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_tab1);
         c=Calendar.getInstance();
         bt_datepick  = (Button)findViewById(R.id.bt_pickdate);
+        bt_datepick.setOnClickListener(this);
         ExpandableListView mListView = (ExpandableListView)findViewById(R.id.listview1);
         
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
- 
-        mGroupList.add("가위");
-        mGroupList.add("바위");
-        mGroupList.add("보");
- 
+        mChildListContent1 = new ArrayList<String>();
+        
+        GregorianCalendar grecal = new GregorianCalendar();
+        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int i=0;
+        while(i<LastDay){
+        	int a = LastDay;
+        	int year_ = c.get(Calendar.YEAR);
+        	int month_ = c.get(Calendar.MONTH)+1;
+        	mGroupList.add(year_+"."+month_+"."+(a-i));
+        	i++;
+        }
+        
         mChildListContent.add("1");
         mChildListContent.add("2");
         mChildListContent.add("3");
- 
+        mChildListContent1.add("1");
         mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent);
+        mChildList.add(mChildListContent1);
         mChildList.add(mChildListContent);
         
         mListView.setAdapter(new BaseExpandableAdapter(this, mGroupList, mChildList));
@@ -124,7 +136,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	    protected Dialog onCreateDialog(int id){
 	        switch(id){
 	        case DIALOG_DATE:
-	            return new DatePickerDialog(this, dateListener,c.get(Calendar.YEAR),Calendar.MONTH+1,Calendar.DAY_OF_MONTH);	    
+	            return new DatePickerDialog(this, dateListener,c.get(Calendar.YEAR),c.get(Calendar.MONTH)+1,c.get(Calendar.DAY_OF_MONTH));	    
 	    }
 	        return null;
 	 }
