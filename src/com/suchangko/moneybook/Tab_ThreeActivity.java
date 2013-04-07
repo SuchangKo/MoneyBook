@@ -16,7 +16,5 @@ public class Tab_ThreeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
-        bt_date=(Button)findViewById(R.id.buttondate);
-    //    bt_date.setText("Gooood");
     }
 }
