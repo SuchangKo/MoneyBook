@@ -74,8 +74,10 @@
 
     </RelativeLayout>
     <ExpandableListView 
+        android:layout_marginTop="20dp"
         android:id="@+id/listview1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:groupIndicator="@null"
         ></ExpandableListView>
 </LinearLayout>
