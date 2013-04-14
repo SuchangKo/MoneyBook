@@ -59,6 +59,9 @@ public class AccountDB {
     public boolean deleteTable(String pkColumn, long pkData) {
         return db.delete(Table_Name, pkColumn+"="+pkData, null)>0;
     }
+    public Cursor RawQueryString(String sql){
+    	return db.rawQuery(sql,null);
+    }
     public Cursor selectTable(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return db.query(Table_Name, columns, selection, selectionArgs, groupBy, having, orderBy);
     }

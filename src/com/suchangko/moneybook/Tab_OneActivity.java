@@ -26,7 +26,7 @@ import android.widget.Toast;
  * User: SuChang_NT900X
  * Date: 13. 3. 27
  * Time: 오후 4:27
- * To change this template use File | Settings | File Templates.
+ * To change this template use File | Settings | File Template
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	
 		

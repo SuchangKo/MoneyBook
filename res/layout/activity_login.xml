@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edit_id"
             android:layout_below="@+id/edit_id"
+            android:inputType="textPassword"
             android:hint="Input Password"
             android:background="@drawable/edittextbackground"
             android:ems="10" />
@@ -52,6 +53,7 @@
             android:ems="10"
             android:background="@drawable/edittextbackground"
             android:hint="Input ID"
+            
             android:singleLine="true" />
         <Button
             android:id="@+id/button_join"

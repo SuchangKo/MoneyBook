@@ -14,7 +14,7 @@
             android:layout_width="30dp"
             android:textSize="11dp"
             android:layout_height="wrap_content"
-          	android:text="좌"            
+          	android:text="◀"            
             android:textColor="#0657b8" 
             android:background="@drawable/buttonbackground1"/>
 
@@ -26,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/buttonbackground1"
-            android:text="우"
+            android:text="▶"
             android:textSize="11dp"
             android:textColor="#0657b8" />
 
