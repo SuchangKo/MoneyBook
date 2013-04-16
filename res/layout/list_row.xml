@@ -3,29 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <ImageView 
-        android:id="@+id/iv_image"
-        android:layout_width="30dip"
-        android:layout_height="30dip"
-        android:visibility="gone"
-        />
-    
-    <TextView
-        android:id="@+id/tv_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="8dp" 
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/small_groupbackground"
-        />
-
     <TextView
         android:id="@+id/tv_child"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8dp" 
+        android:textSize="9dp" 
         android:layout_marginLeft="5dip"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
