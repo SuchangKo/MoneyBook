@@ -53,21 +53,20 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
         
        if(v == null){
            viewHolder = new ViewHolder();
-           v = inflater.inflate(R.layout.list_row, parent, false);
-           viewHolder.tv_groupName = (TextView) v.findViewById(R.id.tv_group);
-           viewHolder.iv_image = (ImageView) v.findViewById(R.id.iv_image);
+           v = inflater.inflate(R.layout.group_row, parent, false);
+           viewHolder.tv_groupName = (TextView) v.findViewById(R.id.groupname);
            v.setTag(viewHolder);
        }else{
            viewHolder = (ViewHolder)v.getTag();
        }
-        
+        /*
        // 그룹을 펼칠때와 닫을때 아이콘을 변경해 준다.
        if(isExpanded){
            viewHolder.iv_image.setBackgroundColor(Color.GREEN);
        }else{
            viewHolder.iv_image.setBackgroundColor(Color.WHITE);
        }
-        
+        */
        viewHolder.tv_groupName.setText(getGroup(groupPosition));
         
        return v;
@@ -101,6 +100,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        if(v == null){
            viewHolder = new ViewHolder();
            v = inflater.inflate(R.layout.list_row, null);
+           viewHolder.tv_groupName = (TextView) v.findViewById(R.id.tv_group);
            viewHolder.tv_childName = (TextView) v.findViewById(R.id.tv_child);
            v.setTag(viewHolder);
        }else{
@@ -108,7 +108,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        }
         
        viewHolder.tv_childName.setText(getChild(groupPosition, childPosition));
-        
+       viewHolder.tv_groupName.setBackgroundDrawable(null);
        return v;
    }
 

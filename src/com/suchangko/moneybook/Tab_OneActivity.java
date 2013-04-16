@@ -53,6 +53,13 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         mChildListContent = new ArrayList<String>();
         mChildListContent1 = new ArrayList<String>();
         
+        
+        //ListItem
+        mChildListContent.add("1");
+        mChildListContent.add("2");
+        mChildListContent.add("3");
+        
+        
         GregorianCalendar grecal = new GregorianCalendar();
         int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
         int i=0;
@@ -61,17 +68,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         	int year_ = c.get(Calendar.YEAR);
         	int month_ = c.get(Calendar.MONTH)+1;
         	mGroupList.add(year_+"."+month_+"."+(a-i));
+        	mChildList.add(mChildListContent);
         	i++;
         }
-        
-        mChildListContent.add("1");
-        mChildListContent.add("2");
-        mChildListContent.add("3");
-        mChildListContent1.add("1");
-        mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent1);
-        mChildList.add(mChildListContent);
-        
         mListView.setAdapter(new BaseExpandableAdapter(this, mGroupList, mChildList));
         
         // 그룹 클릭 했을 경우 이벤트
