@@ -52,14 +52,26 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
         mChildListContent1 = new ArrayList<String>();
-        
+        /*
+         * http://www.androidpub.com/465319
+         *  input : new java.util.Date().getTime()
+         *  read :  
+         *  1. 
+         *  long datetime =  cursor.getLong(rowIndex);
+         *  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( datetime); 
+         * 2.
+         * long _timeMillis = System.currentTimeMillis();
+         * DateFormat.format("yyyy-MM-dd HH:mm:ss", _timeMillis).toString());
+         * 3.
+         * TimeZone timezone = TimeZone.getTimeZone("Etc/GMT-9");
+         * TimeZone.setDefault(timezone);
+         * */
         
         //ListItem
         mChildListContent.add("1");
         mChildListContent.add("2");
         mChildListContent.add("3");
-        
-        
+      
         GregorianCalendar grecal = new GregorianCalendar();
         int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
         int i=0;
