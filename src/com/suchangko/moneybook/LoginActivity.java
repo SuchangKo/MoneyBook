@@ -32,6 +32,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         edit_password = (EditText)findViewById(R.id.edit_password);
         acdb=new AccountDB(this,AccountDB.SQL_Create_accountdb,"accountdb");
         acdb.open();
+        StartMain(); // Developer.
     }
     @Override
     public void onClick(View view) {
@@ -48,14 +49,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         	if(count==0){
         		Toast.makeText(this,"로그인 실패. \n ID와 PW를 확인해주세요.",Toast.LENGTH_SHORT).show();
         	}else{
-        		Intent i = new Intent(this,MainActivity.class);
-                finish();
-                startActivity(i);
+        		StartMain();
         	}
         }else if(view.getId()==R.id.button_join){
             Intent i = new Intent(this,JoinActivity.class);
             startActivity(i);
         }
+    }
+    
+    public void StartMain(){
+    	Intent i = new Intent(this,MainActivity.class);
+        finish();
+        startActivity(i);
     }
 
 }
