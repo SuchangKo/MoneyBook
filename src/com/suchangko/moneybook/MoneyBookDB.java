@@ -14,13 +14,13 @@ public class MoneyBookDB {
    private static final int Database_Version = 2;
    private static String SQL_Table_Create;
    private static String Table_Name;
-
+   public static final String SQL_DBname="moneybook";
    public static final String SQL_Create_Moneybook =
            "create table moneybook (_id integer primary key autoincrement,"
                    +"content text,"
                    +"memo text,"
                    +"money integer not null,"
-                   +"date integer not null,"
+                   +"date integer not null"
                    +")";
    private final Context cxt;
 

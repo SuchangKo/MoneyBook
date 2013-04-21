@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	private ArrayList<ArrayList<String>> mChildList = null;
 	private ArrayList<String> mChildListContent = null;
 	private ArrayList<String> mChildListContent1 = null;
+	MoneyBookDB mdb;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         bt_datepick.setOnClickListener(this);
         ExpandableListView mListView = (ExpandableListView)findViewById(R.id.listview1);
         
+        mdb =  new MoneyBookDB(this,MoneyBookDB.SQL_Create_Moneybook,MoneyBookDB.SQL_DBname);
+        mdb.open();
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
@@ -126,6 +130,19 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         });
         
     }
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+	// Inflate the menu; this adds items to the action bar if it is present.
+	menu.add(0,0,0,"지출입력").setIcon(R.drawable.ic_menu_add);
+	menu.add(0,1,0,"이전문자등록").setIcon(R.drawable.ic_menu_copy);
+	menu.add(0,2,0,"즐겨찾기편집").setIcon(R.drawable.btn_star_off_disabled_holo_light);
+	menu.add(1,0,0,"지출내역검색").setIcon(R.drawable.ic_menu_search);
+	menu.add(1,1,0,"회사소개").setIcon(R.drawable.ic_menu_notifications);
+	menu.add(1,2,0,"더보기").setIcon(R.drawable.ic_menu_more);
+	
+	return true;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
