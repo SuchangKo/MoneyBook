@@ -24,4 +24,7 @@ public class util {
 	public static final CharSequence[] detailitems11={"본사입금","문구류","교육비","상금","컨텐츠"};
 	public static final CharSequence[] detailitems12={"카드수수료","이체수수료","세금","기타수수료"};
 	public static final CharSequence[] detailitems13={"기부금","용돈","접대비","회비","축의금","부의금"};
+	
+	public static final CharSequence[] spendhow={"현금","카드"};
+	public static final CharSequence[] spendkindof={"신한","현대","국민","우리","외환","신한","롯데"};
 }

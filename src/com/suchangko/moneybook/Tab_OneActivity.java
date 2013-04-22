@@ -13,6 +13,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +39,10 @@ import android.widget.Toast;
 public class Tab_OneActivity extends Activity implements OnClickListener {	
 		
 	Button bt_datepick;
+	Button bt_card;
+	Button bt_detail;
+	Button bt_middle;
+	
 	Calendar c;
 	TextView tv_date;
 	private static final int DIALOG_DATE = 0;
@@ -55,7 +60,12 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         bt_datepick  = (Button)findViewById(R.id.bt_pickdate);
         bt_datepick.setOnClickListener(this);
         ExpandableListView mListView = (ExpandableListView)findViewById(R.id.listview1);
-        
+        bt_card = (Button)findViewById(R.id.bt_card);
+        bt_card.setOnClickListener(this);
+        bt_middle=(Button)findViewById(R.id.bt_middle);
+        bt_middle.setOnClickListener(this);
+        bt_detail = (Button)findViewById(R.id.bt_detail);
+        bt_detail.setOnClickListener(this);
         mdb =  new MoneyBookDB(this,MoneyBookDB.SQL_Create_Moneybook,MoneyBookDB.SQL_DBname);
         mdb.open();
         mGroupList = new ArrayList<String>();
@@ -181,6 +191,143 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(v.getId()==R.id.bt_pickdate){
 			showDialog(DIALOG_DATE);	
+		}else if(v.getId()==R.id.bt_card){
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+			builder.setTitle("결제 분류 선택");
+			builder.setItems(util.spendhow, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	if(util.spendhow[item].equals("현금")){
+			    		bt_card.setText("현금");
+			    	}}
+			    
+			    
+			});
+			AlertDialog alert = builder.create();
+
+			alert.show();
+		}else if(v.getId()==R.id.bt_detail){
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+			builder.setTitle("지출 세부 분류 선택");
+			String tmp_middle = bt_middle.getText().toString();
+			if(tmp_middle.equals("식비")){
+				builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems1[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("교통비")){
+				builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems2[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("교육비")){
+				builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems3[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("건강,의료비")){
+				builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems4[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("통신비")){
+				builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems5[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("가구집기")){
+				builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems6[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("주거비")){
+				builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems7[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("품위유지비")){
+				builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems8[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("교양,오락비")){
+				builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems9[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("보험,저축비")){
+				builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems10[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("사업운영비")){
+				builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems11[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("수수료,세금")){
+				builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems12[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else if(tmp_middle.equals("기타")){
+				builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	bt_detail.setText(util.detailitems13[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}else{
+				Toast.makeText(getApplicationContext(), "분류를 선택해주세요.",1000).show();
+			}
+			
+		}else if(v.getId()==R.id.bt_middle){
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+			builder.setTitle("지출 분류 선택");
+			builder.setItems(util.Middleitems, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	bt_middle.setText(util.Middleitems[item]);
+			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
 	}
 	 private DatePickerDialog.OnDateSetListener dateListener = 
@@ -214,8 +361,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
 	        final EditText edt_middle = (EditText)innerView.findViewById(R.id.dialog_edit_middle);
 	        final EditText edt_detail =  (EditText)innerView.findViewById(R.id.dialog_edit_detail);
-	        EditText edt_spendhow = (EditText)innerView.findViewById(R.id.dialog_edit_spendhow);
-	        EditText edt_spend_detail = (EditText)innerView.findViewById(R.id.dialog_edit_spend_detail);
+	        final EditText edt_spendhow = (EditText)innerView.findViewById(R.id.dialog_edit_spendhow);
+	        final EditText edt_spend_detail = (EditText)innerView.findViewById(R.id.dialog_edit_spend_detail);
 	        
 	        edt_middle.setOnClickListener(new OnClickListener() {
 				
@@ -234,7 +381,6 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					    }
 					});
 					AlertDialog alert = builder.create();
-
 					alert.show();
 				}
 			});
@@ -358,7 +504,51 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        //Calendar cc = Calendar.getInstance();
 	        //String tmp_date = cc.get(Calendar.YEAR)+"-"+(cc.get(Calendar.MONTH)+1)+"-"+cc.get(Calendar.DAY_OF_MONTH);
 	        //String tmp_time =  cc.get(Calendar.HOUR_OF_DAY)+":"+cc.get(Calendar.MINUTE);
-	        
+	        edt_spendhow.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("결제 분류 선택");
+					builder.setItems(util.spendhow, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	if(util.spendhow[item].equals("현금")){
+					    		edt_spend_detail.setText("현금");
+					    	}else{
+					    		edt_spend_detail.setText("-");
+					    	}
+					    	edt_spendhow.setText(util.spendhow[item]);
+					    }
+					});
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				}
+			});
+	        edt_spend_detail.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if(edt_spend_detail.getText().toString().equals("현금")){
+						Toast.makeText(getApplicationContext(), "현금으로 선택되었습니다.", Toast.LENGTH_SHORT).show();
+					}else{
+						AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+						builder.setTitle("결제 분류 선택");
+						builder.setItems(util.spendkindof, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	edt_spend_detail.setText(util.spendkindof[item]);
+						    	
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+	
+						alert.show();
+					}
+				}
+			});
 	        
 	        SimpleDateFormat formatter1 = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	        Date currentDate = new Date ( );
