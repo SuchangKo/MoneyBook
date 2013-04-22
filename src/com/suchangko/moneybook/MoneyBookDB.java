@@ -20,7 +20,9 @@ public class MoneyBookDB {
                    +"content text,"
                    +"memo text,"
                    +"money integer not null,"
-                   +"date integer not null"
+                   +"date integer not null,"
+                   +"kindof text,"
+                   +"moneykindof text"
                    +")";
    private final Context cxt;
 

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<!-- 지출일 -->
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        >
+        <TextView 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지출일"
+            android:textSize="13dp"  android:textColor="#ffffff"
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_date"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="120dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="2013-03-22"
+			android:background="@drawable/edittextbackground1"    
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="14:16"
+            android:gravity="center"
+			android:background="@drawable/edittextbackground1" 	    
+            />
+    </LinearLayout>
+    <!-- 지출금액 -->
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+     android:layout_marginRight="15dp"
+        >
+        <TextView 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지출금액"
+            android:textSize="13dp"  android:textColor="#ffffff"
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_money"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+			android:background="@drawable/edittextbackground1"    
+            />
+    </LinearLayout>
+    <!-- 지출내역 -->
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        >
+        <TextView 
+           android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지출내역"
+            android:textSize="13dp"  android:textColor="#ffffff"
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_content"
+            android:layout_width="fill_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+			android:background="@drawable/edittextbackground1"    
+            />
+    </LinearLayout>
+    <!-- 메모 -->
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        >
+        <TextView 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메모"
+            android:textSize="13dp"  android:textColor="#ffffff"
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_memo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+			android:background="@drawable/edittextbackground1"    
+            />
+    </LinearLayout>
+    <!-- 분류 -->
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        >
+        <TextView 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분류"
+            android:textSize="13dp"  android:textColor="#ffffff"
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_middle"
+            android:layout_width="100dp"
+            android:layout_marginRight="10dp"
+            android:text="없음"
+            android:gravity="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_height="wrap_content"
+			android:background="@drawable/edittextbackground1"    
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_detail"
+           android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="상세선택"
+            android:gravity="center"
+              android:focusable="false"
+            android:focusableInTouchMode="false"
+			android:background="@drawable/edittextbackground1"    
+            />
+    </LinearLayout>
+    <!-- 결제 -->
+      <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        >
+        <TextView 
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결제"
+            android:textSize="13dp"  android:textColor="#ffffff"
+           
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_spendhow"
+            android:layout_width="100dp"
+            android:text="현금"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+			android:background="@drawable/edittextbackground1"    
+            />
+        <EditText 
+            android:id="@+id/dialog_edit_spend_detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+			android:background="@drawable/edittextbackground1"    
+            />
+    </LinearLayout>
+
+</LinearLayout>
