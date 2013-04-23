@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TimePicker;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
@@ -40,7 +42,9 @@ import android.widget.Toast;
  * To change this template use File | Settings | File Template
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	
-		
+	
+	EditText edt_date; //Dialog
+    EditText edt_time; //Dialog
 	Button bt_datepick;
 	Button bt_card;
 	Button bt_detail;
@@ -49,12 +53,15 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	Calendar c;
 	TextView tv_date;
 	private static final int DIALOG_DATE = 0;
+	private static final int DIALOG_DATE_edt = 1;
+	private static final int DIALOG_TIME_edt = 2;
+	
 	private ArrayList<String> mGroupList = null;
 	private ArrayList<ArrayList<String>> mChildList = null;
 	private ArrayList<String> mChildListContent = null;
 	private ArrayList<String> mChildListContent1 = null;
 	MoneyBookDB mdb;
-	
+	ExpandableListView mListView;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         c=Calendar.getInstance();
         bt_datepick  = (Button)findViewById(R.id.bt_pickdate);
         bt_datepick.setOnClickListener(this);
-        ExpandableListView mListView = (ExpandableListView)findViewById(R.id.listview1);
+        bt_datepick.setText(c.get(Calendar.YEAR)+"년 "+(c.get(Calendar.MONTH)+1)+"월");
+        mListView = (ExpandableListView)findViewById(R.id.listview1);
         bt_card = (Button)findViewById(R.id.bt_card);
         bt_card.setOnClickListener(this);
         bt_middle=(Button)findViewById(R.id.bt_middle);
@@ -94,50 +102,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         //mChildListContent.add("1");
         //mChildListContent.add("2");
         //mChildListContent.add("3");
-      
-        GregorianCalendar grecal = new GregorianCalendar();
-        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int i=0;
-        while(i<LastDay){
-        	int a = LastDay;
-        	int year_ = c.get(Calendar.YEAR);
-        	int month_ = c.get(Calendar.MONTH)+1;
-        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
-        	
-        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        	String str_tmp_date = formatter.format(tmp_date);
-        	//mGroupList.add(year_+"."+month_+"."+(a-i));
-        
-        	//mChildListContent.clear();
-        	String[] columns={"content","memo","money","kindof"};
-        	String selection="date=?";
-        	String[] selectionArgs={
-        			//"1366708459052"
-        			String.valueOf(tmp_date.getTime())
-        			};
-        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
-        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
-        	//        	c.getCount();
-        	//Log.d("count",""+c.getCount());
-        	//c.moveToFirst();
-        	ArrayList<String> tmp_Content = new ArrayList<String>();
-        	
-        	
-        	int tmp_count=c.getCount();
-        	Log.d("count",""+tmp_count);
-        	if(tmp_count>0){
-        		tmp_Content.add("없음");
-        	}else{
-        		Log.d("값 있음","");
-        		//c.moveToNext();
-        		tmp_Content.add("@!#@$#@$");
-        		//mChildListContent.add(c.getString(0));
-        	}
-        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
-        	mGroupList.add(str_tmp_date);
-        	mChildList.add(mChildListContent);
-        	i++;
-        }
+      madeAdapter();
+       
         mListView.setAdapter(baseadapter);
         
         // 그룹 클릭 했을 경우 이벤트
@@ -150,7 +116,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
                 return false;
             }
         });
-         
+        
         // 차일드 클릭 했을 경우 이벤트
         mListView.setOnChildClickListener(new OnChildClickListener() {
             @Override
@@ -161,7 +127,6 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
                 return false;
             }
         });
-         
         // 그룹이 닫힐 경우 이벤트
         mListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
             @Override
@@ -374,12 +339,42 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		        	bt_datepick.setText(year+"년 "+(monthOfYear+1)+"월");
 		        }
 		    };
-	
+		 private DatePickerDialog.OnDateSetListener edt_dateListener = 
+			        new DatePickerDialog.OnDateSetListener() {
+			         
+			        @Override
+			        public void onDateSet(DatePicker view, int year, int monthOfYear,
+			                int dayOfMonth) {
+			        	//bt_datepick.setText(year+"년 "+(monthOfYear+1)+"월");
+			        	Date tmp_date = new Date(year-1900,monthOfYear+1,dayOfMonth);
+			        	SimpleDateFormat dateformat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+			        	edt_date.setText(dateformat.format(tmp_date));
+			        }
+			    };
+	private TimePickerDialog.OnTimeSetListener edt_timeListener = 
+			new TimePickerDialog.OnTimeSetListener() {
+				
+				@Override
+				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+					// TODO Auto-generated method stub
+					SimpleDateFormat timeformat = new SimpleDateFormat ( "HH:mm", Locale.KOREA );
+			        Date tmp_time = new Date (2000,10,20,hourOfDay,minute);
+			        edt_time.setText(timeformat.format(tmp_time));
+				}
+			};
+			
 	 @Override
 	    protected Dialog onCreateDialog(int id){
 	        switch(id){
 	        case DIALOG_DATE:
-	            return new DatePickerDialog(this, dateListener,c.get(Calendar.YEAR),c.get(Calendar.MONTH)+1,c.get(Calendar.DAY_OF_MONTH));	    
+	        	Calendar c1 = Calendar.getInstance();
+	            return new DatePickerDialog(this, dateListener,c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.DAY_OF_MONTH));
+	        case DIALOG_DATE_edt:
+	        	Calendar c2 = Calendar.getInstance();
+	        	return new DatePickerDialog(this, edt_dateListener,c2.get(Calendar.YEAR),c2.get(Calendar.MONTH),c2.get(Calendar.DAY_OF_MONTH));
+	        case DIALOG_TIME_edt:
+	        	Calendar c3 = Calendar.getInstance();
+	        	return new TimePickerDialog(this, edt_timeListener,c3.get(Calendar.HOUR_OF_DAY),c3.get(Calendar.MINUTE),false);
 	    }
 	        return null;
 	 }
@@ -389,8 +384,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        AlertDialog.Builder ab = new AlertDialog.Builder(this);
 	        ab.setTitle("지출내역");
 	        ab.setView(innerView);
-	        final EditText edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
-	        final EditText edt_time = (EditText)innerView.findViewById(R.id.dialog_edit_time);
+	        edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
+	        edt_time = (EditText)innerView.findViewById(R.id.dialog_edit_time);
 	        final EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
 	        final EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
 	        final EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
@@ -594,6 +589,23 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        
 	        edt_date.setText(dDate);
 	        edt_time.setText(dTime);
+	        
+	        edt_date.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					showDialog(DIALOG_DATE_edt);
+				}
+			});
+	        edt_time.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					showDialog(DIALOG_TIME_edt);
+				}
+			});
+	        
 	        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface arg0, int arg1) {
@@ -603,7 +615,6 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	aaa = ""+tmp_date.getTime();
 	            	Log.d("",aaa);
 	            	//Date tmp_date_sql = new Date(edt_date.getText().toString());
-	            	
 	            	Log.d("", "1");
 	            	ContentValues val = new ContentValues();
 	            	val.put("content",edt_content.getText().toString());
@@ -615,8 +626,10 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	val.put("moneykindof",edt_spendhow.getText().toString()+"+"+edt_spend_detail.getText().toString());
 	            	mdb.insertTable(val);
 	            	Log.d("", "2");
-	            	
+	            	baseadapter=null;
+	            	madeAdapter();
 	            	//baseadapter.notifyDataSetChanged();
+	            	mListView.setAdapter(baseadapter);
 	            }
 	        });
 	         ab.setNeutralButton("즐겨찾기",new DialogInterface.OnClickListener() {
@@ -636,4 +649,49 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	          
 	        return ab.create();
 	    }
+	public void madeAdapter(){
+		 GregorianCalendar grecal = new GregorianCalendar();
+	        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	        int i=0;
+	        while(i<LastDay){
+	        	int a = LastDay;
+	        	int year_ = c.get(Calendar.YEAR);
+	        	int month_ = c.get(Calendar.MONTH)+1;
+	        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
+	        	
+	        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        	String str_tmp_date = formatter.format(tmp_date);
+	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
+	        
+	        	//mChildListContent.clear();
+	        	String[] columns={"content","memo","money","kindof"};
+	        	String selection="date=?";
+	        	String[] selectionArgs={
+	        			//"1366708459052"
+	        			String.valueOf(tmp_date.getTime())
+	        			};
+	        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
+	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
+	        	//        	c.getCount();
+	        	//Log.d("count",""+c.getCount());
+	        	//c.moveToFirst();
+	        	ArrayList<String> tmp_Content = new ArrayList<String>();
+	        	
+	        	
+	        	int tmp_count=c.getCount();
+	        	Log.d("count",""+tmp_count);
+	        	if(tmp_count>0){
+	        		tmp_Content.add("없음");
+	        	}else{
+	        		Log.d("값 있음","");
+	        		//c.moveToNext();
+	        		tmp_Content.add("@!#@$#@$");
+	        		//mChildListContent.add(c.getString(0));
+	        	}
+	        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
+	        	mGroupList.add(str_tmp_date);
+	        	mChildList.add(tmp_Content);
+	        	i++;
+	        }
+	}
 }

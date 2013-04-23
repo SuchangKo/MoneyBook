@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     		 xmlns:android="http://schemas.android.com/apk/res/android"
-    		 android:orientation="vertical" 
+    		 android:orientation="horizontal" 
     		 android:layout_width="fill_parent"
     		 android:layout_height="37dp"
     		 android:gravity="center_vertical">
-		<TextView android:id="@+id/groupname"
-
+		<TextView 
+		    
+		 android:id="@+id/groupname"
          android:textSize="9dp"
          android:textStyle="bold"
          android:layout_width="80dp"
@@ -15,5 +16,16 @@
          android:layout_gravity="left"
          android:gravity="center"
          android:background="@drawable/small_groupbackground"/>
-    
-  </LinearLayout>
+
+		<TextView
+		    android:id="@+id/total_money"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBaseline="@+id/groupname"
+		    android:layout_alignBottom="@+id/groupname"
+		    android:layout_alignParentRight="true"
+		    android:textSize="10dp"
+		    android:layout_marginRight="20dp"
+		    android:text="text" />
+    	
+</RelativeLayout>

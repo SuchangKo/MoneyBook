@@ -27,6 +27,8 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:text="2013-03-22"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
 			android:background="@drawable/edittextbackground1"    
             />
         <EditText 
@@ -35,6 +37,8 @@
             android:layout_height="wrap_content"
             android:text="14:16"
             android:gravity="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
 			android:background="@drawable/edittextbackground1" 	    
             />
     </LinearLayout>

@@ -100,7 +100,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        if(v == null){
            viewHolder = new ViewHolder();
            v = inflater.inflate(R.layout.list_row, null);
-           viewHolder.tv_childName = (TextView) v.findViewById(R.id.tv_child);
+           viewHolder.tv_childName = (TextView) v.findViewById(R.id.tv_time);
            
            v.setTag(viewHolder);
        }else{
