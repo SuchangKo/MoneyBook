@@ -9,10 +9,11 @@
 
          android:textSize="9dp"
          android:textStyle="bold"
-         android:layout_width="70dp"
+         android:layout_width="80dp"
          android:layout_marginLeft="10dp"
          android:layout_height="wrap_content"
          android:layout_gravity="left"
+         android:gravity="center"
          android:background="@drawable/small_groupbackground"/>
     
   </LinearLayout>

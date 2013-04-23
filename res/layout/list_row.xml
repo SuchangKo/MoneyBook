@@ -12,5 +12,15 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         /> 
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="ㅎㅇ"
+        android:id="@+id/tv_child_2"
+     	android:textSize="9dp" 
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        />
 
 </LinearLayout>

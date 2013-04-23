@@ -1,5 +1,6 @@
 package com.suchangko.moneybook;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +12,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -42,7 +45,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	Button bt_card;
 	Button bt_detail;
 	Button bt_middle;
-	
+	BaseExpandableAdapter baseadapter;
 	Calendar c;
 	TextView tv_date;
 	private static final int DIALOG_DATE = 0;
@@ -88,9 +91,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
          * */
         
         //ListItem
-        mChildListContent.add("1");
-        mChildListContent.add("2");
-        mChildListContent.add("3");
+        //mChildListContent.add("1");
+        //mChildListContent.add("2");
+        //mChildListContent.add("3");
       
         GregorianCalendar grecal = new GregorianCalendar();
         int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -99,11 +102,43 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         	int a = LastDay;
         	int year_ = c.get(Calendar.YEAR);
         	int month_ = c.get(Calendar.MONTH)+1;
-        	mGroupList.add(year_+"."+month_+"."+(a-i));
+        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
+        	
+        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        	String str_tmp_date = formatter.format(tmp_date);
+        	//mGroupList.add(year_+"."+month_+"."+(a-i));
+        
+        	//mChildListContent.clear();
+        	String[] columns={"content","memo","money","kindof"};
+        	String selection="date=?";
+        	String[] selectionArgs={
+        			//"1366708459052"
+        			String.valueOf(tmp_date.getTime())
+        			};
+        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
+        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
+        	//        	c.getCount();
+        	//Log.d("count",""+c.getCount());
+        	//c.moveToFirst();
+        	ArrayList<String> tmp_Content = new ArrayList<String>();
+        	
+        	
+        	int tmp_count=c.getCount();
+        	Log.d("count",""+tmp_count);
+        	if(tmp_count>0){
+        		tmp_Content.add("없음");
+        	}else{
+        		Log.d("값 있음","");
+        		//c.moveToNext();
+        		tmp_Content.add("@!#@$#@$");
+        		//mChildListContent.add(c.getString(0));
+        	}
+        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
+        	mGroupList.add(str_tmp_date);
         	mChildList.add(mChildListContent);
         	i++;
         }
-        mListView.setAdapter(new BaseExpandableAdapter(this, mGroupList, mChildList));
+        mListView.setAdapter(baseadapter);
         
         // 그룹 클릭 했을 경우 이벤트
         mListView.setOnGroupClickListener(new OnGroupClickListener() {
@@ -354,11 +389,11 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        AlertDialog.Builder ab = new AlertDialog.Builder(this);
 	        ab.setTitle("지출내역");
 	        ab.setView(innerView);
-	        EditText edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
-	        EditText edt_time = (EditText)innerView.findViewById(R.id.dialog_edit_time);
-	        EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
-	        EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
-	        EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
+	        final EditText edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
+	        final EditText edt_time = (EditText)innerView.findViewById(R.id.dialog_edit_time);
+	        final EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
+	        final EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
+	        final EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
 	        final EditText edt_middle = (EditText)innerView.findViewById(R.id.dialog_edit_middle);
 	        final EditText edt_detail =  (EditText)innerView.findViewById(R.id.dialog_edit_detail);
 	        final EditText edt_spendhow = (EditText)innerView.findViewById(R.id.dialog_edit_spendhow);
@@ -551,7 +586,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			});
 	        
 	        SimpleDateFormat formatter1 = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	        Date currentDate = new Date ( );
+	        final Date currentDate = new Date ( );
 	        String dDate = formatter1.format ( currentDate );
 	        SimpleDateFormat formatter2 = new SimpleDateFormat ( "HH:mm", Locale.KOREA );
 	        Date currentTime = new Date ( );
@@ -562,8 +597,26 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface arg0, int arg1) {
-	               // setDismiss(mDialog);
 	            	
+	            	Date tmp_date = new Date(2013-1900,3,23);
+	            	String aaa = String.valueOf(currentDate.getTime());
+	            	aaa = ""+tmp_date.getTime();
+	            	Log.d("",aaa);
+	            	//Date tmp_date_sql = new Date(edt_date.getText().toString());
+	            	
+	            	Log.d("", "1");
+	            	ContentValues val = new ContentValues();
+	            	val.put("content",edt_content.getText().toString());
+	            	val.put("memo",edt_memo.getText().toString());
+	            	val.put("money",Integer.parseInt(edt_money.getText().toString()));
+	            	//val.put("date",Integer.parseInt(""+tmp_date_sql.getTime()));
+	            	val.put("date",aaa);
+	            	val.put("kindof",edt_middle.getText().toString()+"+"+edt_detail.getText().toString());
+	            	val.put("moneykindof",edt_spendhow.getText().toString()+"+"+edt_spend_detail.getText().toString());
+	            	mdb.insertTable(val);
+	            	Log.d("", "2");
+	            	
+	            	//baseadapter.notifyDataSetChanged();
 	            }
 	        });
 	         ab.setNeutralButton("즐겨찾기",new DialogInterface.OnClickListener() {

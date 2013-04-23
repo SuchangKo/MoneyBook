@@ -20,7 +20,7 @@ public class MoneyBookDB {
                    +"content text,"
                    +"memo text,"
                    +"money integer not null,"
-                   +"date integer not null,"
+                   +"date text not null,"
                    +"kindof text,"
                    +"moneykindof text"
                    +")";
