@@ -101,6 +101,9 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder = new ViewHolder();
            v = inflater.inflate(R.layout.list_row, null);
            viewHolder.tv_childName = (TextView) v.findViewById(R.id.tv_time);
+           viewHolder.tv_childName2 = (TextView) v.findViewById(R.id.tv_child_2);
+           viewHolder.tv_childName3 = (TextView) v.findViewById(R.id.tv_child_3);
+           viewHolder.tv_childName4 = (TextView) v.findViewById(R.id.tv_child_4);
            
            v.setTag(viewHolder);
        }else{
@@ -121,6 +124,9 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        public ImageView iv_image;
        public TextView tv_groupName;
        public TextView tv_childName;
+       public TextView tv_childName2;
+       public TextView tv_childName3;
+       public TextView tv_childName4;
    }
 
 }

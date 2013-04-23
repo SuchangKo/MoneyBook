@@ -609,7 +609,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface arg0, int arg1) {
-	            	
+	            	String tmp_str_date = edt_date.getText().toString();
+	            	String[] tmp_str_ = tmp_str_date.split("-");
+	            	Log.d("", tmp_str_.toString());
 	            	Date tmp_date = new Date(2013-1900,3,23);
 	            	String aaa = String.valueOf(currentDate.getTime());
 	            	aaa = ""+tmp_date.getTime();
