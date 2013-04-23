@@ -63,6 +63,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:inputType="numberDecimal"
 			android:background="@drawable/edittextbackground1"    
             />
     </LinearLayout>
