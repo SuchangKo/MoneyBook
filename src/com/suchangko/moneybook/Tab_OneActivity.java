@@ -102,7 +102,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         //mChildListContent.add("1");
         //mChildListContent.add("2");
         //mChildListContent.add("3");
-      madeAdapter();
+        madeAdapter();
        
         mListView.setAdapter(baseadapter);
         
@@ -150,7 +150,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	menu.add(0,0,0,"지출입력").setIcon(R.drawable.ic_menu_add);
-	menu.add(0,1,0,"이전문자등록").setIcon(R.drawable.ic_menu_copy);
+	]menu.add(0,1,0,"이전문자등록").setIcon(R.drawable.ic_menu_copy);
 	menu.add(0,2,0,"즐겨찾기편집").setIcon(R.drawable.btn_star_off_disabled_holo_light);
 	menu.add(1,3,0,"지출내역검색").setIcon(R.drawable.ic_menu_search);
 	menu.add(1,4,0,"회사소개").setIcon(R.drawable.ic_menu_notifications);
@@ -609,10 +609,15 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface arg0, int arg1) {
-	            	String tmp_str_date = edt_date.getText().toString();
-	            	String[] tmp_str_ = tmp_str_date.split("-");
-	            	Log.d("", tmp_str_.toString());
-	            	Date tmp_date = new Date(2013-1900,3,23);
+	            	Log.d("edt_date",edt_date.getText().toString());
+	            	String[] tmp_str_date = edt_date.getText().toString().split("-");
+	            	Log.d("Good",tmp_str_date[0]);
+	            	Log.d("Good",tmp_str_date[1]);
+	            	Log.d("Good",tmp_str_date[2]);
+	            	Log.d("Hello", "Good");
+	            	
+	            
+	            	Date tmp_date = new Date(Integer.parseInt(tmp_str_date[0])-1900,Integer.parseInt(tmp_str_date[1])-1,Integer.parseInt(tmp_str_date[2]));
 	            	String aaa = String.valueOf(currentDate.getTime());
 	            	aaa = ""+tmp_date.getTime();
 	            	Log.d("",aaa);
@@ -630,7 +635,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	Log.d("", "2");
 	            	baseadapter=null;
 	            	madeAdapter();
-	            	//baseadapter.notifyDataSetChanged();
+	            	baseadapter.notifyDataSetChanged();
 	            	mListView.setAdapter(baseadapter);
 	            }
 	        });
@@ -659,10 +664,13 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	int a = LastDay;
 	        	int year_ = c.get(Calendar.YEAR);
 	        	int month_ = c.get(Calendar.MONTH)+1;
+	        	
+	        	
 	        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
 	        	
 	        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        	String str_tmp_date = formatter.format(tmp_date);
+	        	
 	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 	        
 	        	//mChildListContent.clear();
@@ -672,7 +680,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        			//"1366708459052"
 	        			String.valueOf(tmp_date.getTime())
 	        			};
-	        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
+	        	Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
 	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
 	        	//        	c.getCount();
 	        	//Log.d("count",""+c.getCount());
