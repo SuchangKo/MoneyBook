@@ -1,6 +1,5 @@
 package com.suchangko.moneybook;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,12 +25,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.TimePicker;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
@@ -150,7 +149,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	menu.add(0,0,0,"지출입력").setIcon(R.drawable.ic_menu_add);
-	]menu.add(0,1,0,"이전문자등록").setIcon(R.drawable.ic_menu_copy);
+	menu.add(0,1,0,"이전문자등록").setIcon(R.drawable.ic_menu_copy);
 	menu.add(0,2,0,"즐겨찾기편집").setIcon(R.drawable.btn_star_off_disabled_holo_light);
 	menu.add(1,3,0,"지출내역검색").setIcon(R.drawable.ic_menu_search);
 	menu.add(1,4,0,"회사소개").setIcon(R.drawable.ic_menu_notifications);
@@ -691,11 +690,11 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	int tmp_count=c.getCount();
 	        	Log.d("count",""+tmp_count);
 	        	if(tmp_count>0){
-	        		tmp_Content.add("없음");
+	        		tmp_Content.add("값있음");
 	        	}else{
 	        		Log.d("값 있음","");
 	        		//c.moveToNext();
-	        		tmp_Content.add("@!#@$#@$");
+	        		tmp_Content.add("값없음");
 	        		//mChildListContent.add(c.getString(0));
 	        	}
 	        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);

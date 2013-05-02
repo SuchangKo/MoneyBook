@@ -32,7 +32,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         edit_password = (EditText)findViewById(R.id.edit_password);
         acdb=new AccountDB(this,AccountDB.SQL_Create_accountdb,"accountdb");
         acdb.open();
-        StartMain(); // Developer.
+      StartMain(); // Developer.
     }
     @Override
     public void onClick(View view) {
