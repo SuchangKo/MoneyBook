@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,16 +102,20 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder = new ViewHolder();
            v = inflater.inflate(R.layout.list_row, null);
            viewHolder.tv_childName = (TextView) v.findViewById(R.id.tv_time);
-          // viewHolder.tv_childName2 = (TextView) v.findViewById(R.id.tv_child_2);
-          // viewHolder.tv_childName3 = (TextView) v.findViewById(R.id.tv_child_3);
-          // viewHolder.tv_childName4 = (TextView) v.findViewById(R.id.tv_child_4);
+           viewHolder.tv_childName2 = (TextView) v.findViewById(R.id.tv_child_2);
+           viewHolder.tv_childName3 = (TextView) v.findViewById(R.id.tv_child_3);
+           viewHolder.tv_childName4 = (TextView) v.findViewById(R.id.tv_child_4);
            
            v.setTag(viewHolder);
        }else{
            viewHolder = (ViewHolder)v.getTag();
        }        
-       viewHolder.tv_childName.setText(getChild(groupPosition, childPosition));
-       
+       String tmp_String = getChild(groupPosition, childPosition);
+       String[] Text=tmp_String.split("#");
+       viewHolder.tv_childName.setText(Text[0]);
+       viewHolder.tv_childName2.setText(Text[1]);
+       viewHolder.tv_childName3.setText(Text[2]);
+       viewHolder.tv_childName4.setText(Text[3]);
        return v;
    }
 

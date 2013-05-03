@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
     <RelativeLayout
         android:layout_marginTop="10dp" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         >
 
         <Button
@@ -38,6 +40,7 @@
         android:layout_marginTop="10dp" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         >
         <Button
             android:layout_marginLeft="10dp"
@@ -74,6 +77,7 @@
 
     </RelativeLayout>
     <ExpandableListView 
+        android:background="#FFFFFF"
         android:layout_marginTop="20dp"
         android:id="@+id/listview1"
         android:layout_width="fill_parent"

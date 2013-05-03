@@ -630,6 +630,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	val.put("date",aaa);
 	            	val.put("kindof",edt_middle.getText().toString()+"+"+edt_detail.getText().toString());
 	            	val.put("moneykindof",edt_spendhow.getText().toString()+"+"+edt_spend_detail.getText().toString());
+	            	val.put("time",edt_time.getText().toString());
 	            	mdb.insertTable(val);
 	            	Log.d("", "2");
 	            	baseadapter=null;
@@ -673,13 +674,13 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 	        
 	        	//mChildListContent.clear();
-	        	String[] columns={"content","memo","money","kindof"};
+	        	String[] columns={"content","memo","money","kindof","date","minutetime"};
 	        	String selection="date=?";
 	        	String[] selectionArgs={
 	        			//"1366708459052"
 	        			String.valueOf(tmp_date.getTime())
 	        			};
-	        	Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
+	        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
 	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
 	        	//        	c.getCount();
 	        	//Log.d("count",""+c.getCount());
@@ -690,11 +691,16 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	int tmp_count=c.getCount();
 	        	Log.d("count",""+tmp_count);
 	        	if(tmp_count>0){
-	        		tmp_Content.add("값있음");
+	        		if(c.moveToFirst()){
+	        			do{
+	        				String tmp_content_String = c.getString(0)+"#"+c.getString(1)+"#"+c.getString(2)+"#"+c.getString(3); 
+	    	        		tmp_Content.add(tmp_content_String);	    	  
+			        	}while(c.moveToNext());
+	        		}
 	        	}else{
-	        		Log.d("값 있음","");
+	        		//Log.d("값 있음","");
 	        		//c.moveToNext();
-	        		tmp_Content.add("값없음");
+	        		tmp_Content.add("값없음#값없음#값없음#값없음");
 	        		//mChildListContent.add(c.getString(0));
 	        	}
 	        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
