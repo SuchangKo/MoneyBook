@@ -3,6 +3,8 @@ package com.suchangko.moneybook;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Context;
+
 public class util {
 	public final String Name="name";
 	public final String Kindof="kindof";
@@ -27,4 +29,5 @@ public class util {
 	
 	public static final CharSequence[] spendhow={"현금","카드"};
 	public static final CharSequence[] spendkindof={"신한","현대","국민","우리","외환","신한","롯데"};
+	
 }

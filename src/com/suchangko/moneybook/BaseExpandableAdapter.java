@@ -112,6 +112,8 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        }        
        String tmp_String = getChild(groupPosition, childPosition);
        String[] Text=tmp_String.split("#");
+       
+       
        viewHolder.tv_childName.setText(Text[0]);
        viewHolder.tv_childName2.setText(Text[1]);
        viewHolder.tv_childName3.setText(Text[2]);

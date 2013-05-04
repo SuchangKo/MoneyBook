@@ -15,7 +15,7 @@
         /> 
     <TextView 
         android:layout_height="wrap_content"
-        android:layout_width="30dp"
+        android:layout_width="45dp"
         android:text="ㅎㅇ"
         android:gravity="center"
         android:id="@+id/tv_child_2"
@@ -38,7 +38,7 @@
         android:id="@+id/tv_child_4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="gdgdgd"
+        android:text="\"
         android:textSize="9dp"
         android:gravity="right"
         android:layout_gravity="right"

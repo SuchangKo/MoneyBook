@@ -630,7 +630,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	val.put("date",aaa);
 	            	val.put("kindof",edt_middle.getText().toString()+"+"+edt_detail.getText().toString());
 	            	val.put("moneykindof",edt_spendhow.getText().toString()+"+"+edt_spend_detail.getText().toString());
-	            	val.put("time",edt_time.getText().toString());
+	            	val.put("minutetime",edt_time.getText().toString());
 	            	mdb.insertTable(val);
 	            	Log.d("", "2");
 	            	baseadapter=null;
@@ -674,7 +674,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 	        
 	        	//mChildListContent.clear();
-	        	String[] columns={"content","memo","money","kindof","date","minutetime"};
+	        	String[] columns={"content","memo","money","kindof","date","minutetime","moneykindof"};
 	        	String selection="date=?";
 	        	String[] selectionArgs={
 	        			//"1366708459052"
@@ -693,7 +693,10 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	if(tmp_count>0){
 	        		if(c.moveToFirst()){
 	        			do{
-	        				String tmp_content_String = c.getString(0)+"#"+c.getString(1)+"#"+c.getString(2)+"#"+c.getString(3); 
+	        				for(int aa=0;aa<7;aa++){
+	        					Log.d("Cursor"+aa,c.getString(aa));
+	        				}
+	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"; 
 	    	        		tmp_Content.add(tmp_content_String);	    	  
 			        	}while(c.moveToNext());
 	        		}

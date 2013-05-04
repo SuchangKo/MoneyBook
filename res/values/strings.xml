@@ -4,5 +4,6 @@
     <string name="app_name">Life Investment Manager</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="won">\</string>
 
 </resources>
