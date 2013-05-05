@@ -345,7 +345,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			        public void onDateSet(DatePicker view, int year, int monthOfYear,
 			                int dayOfMonth) {
 			        	//bt_datepick.setText(year+"년 "+(monthOfYear+1)+"월");
-			        	Date tmp_date = new Date(year-1900,monthOfYear+1,dayOfMonth);
+			        	Date tmp_date = new Date(year-1900,monthOfYear,dayOfMonth);
 			        	SimpleDateFormat dateformat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 			        	edt_date.setText(dateformat.format(tmp_date));
 			        }
@@ -629,11 +629,13 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	//val.put("date",Integer.parseInt(""+tmp_date_sql.getTime()));
 	            	val.put("date",aaa);
 	            	val.put("kindof",edt_middle.getText().toString()+"+"+edt_detail.getText().toString());
-	            	val.put("moneykindof",edt_spendhow.getText().toString()+"+"+edt_spend_detail.getText().toString());
+	            	val.put("moneykindof",edt_spendhow.getText().toString()+"/"+edt_spend_detail.getText().toString());
 	            	val.put("minutetime",edt_time.getText().toString());
 	            	mdb.insertTable(val);
 	            	Log.d("", "2");
 	            	baseadapter=null;
+	            	mGroupList.clear();
+	            	mChildList.clear();
 	            	madeAdapter();
 	            	baseadapter.notifyDataSetChanged();
 	            	mListView.setAdapter(baseadapter);
@@ -671,6 +673,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        	String str_tmp_date = formatter.format(tmp_date);
 	        	
+	        	
 	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 	        
 	        	//mChildListContent.clear();
@@ -691,23 +694,32 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	int tmp_count=c.getCount();
 	        	Log.d("count",""+tmp_count);
 	        	if(tmp_count>0){
+	        		int tmp_money = 0;
+	        		
 	        		if(c.moveToFirst()){
 	        			do{
+	        				/*
 	        				for(int aa=0;aa<7;aa++){
 	        					Log.d("Cursor"+aa,c.getString(aa));
 	        				}
+	        				*/
+	        				tmp_money += Integer.parseInt(c.getString(2));
 	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"; 
 	    	        		tmp_Content.add(tmp_content_String);	    	  
 			        	}while(c.moveToNext());
 	        		}
+	        		str_tmp_date+="#"+tmp_money+"원";
 	        	}else{
 	        		//Log.d("값 있음","");
 	        		//c.moveToNext();
+	        		str_tmp_date+="#0원";
 	        		tmp_Content.add("값없음#값없음#값없음#값없음");
 	        		//mChildListContent.add(c.getString(0));
+	        		
 	        	}
-	        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
 	        	mGroupList.add(str_tmp_date);
+	        	baseadapter = new BaseExpandableAdapter(this, mGroupList, mChildList);
+	        	
 	        	mChildList.add(tmp_Content);
 	        	i++;
 	        }

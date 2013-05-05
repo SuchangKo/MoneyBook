@@ -56,6 +56,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder = new ViewHolder();
            v = inflater.inflate(R.layout.group_row, parent, false);
            viewHolder.tv_groupName = (TextView) v.findViewById(R.id.groupname);
+           viewHolder.Total_money = (TextView)v.findViewById(R.id.total_money);
            v.setTag(viewHolder);
        }else{
            viewHolder = (ViewHolder)v.getTag();
@@ -68,7 +69,11 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder.iv_image.setBackgroundColor(Color.WHITE);
        }
         */
-       viewHolder.tv_groupName.setText(getGroup(groupPosition));
+       String tmp_String = getGroup(groupPosition);
+       Log.d("tmp_String",tmp_String);
+       String[] tmp_Strings = tmp_String.split("#");
+       viewHolder.tv_groupName.setText(tmp_Strings[0]);
+       viewHolder.Total_money.setText(tmp_Strings[1]);
         
        return v;
    }
@@ -128,7 +133,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
    public boolean isChildSelectable(int groupPosition, int childPosition) { return true; }
     
    class ViewHolder {
-       public ImageView iv_image;
+       public TextView Total_money;
        public TextView tv_groupName;
        public TextView tv_childName;
        public TextView tv_childName2;
