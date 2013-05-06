@@ -48,19 +48,22 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	Button bt_card;
 	Button bt_detail;
 	Button bt_middle;
+	Button bt_money;
 	BaseExpandableAdapter baseadapter;
 	Calendar c;
 	TextView tv_date;
 	private static final int DIALOG_DATE = 0;
 	private static final int DIALOG_DATE_edt = 1;
 	private static final int DIALOG_TIME_edt = 2;
-	
+	int tmp_moneyint =0;
 	private ArrayList<String> mGroupList = null;
 	private ArrayList<ArrayList<String>> mChildList = null;
 	private ArrayList<String> mChildListContent = null;
 	private ArrayList<String> mChildListContent1 = null;
 	MoneyBookDB mdb;
+	int LastDay=0;
 	ExpandableListView mListView;
+	boolean btmoneyispushed=false;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         mListView = (ExpandableListView)findViewById(R.id.listview1);
         bt_card = (Button)findViewById(R.id.bt_card);
         bt_card.setOnClickListener(this);
+        bt_money = (Button)findViewById(R.id.bt_money);
+        bt_money.setOnClickListener(this);
         bt_middle=(Button)findViewById(R.id.bt_middle);
         bt_middle.setOnClickListener(this);
         bt_detail = (Button)findViewById(R.id.bt_detail);
@@ -327,6 +332,15 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			});
 			AlertDialog alert = builder.create();
 			alert.show();
+		}else if(v.getId()==R.id.bt_money){
+			if(!btmoneyispushed){
+			int tmp_moneyperday=(int)tmp_moneyint/LastDay; 
+			bt_money.setText(tmp_moneyperday+"원/일");
+			btmoneyispushed=true;
+			}else{
+				bt_money.setText(tmp_moneyint+"원");
+				btmoneyispushed=false;
+			}
 		}
 	}
 	 private DatePickerDialog.OnDateSetListener dateListener = 
@@ -659,16 +673,16 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        return ab.create();
 	    }
 	public void madeAdapter(){
+		tmp_moneyint=0;
 		 GregorianCalendar grecal = new GregorianCalendar();
-	        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	        LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	        int i=0;
 	        while(i<LastDay){
 	        	int a = LastDay;
 	        	int year_ = c.get(Calendar.YEAR);
 	        	int month_ = c.get(Calendar.MONTH)+1;
 	        	
-	        	
-	        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
+	          	Date tmp_date = new Date(year_-1900, month_-1, a-i);
 	        	
 	        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        	String str_tmp_date = formatter.format(tmp_date);
@@ -684,7 +698,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        			String.valueOf(tmp_date.getTime())
 	        			};
 	        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
-	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,null);
+	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,"minutetime ASC");
 	        	//        	c.getCount();
 	        	//Log.d("count",""+c.getCount());
 	        	//c.moveToFirst();
@@ -709,6 +723,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			        	}while(c.moveToNext());
 	        		}
 	        		str_tmp_date+="#"+tmp_money+"원";
+	        		tmp_moneyint+=tmp_money;
 	        	}else{
 	        		//Log.d("값 있음","");
 	        		//c.moveToNext();
@@ -723,5 +738,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	mChildList.add(tmp_Content);
 	        	i++;
 	        }
+
+        	bt_money.setText(""+tmp_moneyint+"원");
 	}
 }
