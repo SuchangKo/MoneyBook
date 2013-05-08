@@ -49,6 +49,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	Button bt_detail;
 	Button bt_middle;
 	Button bt_money;
+	GregorianCalendar grecal;
 	BaseExpandableAdapter baseadapter;
 	Calendar c;
 	TextView tv_date;
@@ -68,6 +69,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
+        grecal=new GregorianCalendar();
         c=Calendar.getInstance();
         bt_datepick  = (Button)findViewById(R.id.bt_pickdate);
         bt_datepick.setOnClickListener(this);
@@ -350,6 +352,15 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		        public void onDateSet(DatePicker view, int year, int monthOfYear,
 		                int dayOfMonth) {
 		        	bt_datepick.setText(year+"년 "+(monthOfYear+1)+"월");
+		        	grecal = new GregorianCalendar(year,monthOfYear,dayOfMonth);
+		        	c.set(year, monthOfYear, dayOfMonth);
+		        	baseadapter=null;
+	            	mGroupList.clear();
+	            	mChildList.clear();
+	            	madeAdapter();
+	            	baseadapter.notifyDataSetChanged();
+	            	mListView.setAdapter(baseadapter);
+		        	
 		        }
 		    };
 		 private DatePickerDialog.OnDateSetListener edt_dateListener = 
@@ -674,7 +685,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	    }
 	public void madeAdapter(){
 		tmp_moneyint=0;
-		 GregorianCalendar grecal = new GregorianCalendar();
+		 
 	        LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	        int i=0;
 	        while(i<LastDay){
