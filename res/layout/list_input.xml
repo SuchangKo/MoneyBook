@@ -34,18 +34,18 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         />
-    <TextView 
+
+    <TextView
         android:id="@+id/list_tv_money"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="\"
-        android:textSize="9dp"
-        android:gravity="right"
-        android:layout_gravity="right"
-        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="5dip"
         android:layout_marginRight="15dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        />
+        android:gravity="right"
+        android:layout_gravity="right|center_vertical"
+        android:text="\"
+        android:textSize="9dp" />
 
 </LinearLayout>

@@ -30,4 +30,7 @@ public class util {
 	public static final CharSequence[] spendhow={"현금","카드"};
 	public static final CharSequence[] spendkindof={"신한","현대","국민","우리","외환","신한","롯데"};
 	
+	
+	public static final CharSequence[] Middleitems_input = {"없음","월급","이자소득","기타"};
+	
 }
