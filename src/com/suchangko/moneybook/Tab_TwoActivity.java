@@ -278,7 +278,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 	    }
 	 public void madeAdapter(){
 			tmp_moneyint=0;
-			 
+			tmp_spendint=0;
 		        LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		        int i=0;
 		        while(i<LastDay){

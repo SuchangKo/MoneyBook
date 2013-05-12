@@ -35,9 +35,12 @@
 
     </RelativeLayout>
     <TextView 
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv_middletv"
+        android:text="HelloWorldHelloWorldHelloWorldHelloWorld"
         />
     <ListView
         	android:layout_marginTop="15dp"
