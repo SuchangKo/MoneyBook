@@ -73,10 +73,15 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
         Log.d("money",""+tmp_moneyint);
         Log.d("spend",tmp_spendint+"");
         String tmp_plus="";
+        
+        int tmp_i = tmp_moneyint - tmp_spendint;
+        Log.d("","값"+tmp_i);
         if((tmp_moneyint-tmp_spendint)>0){
         	tmp_plus="+";
         }else{
         }
+        
+        
         tv_middle.setText("이번 달 잔여금(수입-지출):"+tmp_plus+(tmp_moneyint-tmp_spendint)+"원");
         
     }

@@ -1,11 +1,24 @@
 package com.suchangko.moneybook;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,10 +32,96 @@ import android.widget.Toast;
  */
 public class Tab_ThreeActivity extends Activity {
 	Button bt_date;
+	TabthreeAdapter adapter;
+	ListView listView;
+	ArrayList<Integer> wholemoneyarrayList;
+	ArrayList<Integer> spendmonetArrayList;
+	ArrayList<Integer> budgetArrayList;
+	ArrayList<String> nameArrayList;
+	private LayoutInflater Inflater;
+	Calendar c;
+	MoneyInputDB inputDB;
+	MoneyBookDB moneyBookDB;
+	GregorianCalendar grecal;
+	int tmp_moneyint=0;
+	int tmp_spendint=0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
+        c = Calendar.getInstance();
+        inputDB = new MoneyInputDB(getApplicationContext(), MoneyInputDB.SQL_Create_Moneybook,MoneyInputDB.SQL_DBname);
+        moneyBookDB =  new MoneyBookDB(this,MoneyBookDB.SQL_Create_Moneybook,MoneyBookDB.SQL_DBname);
+        inputDB.open();
+        moneyBookDB.open();
+        /*
+         * 
+        */
+        Startadapter();
+        		
+        listView = (ListView)findViewById(R.id.listview1);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long arg3) {
+				if(pos==0){
+					budgetArrayList.add(0,3000000);
+					adapter.notifyDataSetChanged();
+				}
+			}
+		});
+        wholemoneyarrayList = new ArrayList<Integer>();
+        spendmonetArrayList = new ArrayList<Integer>();
+        nameArrayList = new ArrayList<String>();
+        budgetArrayList = new ArrayList<Integer>();
+        wholemoneyarrayList.add(tmp_moneyint);
+        spendmonetArrayList.add(tmp_spendint);
+        nameArrayList.add("전체 예산");
+        budgetArrayList.add(0);
+        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList);
+        listView.setAdapter(adapter);     
     }
+   void Startadapter(){
+
+       grecal=new GregorianCalendar();
+       int i=0;
+       int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+       
+       while(i<LastDay){
+       	int a = LastDay;
+       	int year_ = c.get(Calendar.YEAR);
+       	int month_ = c.get(Calendar.MONTH)+1;
+       	Date tmp_date = new Date(year_-1900, month_-1, a-i);
+       	String[] columns={"content","memo","money","kindof","date"};
+       	String selection="date=?";
+       	String[] selectionArgs={
+       			String.valueOf(tmp_date.getTime())
+       			};    
+       	Cursor c = inputDB.selectTable(columns, selection, selectionArgs, null,null,null);
+       	Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
+       	int tmp_count=c.getCount();
+       	if(tmp_count>0){
+       		int tmp_money = 0;
+       		
+       		if(c.moveToFirst()){
+       			do{
+       				tmp_money += Integer.parseInt(c.getString(2));
+       				}while(c.moveToNext());
+       		}        		
+       		tmp_moneyint+=tmp_money;
+       	}else{
+       	}
+       	i++;
+       	int tmp_spend=0;
+       	if(c_money.moveToFirst()){
+       		do{	tmp_spend+=Integer.parseInt(c_money.getString(2));}while(c_money.moveToNext());
+       	}
+       	tmp_spendint+=tmp_spend;
+       }
+       
+       Log.d("",""+tmp_moneyint);
+       Log.d("",""+tmp_spendint);
+   }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.

@@ -4,8 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <RelativeLayout 
+        android:layout_marginTop="15dp"
    	android:layout_width="fill_parent"
    	android:layout_height="wrap_content"
+   	android:layout_marginBottom="20dp"
         >
 
          <TextView
@@ -39,7 +41,7 @@
         />
     
     <RelativeLayout 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
    	android:layout_width="fill_parent"
    	android:layout_height="wrap_content"
         >
@@ -50,7 +52,7 @@
              android:layout_alignParentLeft="true"
              android:layout_alignParentTop="true"
              android:layout_marginLeft="20dp"
-             android:text="| 전체 예산 |" />
+             android:text="금일 기준 적정 사용금액" />
          <TextView
              android:id="@+id/tv1_1"
              android:layout_width="wrap_content"
@@ -66,15 +68,15 @@
    	android:layout_height="wrap_content"
         >
 	 	<TextView
-             android:id="@+id/tv1"
+             android:id="@+id/tv2"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentLeft="true"
              android:layout_alignParentTop="true"
              android:layout_marginLeft="20dp"
-             android:text="| 전체 예산 |" />
+             android:text="현재 사용금액(예정금액 포함)" />
          <TextView
-             android:id="@+id/tv1_1"
+             android:id="@+id/tv2_1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentRight="true"
@@ -88,15 +90,15 @@
    	android:layout_height="wrap_content"
         >
 	 	<TextView
-             android:id="@+id/tv1"
+             android:id="@+id/tv3"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentLeft="true"
              android:layout_alignParentTop="true"
              android:layout_marginLeft="20dp"
-             android:text="| 전체 예산 |" />
+             android:text="이번 달 남은 예산(D-14)" />
          <TextView
-             android:id="@+id/tv1_1"
+             android:id="@+id/tv3_1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentRight="true"
@@ -108,17 +110,18 @@
             android:layout_marginTop="10dp"
    	android:layout_width="fill_parent"
    	android:layout_height="wrap_content"
+   	android:layout_marginBottom="15dp"
         >
 	 	<TextView
-             android:id="@+id/tv1"
+             android:id="@+id/tv4"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentLeft="true"
              android:layout_alignParentTop="true"
              android:layout_marginLeft="20dp"
-             android:text="| 전체 예산 |" />
+             android:text="평균 하루 사용가능금액" />
          <TextView
-             android:id="@+id/tv1_1"
+             android:id="@+id/tv4_1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentRight="true"
