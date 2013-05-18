@@ -3,6 +3,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <RelativeLayout 
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+        >
+
+         <TextView
+             android:id="@+id/textView1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginRight="22dp"
+             android:text="300,000원" />
+
+         <TextView
+             android:id="@+id/tv_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginLeft="20dp"
+             android:text="| 전체 예산 |" />
+   
+    </RelativeLayout>
+    
+    <ProgressBar 
+        android:id="@+id/progressBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:max="100"
+        />
+    
+    <RelativeLayout 
+        android:layout_marginTop="20dp"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+        >
+	 	<TextView
+             android:id="@+id/tv1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginLeft="20dp"
+             android:text="| 전체 예산 |" />
+         <TextView
+             android:id="@+id/tv1_1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginRight="22dp"
+             android:text="300,000원" /> 
+    </RelativeLayout>
+        <RelativeLayout 
+            android:layout_marginTop="10dp"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+        >
+	 	<TextView
+             android:id="@+id/tv1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginLeft="20dp"
+             android:text="| 전체 예산 |" />
+         <TextView
+             android:id="@+id/tv1_1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginRight="22dp"
+             android:text="300,000원" /> 
+    </RelativeLayout>
+        <RelativeLayout 
+            android:layout_marginTop="10dp"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+        >
+	 	<TextView
+             android:id="@+id/tv1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginLeft="20dp"
+             android:text="| 전체 예산 |" />
+         <TextView
+             android:id="@+id/tv1_1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginRight="22dp"
+             android:text="300,000원" /> 
+    </RelativeLayout>
+        <RelativeLayout 
+            android:layout_marginTop="10dp"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+        >
+	 	<TextView
+             android:id="@+id/tv1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginLeft="20dp"
+             android:text="| 전체 예산 |" />
+         <TextView
+             android:id="@+id/tv1_1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:layout_marginRight="22dp"
+             android:text="300,000원" /> 
+    </RelativeLayout>
     
 
 </LinearLayout>
