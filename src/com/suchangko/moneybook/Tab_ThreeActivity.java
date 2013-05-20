@@ -7,6 +7,8 @@ import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -104,17 +106,18 @@ public class Tab_ThreeActivity extends Activity {
        		int tmp_money = 0;
        		
        		if(c.moveToFirst()){
-       			do{
-       				tmp_money += Integer.parseInt(c.getString(2));
-       				}while(c.moveToNext());
+       			do{tmp_money += Integer.parseInt(c.getString(2));
+       			}while(c.moveToNext());
        		}        		
        		tmp_moneyint+=tmp_money;
        	}else{
+       		
        	}
        	i++;
        	int tmp_spend=0;
        	if(c_money.moveToFirst()){
-       		do{	tmp_spend+=Integer.parseInt(c_money.getString(2));}while(c_money.moveToNext());
+       		do{tmp_spend+=Integer.parseInt(c_money.getString(2));
+       		}while(c_money.moveToNext());
        	}
        	tmp_spendint+=tmp_spend;
        }
@@ -140,7 +143,25 @@ public class Tab_ThreeActivity extends Activity {
 		int itemid =item.getItemId();
 		switch (itemid) {
 		case 0:
-			Toast.makeText(this,"수입입력",100).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+			builder.setTitle("예산 카테고리 추가");
+			builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	if(util.yeosan_category[item].equals("전체 예산")){
+			    		ShowToast("전체 예산");
+			    	}else if(util.yeosan_category[item].equals("카테고리 기준")){
+			    		AlertDialog alertDialog = dialog_catecory();
+			    		 alertDialog.show();
+			    	}else if(util.yeosan_category[item].equals("세부 카테고리 기준")){
+			    		AlertDialog alertDialog = dialog_catecory_detail();
+			    		alertDialog.show();
+			    	}
+			    	
+			    }			    
+			});
+			AlertDialog alert = builder.create();
+
+			alert.show();
 			break;
 		case 1:
 			Toast.makeText(this,"이전문자등록",100).show();
@@ -160,5 +181,66 @@ public class Tab_ThreeActivity extends Activity {
 				}
 		return super.onOptionsItemSelected(item);
 	}
-    
+    void ShowToast(String toast){
+    	Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
+    } 
+    void DialogShow(){
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+		builder.setTitle("예산 카테고리 추가");
+		builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog,int which) {
+				
+			}							
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+    }
+    private AlertDialog dialog_catecory_detail(){
+    	final View innerView = getLayoutInflater().inflate(R.layout.dialog_category_detail, null);
+    	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("세부 카테고리");
+	        ab.setView(innerView);
+	        ab.setPositiveButton("검색",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        ab.setNegativeButton("취소",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        return ab.create();
+    } 
+    private AlertDialog dialog_catecory(){
+    	final View innerView = getLayoutInflater().inflate(R.layout.dialog_category, null);
+    	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("2013년 05월 예산");
+	        ab.setView(innerView);
+	        ab.setPositiveButton("검색",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        ab.setNegativeButton("취소",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        return ab.create();
+    }
 }

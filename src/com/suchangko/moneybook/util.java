@@ -33,4 +33,8 @@ public class util {
 	
 	public static final CharSequence[] Middleitems_input = {"없음","월급","이자소득","기타"};
 	
+	
+	public static final CharSequence[] yeosan_category = {"전체 예산","카테고리 기준","세부 카테고리 기준"};
+	//public static final CharSequence[] Middleitems_input = {"없음","월급","이자소득","기타"};
+	
 }

@@ -77,12 +77,22 @@ public class TabthreeAdapter extends BaseAdapter {
 		tv3_3.setText("이번 달 남은 예산(D-"+(LastDay-Day)+")");
 		tv_4.setText(budgetperday+"원");
 		
+		
 		int spendmoney = spendmonetArrayList.get(arg0);
-		long percentlong = spendmoney/budgeti*100;
+		Log.d("spendmoney",""+spendmoney);
+		Log.d("bugeti",""+budgeti);
+		if(budgeti==0){
+			progressBar.setProgress(0);
+		}else{
+			long percentlong = spendmoney*100/budgeti;
+			Log.d("",percentlong+"");
+			progressBar.setProgress((int)percentlong);
+		}
+		//long percentlong = spendmoney/budgeti*100;
 		
 	//	long percentlong = spendmonetArrayList.get(arg0)/budgeti;
 	//	Log.d("",""+percentlong);
-		progressBar.setProgress(20);
+		
 		/*
 		if(budgetArrayList.get(arg0)==0){
 			progressBar.setProgress(0);
