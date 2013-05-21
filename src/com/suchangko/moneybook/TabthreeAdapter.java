@@ -21,8 +21,9 @@ public class TabthreeAdapter extends BaseAdapter {
 	private ArrayList<Integer> spendmonetArrayList;
 	private ArrayList<String> nameArrayList;
 	private ArrayList<Integer> budgetArrayList;
+	private boolean moneyview1,moneyview2;
 	Calendar calendar;
-	public TabthreeAdapter(Context c,Calendar calendar,int layout,ArrayList<Integer> wholemoneyarrayList,ArrayList<Integer> spendmonetArrayList,ArrayList<String> nameArrayList,ArrayList<Integer> budgetArrayList){
+	public TabthreeAdapter(Context c,Calendar calendar,int layout,ArrayList<Integer> wholemoneyarrayList,ArrayList<Integer> spendmonetArrayList,ArrayList<String> nameArrayList,ArrayList<Integer> budgetArrayList,boolean moneyview1,boolean moneyview2){
 		Inflater=(LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		_layout=layout;
 		this.calendar=calendar;
@@ -30,6 +31,8 @@ public class TabthreeAdapter extends BaseAdapter {
 		this.spendmonetArrayList = spendmonetArrayList;
 		this.nameArrayList = nameArrayList;
 		this.budgetArrayList = budgetArrayList;
+		this.moneyview1=moneyview1;
+		this.moneyview2=moneyview2;
 	}
 	@Override
 	public int getCount() {
@@ -62,10 +65,13 @@ public class TabthreeAdapter extends BaseAdapter {
 		ProgressBar progressBar = (ProgressBar)arg1.findViewById(R.id.progressBar1);
 		TextView tv_title = (TextView)arg1.findViewById(R.id.tv_title);
 		TextView tv_money = (TextView)arg1.findViewById(R.id.textView1);
+		TextView tv1 = (TextView)arg1.findViewById(R.id.tv1);
+		TextView tv2 = (TextView)arg1.findViewById(R.id.tv2);
 		TextView tv_1 = (TextView)arg1.findViewById(R.id.tv1_1);
 		TextView tv_2 = (TextView)arg1.findViewById(R.id.tv2_1);
 		TextView tv_3 = (TextView)arg1.findViewById(R.id.tv3_1);
-		TextView tv3_3 = (TextView)arg1.findViewById(R.id.tv3);
+		TextView tv3 = (TextView)arg1.findViewById(R.id.tv3);
+		TextView tv4 = (TextView)arg1.findViewById(R.id.tv4);
 		TextView tv_4 = (TextView)arg1.findViewById(R.id.tv4_1);
 		int moneyperday = (int)budgeti/LastDay;
 		int budgetperday = (budgeti-spendmonetArrayList.get(arg0))/(LastDay-Day);
@@ -74,7 +80,7 @@ public class TabthreeAdapter extends BaseAdapter {
 		tv_1.setText(moneyperday+"원");
 		tv_2.setText(spendmonetArrayList.get(arg0)+"원");
 		tv_3.setText((budgeti-spendmonetArrayList.get(arg0))+"원");
-		tv3_3.setText("이번 달 남은 예산(D-"+(LastDay-Day)+")");
+		tv3.setText("이번 달 남은 예산(D-"+(LastDay-Day)+")");
 		tv_4.setText(budgetperday+"원");
 		
 		
@@ -100,6 +106,19 @@ public class TabthreeAdapter extends BaseAdapter {
 			progressBar.setProgress(percent);
 		}
 		*/
+		if(!moneyview1){
+			tv1.setVisibility(View.GONE);
+			tv_1.setVisibility(View.GONE);
+			tv2.setVisibility(View.GONE);
+			tv_2.setVisibility(View.GONE);
+		}
+		if(!moneyview2){
+			tv3.setVisibility(View.GONE);
+			tv_3.setVisibility(View.GONE);
+			tv4.setVisibility(View.GONE);
+			tv_4.setVisibility(View.GONE);
+		}
+		
 		return arg1;
 	}
 

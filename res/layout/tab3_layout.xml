@@ -41,12 +41,13 @@
         />
     
     <RelativeLayout 
-        android:layout_marginTop="40dp"
    	android:layout_width="fill_parent"
    	android:layout_height="wrap_content"
         >
 	 	<TextView
              android:id="@+id/tv1"
+             
+        android:layout_marginTop="40dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentLeft="true"
@@ -55,6 +56,8 @@
              android:text="금일 기준 적정 사용금액" />
          <TextView
              android:id="@+id/tv1_1"
+             
+        android:layout_marginTop="40dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentRight="true"

@@ -32,8 +32,11 @@ import android.widget.Toast;
  * Time: 오후 8:55
  * To change this template use File | Settings | File Templates.
  */
-public class Tab_ThreeActivity extends Activity {
+public class Tab_ThreeActivity extends Activity implements android.view.View.OnClickListener {
 	Button bt_date;
+	Button bt4;
+	Button bt5;
+	Button bt6;
 	TabthreeAdapter adapter;
 	ListView listView;
 	ArrayList<Integer> wholemoneyarrayList;
@@ -47,9 +50,16 @@ public class Tab_ThreeActivity extends Activity {
 	GregorianCalendar grecal;
 	int tmp_moneyint=0;
 	int tmp_spendint=0;
+	boolean moneyview1 = true;
+	boolean moneyview2 = true;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
+        bt4 = (Button)findViewById(R.id.button4);
+        bt5 = (Button)findViewById(R.id.button5);
+        bt5.setOnClickListener(this);
+        bt6 = (Button)findViewById(R.id.button6);
+        bt6.setOnClickListener(this);
         c = Calendar.getInstance();
         inputDB = new MoneyInputDB(getApplicationContext(), MoneyInputDB.SQL_Create_Moneybook,MoneyInputDB.SQL_DBname);
         moneyBookDB =  new MoneyBookDB(this,MoneyBookDB.SQL_Create_Moneybook,MoneyBookDB.SQL_DBname);
@@ -80,7 +90,7 @@ public class Tab_ThreeActivity extends Activity {
         spendmonetArrayList.add(tmp_spendint);
         nameArrayList.add("전체 예산");
         budgetArrayList.add(0);
-        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList);
+        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
         listView.setAdapter(adapter);     
     }
    void Startadapter(){
@@ -243,4 +253,33 @@ public class Tab_ThreeActivity extends Activity {
 			});
 	        return ab.create();
     }
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(v.getId() == R.id.button5){
+			if(moneyview1){
+				bt5.setText("금액 숨김");
+				moneyview1=false; 
+				adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+		        listView.setAdapter(adapter);     
+			}else{
+				bt5.setText("금액 표시");
+				moneyview1=true;
+				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+			        listView.setAdapter(adapter);     
+				}
+		}else if(v.getId()==R.id.button6){
+			if(moneyview2){
+				bt6.setText("가능액 숨김");
+				moneyview2=false;
+				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+			     listView.setAdapter(adapter);     
+			}else{
+				bt6.setText("가능액 표시");
+				moneyview2=true;
+				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+			     listView.setAdapter(adapter);     
+			}
+		}
+	}
 }

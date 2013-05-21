@@ -65,7 +65,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/buttonbackground1"
-            android:text="월 단위"
+            android:text="전체 지출"
             android:textSize="11dp"
             android:textColor="#0657b8" />
 
@@ -76,7 +76,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/buttonbackground1"
-            android:text="전체 지출"
+            android:text="월 단위"
             android:textSize="11dp"
             android:textColor="#0657b8" />
 

@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -28,7 +31,7 @@ import android.widget.Toast;
  * Time: 오후 8:55
  * To change this template use File | Settings | File Templates.
  */
-public class Tab_FourActivity extends Activity {
+public class Tab_FourActivity extends Activity implements OnClickListener {
 	Button bt_next;
 	Button bt_pre;
 	Button bt4;
@@ -53,6 +56,9 @@ public class Tab_FourActivity extends Activity {
         bt4=(Button)findViewById(R.id.button4);
         bt5=(Button)findViewById(R.id.button5);
         bt6=(Button)findViewById(R.id.button6);
+        bt4.setOnClickListener(this);
+        bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
         listView = (ListView)findViewById(R.id.listview1);
         makeAdapter();
     }
@@ -151,6 +157,45 @@ public class Tab_FourActivity extends Activity {
 		  
 	   }
    }
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(v.getId()==R.id.button4){
+		AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
+		builder.setTitle("통계 종류 선택");
+		builder.setItems(util.statistics1, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		    	bt4.setText(util.statistics1[item]);
+		    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+		    }
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+		}else if(v.getId()==R.id.button5){
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
+			builder.setTitle("통계 단위 선택");
+			builder.setItems(util.monthyear, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	bt5.setText(util.monthyear[item]);
+			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();	
+		}else if(v.getId()==R.id.button6){
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
+			builder.setTitle("통계 분류 선택");
+			builder.setItems(util.allspend, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	bt6.setText(util.allspend[item]);
+			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+	}
     
 }
 
