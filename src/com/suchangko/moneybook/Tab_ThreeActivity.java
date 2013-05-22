@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -142,7 +143,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     	menu.add(0,1,0,"예산 복사").setIcon(android.R.drawable.ic_menu_share);
     	menu.add(0,2,0,"예산 붙여넣기").setIcon(android.R.drawable.ic_menu_set_as);
     	menu.add(1,3,0,"상위 예산 분배").setIcon(android.R.drawable.ic_menu_search);
-    	menu.add(1,4,0,"도움말").setIcon(android.R.drawable.ic_menu_help);
+    	menu.add(1,4,0,"회사소개").setIcon(android.R.drawable.ic_menu_help);
     	menu.add(1,5,0,"환경설정").setIcon(R.drawable.ic_menu_more);	
 	return true;
 	}
@@ -183,7 +184,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			Toast.makeText(this,"지출내역검색",100).show();
 			break;
 		case 4:
-			Toast.makeText(this,"회사소개",100).show();
+			Intent i = new Intent(this,CompanyIntro.class);
+			startActivity(i);
 			break;
 		case 5:
 			Toast.makeText(this,"더보기",100).show();

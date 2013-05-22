@@ -13,6 +13,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,13 +119,16 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 			Toast.makeText(this,"이전문자등록",100).show();
 			break;
 		case 2:
-			Toast.makeText(this,"즐겨찾기편집",100).show();
+			AlertDialog a1 = dialog_edit_favor();
+			a1.show();
 			break;
 		case 3:
-			Toast.makeText(this,"지출내역검색",100).show();
+			AlertDialog a2 = dialog_search();
+			a2.show();
 			break;
 		case 4:
-			Toast.makeText(this,"회사소개",100).show();
+			Intent i = new Intent(this,CompanyIntro.class);
+			startActivity(i);
 			break;
 		case 5:
 			Toast.makeText(this,"더보기",100).show();
@@ -178,7 +182,60 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
     }
         return null;
  }
-    
+ private AlertDialog dialog_search(){
+	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_searche, null);
+	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setTitle("수입 내역 검색");
+        ab.setView(innerView);
+        ab.setPositiveButton("검색",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        ab.setNegativeButton("취소",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        return ab.create();
+ }
+ private AlertDialog dialog_edit_favor(){
+	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_favorite_edit, null);
+	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setTitle("지출 즐겨찾기 편집");
+        ab.setView(innerView);
+        ab.setPositiveButton("입력",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        ab.setNeutralButton("삭제", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        ab.setNegativeButton("취소",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        return ab.create();
+ }
 	 private AlertDialog dialog_add_spend() {
 	        final View innerView = getLayoutInflater().inflate(R.layout.dialog_add_input, null);
 	        AlertDialog.Builder ab = new AlertDialog.Builder(this);

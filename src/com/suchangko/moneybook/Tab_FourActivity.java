@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	MoneyBookDB moneyBookDB;
 	Calendar c;
 	GregorianCalendar grecal;
+	ArrayList<String> arrayList1;
+	ArrayList<String> arrayList2;
+	ArrayList<String> arrayList3;
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         c = Calendar.getInstance();
@@ -61,17 +66,16 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
         bt6.setOnClickListener(this);
         listView = (ListView)findViewById(R.id.listview1);
         makeAdapter();
+        adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+        listView.setAdapter(adapter);
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
-    	menu.add(0,0,0,"예산 추가").setIcon(R.drawable.ic_menu_add);
-    	menu.add(0,1,0,"예산 복사").setIcon(android.R.drawable.ic_menu_share);
-    	menu.add(0,2,0,"예산 붙여넣기").setIcon(android.R.drawable.ic_menu_set_as);
-    	menu.add(1,3,0,"상위 예산 분배").setIcon(android.R.drawable.ic_menu_search);
-    	menu.add(1,4,0,"도움말").setIcon(android.R.drawable.ic_menu_help);
-    	menu.add(1,5,0,"환경설정").setIcon(R.drawable.ic_menu_more);	
+    	menu.add(0,0,0,"GPS").setIcon(android.R.drawable.ic_menu_compass);
+    	menu.add(0,1,0,"도움말").setIcon(android.R.drawable.ic_menu_help);
+    	
 	return true;
 	}
     
@@ -81,27 +85,18 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		int itemid =item.getItemId();
 		switch (itemid) {
 		case 0:
-			Toast.makeText(this,"수입입력",100).show();
+			//Toast.makeText(this,"수입입력",100).show();
 			break;
 		case 1:
-			Toast.makeText(this,"이전문자등록",100).show();
+			//Toast.makeText(this,"이전문자등록",100).show();
 			break;
-		case 2:
-			Toast.makeText(this,"즐겨찾기편집",100).show();
-			break;
-		case 3:
-			Toast.makeText(this,"지출내역검색",100).show();
-			break;
-		case 4:
-			Toast.makeText(this,"회사소개",100).show();
-			break;
-		case 5:
-			Toast.makeText(this,"더보기",100).show();
-			break;
-				}
+		}
 		return super.onOptionsItemSelected(item);
 	}
    void makeAdapter(){
+	   arrayList1 = new ArrayList<String>();
+	   arrayList2 = new ArrayList<String>();
+	   arrayList3 = new ArrayList<String>();
 	   int month = c.get(Calendar.MONTH);
 	   for(int i=0;i<12;i++){
 		   Calendar calendar;
@@ -151,6 +146,11 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		       	}
 		       	tmp_spendint+=tmp_spend;
 		   }
+		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
+		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 지출"+tmp_spendint);
+		   arrayList2.add("");
+		   arrayList3.add("");
+		   
 		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
 		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 지출"+tmp_spendint);
 		   

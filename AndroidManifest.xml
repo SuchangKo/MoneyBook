@@ -29,6 +29,11 @@
         <activity android:name="Tab_ThreeActivity"/>
         <activity android:name="Tab_FourActivity"/>
         <activity android:name="Tab_FiveActivity"/>
+        <activity android:name="CompanyIntro"></activity>
+        <activity android:name="Intro1"></activity>
+        <activity android:name="Intro2"></activity>
+        <activity android:name="Intro3"></activity>
+        <activity android:name="Intro4"></activity>
     </application>
 
 </manifest>
