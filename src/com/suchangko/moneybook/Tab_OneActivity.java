@@ -22,6 +22,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -67,6 +69,11 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	ExpandableListView mListView;
 	boolean btmoneyispushed=false;
 	
+	int kindof=0;
+	String middleString="";
+	String detailString="";
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
@@ -90,6 +97,51 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
         mChildListContent1 = new ArrayList<String>();
+        
+        mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				/*
+				AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+				builder.setTitle("지출 세부 분류 선택");
+				
+					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+					*/
+					
+					
+					  if (mListView.getPackedPositionType(arg3) == mListView.PACKED_POSITION_TYPE_CHILD) {
+						 
+						                      int groupPosition = ExpandableListView.getPackedPositionGroup(arg3);
+					
+						                      int childPosition = ExpandableListView.getPackedPositionChild(arg3);
+						                  	AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+						    				builder.setTitle("지출 세부 분류 선택");
+						    				
+						    					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
+						    					    public void onClick(DialogInterface dialog, int item) {
+						    					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+						    					    }
+						    					});
+						    					AlertDialog alert = builder.create();
+						    					alert.show();
+					           return true;
+						  
+						                 }
+
+				return false;
+			}
+        	
+		});
+		
         /*
          * http://www.androidpub.com/465319
          *  input : new java.util.Date().getTime()
@@ -204,11 +256,24 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		}else if(v.getId()==R.id.bt_card){
 			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
 			builder.setTitle("결제 분류 선택");
-			builder.setItems(util.spendhow, new DialogInterface.OnClickListener() {
+			builder.setItems(util.spendhow1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	if(util.spendhow[item].equals("현금")){
+			    	if(util.spendhow1[item].equals("현금")){
 			    		bt_card.setText("현금");
-			    	}}
+			    		kindof=1;
+			    		madeAdapter();
+			    		
+			    	}else if(util.spendhow1[item].equals("카드")){
+			    		bt_card.setText("카드");
+			    		kindof=2;
+			    		madeAdapter();
+			    	}else if(util.spendhow1[item].equals("전체")){
+			    		bt_card.setText("전체");
+			    		kindof=0;
+			    		madeAdapter();
+			    	}
+			    	
+			    }
 			    
 			    
 			});
@@ -223,6 +288,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems1[item]);
+				    	detailString=(String) util.detailitems1[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -231,6 +298,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems2[item]);
+				    	detailString=(String) util.detailitems2[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -239,6 +308,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems3[item]);
+				    	detailString=(String) util.detailitems3[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -247,6 +318,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems4[item]);
+				    	detailString=(String) util.detailitems4[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -255,6 +328,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems5[item]);
+				    	detailString=(String) util.detailitems5[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -263,6 +338,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems6[item]);
+				    	detailString=(String) util.detailitems6[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -271,6 +348,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems7[item]);
+				    	detailString=(String) util.detailitems7[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -279,6 +358,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems8[item]);
+				    	detailString=(String) util.detailitems8[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -287,6 +368,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems9[item]);
+				    	detailString=(String) util.detailitems9[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -295,6 +378,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems10[item]);
+				    	detailString=(String) util.detailitems10[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -303,6 +388,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems11[item]);
+				    	detailString=(String) util.detailitems11[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -311,6 +398,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems12[item]);
+				    	detailString=(String) util.detailitems12[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -319,6 +408,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	bt_detail.setText(util.detailitems13[item]);
+				    	detailString=(String) util.detailitems13[item];
+				    	madeAdapter();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -330,10 +421,11 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		}else if(v.getId()==R.id.bt_middle){
 			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
 			builder.setTitle("지출 분류 선택");
-			builder.setItems(util.Middleitems, new DialogInterface.OnClickListener() {
+			builder.setItems(util.Middleitems1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	bt_middle.setText(util.Middleitems[item]);
-			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    	bt_middle.setText(util.Middleitems1[item]);
+			    	middleString=(String) util.Middleitems1[item];
+			    	madeAdapter();
 			    }
 			});
 			AlertDialog alert = builder.create();
@@ -359,8 +451,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		        	grecal = new GregorianCalendar(year,monthOfYear,dayOfMonth);
 		        	c.set(year, monthOfYear, dayOfMonth);
 		        	baseadapter=null;
-	            	mGroupList.clear();
-	            	mChildList.clear();
+	            	
 	            	madeAdapter();
 	            	baseadapter.notifyDataSetChanged();
 	            	mListView.setAdapter(baseadapter);
@@ -716,8 +807,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	            	mdb.insertTable(val);
 	            	Log.d("", "2");
 	            	baseadapter=null;
-	            	mGroupList.clear();
-	            	mChildList.clear();
+	            	
 	            	madeAdapter();
 	            	baseadapter.notifyDataSetChanged();
 	            	mListView.setAdapter(baseadapter);
@@ -741,6 +831,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        return ab.create();
 	    }
 	public void madeAdapter(){
+		mGroupList.clear();
+		mChildList.clear();
 		tmp_moneyint=0;
 		 
 	        LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -761,10 +853,34 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	//mChildListContent.clear();
 	        	String[] columns={"content","memo","money","kindof","date","minutetime","moneykindof"};
 	        	String selection="date=?";
-	        	String[] selectionArgs={
-	        			//"1366708459052"
-	        			String.valueOf(tmp_date.getTime())
-	        			};
+	        	if(kindof==0){
+	        		
+	        	}else {
+	        		selection="date=? AND moneykindof LIKE ?";
+	        	}
+	        	
+	        	ArrayList<String> strings = new ArrayList<String>();
+	        	strings.add(String.valueOf(tmp_date.getTime()));
+	        	
+	        	if(kindof==1){
+	        		strings.add("현금%");
+	        	}else if(kindof==2){
+	        		strings.add("카드%");
+	        	}
+	        	
+	        	if(middleString.equals("전체")){
+	        		detailString="";
+	        	}else{
+	        		selection+=" AND kindof LIKE ?";
+	        		if(detailString.equals("")){
+	        			strings.add(middleString+"%");
+	        		}else{
+	        			strings.add(middleString+"+"+detailString);
+	        		}
+	        		
+	        	}
+	        	String[] selectionArgs=(String[])strings.toArray(new String[strings.size()]);
+	        	
 	        	//Log.d("Timestamp",String.valueOf(tmp_date.getTime()));
 	        	Cursor c = mdb.selectTable(columns, selection, selectionArgs, null,null,"minutetime ASC");
 	        	//        	c.getCount();
@@ -780,11 +896,6 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        		
 	        		if(c.moveToFirst()){
 	        			do{
-	        				/*
-	        				for(int aa=0;aa<7;aa++){
-	        					Log.d("Cursor"+aa,c.getString(aa));
-	        				}
-	        				*/
 	        				tmp_money += Integer.parseInt(c.getString(2));
 	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"; 
 	    	        		tmp_Content.add(tmp_content_String);	    	  
@@ -808,5 +919,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        }
 
         	bt_money.setText(""+tmp_moneyint+"원");
+        	
+        	 mListView.setAdapter(baseadapter);
 	}
 }

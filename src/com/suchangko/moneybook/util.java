@@ -13,6 +13,7 @@ public class util {
 	final ArrayList<ArrayList<HashMap<String, Object>>> childData = new ArrayList<ArrayList<HashMap<String, Object>>>();
 	
 	public static final CharSequence[] Middleitems = {"식비","교통비","교육비","건강,의료비","통신비","가구집기","주거비","품위유지비","교양,오락비","보험,저축","사업운영비","수수료,세금","기타"};
+	public static final CharSequence[] Middleitems1 = {"전체","식비","교통비","교육비","건강,의료비","통신비","가구집기","주거비","품위유지비","교양,오락비","보험,저축","사업운영비","수수료,세금","기타"};
 	public static final CharSequence[] detailitems1={"외식비","간식비","급식비","주부식비","주류비"};
 	public static final CharSequence[] detailitems2={"교통비","주유비","유지비","통행료","주차비","자동차세","자동차보험","세차비"};
 	public static final CharSequence[] detailitems3={"학교","학원","교재비","학용품","체험활동"};
@@ -28,10 +29,12 @@ public class util {
 	public static final CharSequence[] detailitems13={"기부금","용돈","접대비","회비","축의금","부의금"};
 	
 	public static final CharSequence[] spendhow={"현금","카드"};
+	public static final CharSequence[] spendhow1={"전체","현금","카드"};
 	public static final CharSequence[] spendkindof={"신한","현대","국민","우리","외환","신한","롯데"};
 	
 	
 	public static final CharSequence[] Middleitems_input = {"없음","월급","이자소득","기타"};
+	public static final CharSequence[] fixdel = {"수정","삭제"};
 	
 	
 	public static final CharSequence[] yeosan_category = {"전체 예산","카테고리 기준","세부 카테고리 기준"};

@@ -2,7 +2,9 @@ package com.suchangko.moneybook;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BaseExpandableAdapter extends BaseExpandableListAdapter{
     
@@ -74,7 +77,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        String[] tmp_Strings = tmp_String.split("#");
        viewHolder.tv_groupName.setText(tmp_Strings[0]);
        viewHolder.Total_money.setText(tmp_Strings[1]);
-        
+       
        return v;
    }
     
@@ -123,6 +126,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        viewHolder.tv_childName2.setText(Text[1]);
        viewHolder.tv_childName3.setText(Text[2]);
        viewHolder.tv_childName4.setText(Text[3]);
+
        return v;
    }
 
