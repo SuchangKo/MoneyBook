@@ -32,6 +32,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -231,8 +232,13 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			Toast.makeText(this,"이전문자등록",100).show();
 			break;
 		case 2:
+			/*
 			AlertDialog a3 = dialog_edit_favor();
 			a3.show();
+			*/
+			AlertDialog a3= dialog_list_favor();
+			a3.show();
+			
 			break;
 		case 3:
 			AlertDialog a4 = dialog_search();
@@ -497,6 +503,37 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	    }
 	        return null;
 	 }
+	 private AlertDialog dialog_list_favor(){
+		 final View innerView = getLayoutInflater().inflate(R.layout.dialog_list_favor, null);
+		 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("지출 즐겨찾기 편집");
+	        TextView textView =(TextView) innerView.findViewById(R.id.dial_text);
+	        ListView lview =(ListView)innerView.findViewById(R.id.dial_list);	        
+	        
+	        
+	        
+	        
+	        
+	        ab.setView(innerView);
+	        ab.setPositiveButton("추가",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					AlertDialog alertDialog = dialog_edit_favor();
+					alertDialog.show();
+				}
+			});
+	        ab.setNegativeButton("나가기",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        return ab.create();		 
+	 }
 	 private AlertDialog dialog_edit_favor(){
 		 final View innerView = getLayoutInflater().inflate(R.layout.dialog_favorite_edit, null);
 		 AlertDialog.Builder ab = new AlertDialog.Builder(this);
@@ -532,6 +569,213 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		 final View innerView = getLayoutInflater().inflate(R.layout.dialog_searchs, null);
 		 AlertDialog.Builder ab = new AlertDialog.Builder(this);
 	        ab.setTitle("지출 내역 검색");
+	        
+	        EditText editText = (EditText)innerView.findViewById(R.id.dialog_searche_word);
+	        Button b1 = (Button)innerView.findViewById(R.id.dialog_searchs_startdate);
+	        b1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("검색 시작일 설정");
+					builder.setItems(util.searchdate, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	if(util.searchdate[item].equals("전체 기간")){
+					    		
+					    	}else if(util.searchdate[item].equals("기간 설정")){
+					    		
+					    	}				    	
+					    }
+					    
+					    
+					});
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				}
+			});
+	        Button b2 = (Button)innerView.findViewById(R.id.dialog_searchs_enddate);
+	        b2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("검색 시작일 설정");
+					builder.setItems(util.searchdate, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	if(util.searchdate[item].equals("전체 기간")){
+					    		
+					    	}else if(util.searchdate[item].equals("기간 설정")){
+					    		
+					    	}				    	
+					    }
+					    
+					    
+					});
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				}
+			});
+	        final Button b3 = (Button)innerView.findViewById(R.id.dialog_searchs_cate);
+	        b3.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("검색 분류 선택");
+					builder.setItems(util.Middleitems1, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	b3.setText(util.Middleitems1[item]);
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
+	       final Button b4 = (Button)innerView.findViewById(R.id.dialog_searchs_subcate);
+	        b4.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("검색 세부 분류 선택");
+					String tmp_middle = b3.getText().toString();
+					if(tmp_middle.equals("식비")){
+						builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems1[item]);
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("교통비")){
+						builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems2[item]);
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("교육비")){
+						builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems3[item]);
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("건강,의료비")){
+						builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems4[item]);
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("통신비")){
+						builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems5[item]);
+						    	
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("가구집기")){
+						builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems6[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("주거비")){
+						builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems7[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("품위유지비")){
+						builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems8[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("교양,오락비")){
+						builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems9[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("보험,저축비")){
+						builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems10[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("사업운영비")){
+						builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems11[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("수수료,세금")){
+						builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems12[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else if(tmp_middle.equals("기타")){
+						builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
+						    public void onClick(DialogInterface dialog, int item) {
+						    	b4.setText(util.detailitems13[item]);
+						    }
+						});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}else{
+						Toast.makeText(getApplicationContext(), "분류를 선택해주세요.",1000).show();
+					}
+				}
+			});
+	        final Button b5 = (Button)innerView.findViewById(R.id.dialog_searchs_card);
+	        b5.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
+					builder.setTitle("검색 카드 선택");
+					builder.setItems(util.searchcard, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	b5.setText(util.searchcard[item]);
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
 	        ab.setView(innerView);
 	        ab.setPositiveButton("검색",new DialogInterface.OnClickListener() {
 				

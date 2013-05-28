@@ -8,10 +8,11 @@
         android:layout_width="30dp"
         android:gravity="center"
         android:layout_height="wrap_content"
-        android:textSize="9dp" 
+        android:textSize="10dp" 
         android:layout_marginLeft="13dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
+        android:textColor="#000000"
         /> 
     <TextView 
         android:layout_height="wrap_content"
@@ -19,20 +20,22 @@
         android:text="ㅎㅇ"
         android:gravity="center"
         android:id="@+id/list_tv_kind"
-     	android:textSize="9dp" 
+     	android:textSize="10dp"
         android:layout_marginLeft="5dip"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
+        android:textColor="#000000"
         />
     <TextView 
         android:id="@+id/list_tv_memo"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="ㅎㅇㅎㅇ"
-        android:textSize="9dp"
+       android:textSize="10dp"
         android:layout_marginLeft="5dip"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
+        android:textColor="#000000"
         />
 
     <TextView
@@ -46,6 +49,7 @@
         android:gravity="right"
         android:layout_gravity="right|center_vertical"
         android:text="\"
-        android:textSize="9dp" />
+        android:textSize="10dp"
+        android:textColor="#000000" />
 
 </LinearLayout>
