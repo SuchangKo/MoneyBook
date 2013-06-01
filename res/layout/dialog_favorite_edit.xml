@@ -8,6 +8,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/dial_layout_auto"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="15dp"
         >
@@ -184,6 +185,7 @@
         <EditText 
             android:id="@+id/dialog_edit_spend_detail"
             android:layout_width="fill_parent"
+             android:text="현금"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:focusable="false"

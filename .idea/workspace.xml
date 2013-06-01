@@ -109,7 +109,7 @@
       <file leaf-file-name="Tab_FourActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_FourActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.026760563">
+            <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -200,7 +200,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -262,6 +261,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -510,7 +510,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08494209" sideWeight="0.67166215" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08494209" sideWeight="0.67166215" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41572124" sideWeight="0.6662088" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -668,9 +668,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="43" selection-start="1230" selection-end="1230" vertical-scroll-proportion="0.60232556">
-          <folding />
-        </state>
+        <state line="33" column="43" selection-start="1230" selection-end="1230" vertical-scroll-proportion="0.60232556" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_TwoActivity.java">
@@ -688,7 +686,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_FourActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.026760563">
+        <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

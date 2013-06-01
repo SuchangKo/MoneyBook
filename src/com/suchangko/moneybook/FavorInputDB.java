@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FavorInputDB {
    private DBHelper mHelper;
    private SQLiteDatabase db;
-   private static final String Database_Name="moneyinput";
+   private static final String Database_Name="favorinputdb";
    private static final int Database_Version = 2;
    private static String SQL_Table_Create;
    private static String Table_Name;
@@ -20,7 +20,6 @@ public class FavorInputDB {
                    +"content text,"
                    +"memo text,"
                    +"money integer not null,"
-                   +"date text not null,"
                    +"kindof text"
                    +")";
    private final Context cxt;

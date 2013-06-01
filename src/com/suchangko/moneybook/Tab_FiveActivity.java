@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class Tab_FiveActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab5);
+       setContentView(R.layout.activity_tab5);
     }
 
 }

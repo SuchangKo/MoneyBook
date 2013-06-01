@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FavorSpendDB {
    private DBHelper mHelper;
    private SQLiteDatabase db;
-   private static final String Database_Name="moneybook";
+   private static final String Database_Name="favorspenddb";
    private static final int Database_Version = 2;
    private static String SQL_Table_Create;
    private static String Table_Name;
@@ -20,10 +20,8 @@ public class FavorSpendDB {
                    +"content text,"
                    +"memo text,"
                    +"money integer not null,"
-                   +"date text not null,"
                    +"kindof text,"
-                   +"moneykindof text,"
-                   +"minutetime text"
+                   +"moneykindof text"
                    +")";
    private final Context cxt;
 
@@ -57,6 +55,9 @@ public class FavorSpendDB {
     }
     public void close() {
         mHelper.close();
+    }
+    public void datadel(String id){
+    	db.execSQL("DELETE FROM "+Database_Name+" WHERE _id="+id);
     }
     public long insertTable(ContentValues values) {
         return db.insert(Table_Name, null, values);
