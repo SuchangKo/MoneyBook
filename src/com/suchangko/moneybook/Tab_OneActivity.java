@@ -62,6 +62,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	AlertDialog dialog_alert;
 	Button bt_middle;
 	Button bt_money;
+	Button Search_date_start;
+	Button Search_date_fin;
 	GregorianCalendar grecal;
 	BaseExpandableAdapter baseadapter;
 	Calendar c;
@@ -70,6 +72,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	private static final int DIALOG_DATE = 0;
 	private static final int DIALOG_DATE_edt = 1;
 	private static final int DIALOG_TIME_edt = 2;
+	private static final int DIALOG_DATE_start = 3;
+	private static final int DIALOG_DATE_fin = 4;
+	
 	int tmp_moneyint =0;
 	private ArrayList<String> mGroupList = null;
 	private ArrayList<ArrayList<String>> mChildList = null;
@@ -457,6 +462,40 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
+	 private DatePickerDialog.OnDateSetListener dateListenerstart = 
+		        new DatePickerDialog.OnDateSetListener() {
+		         
+		        @Override
+		        public void onDateSet(DatePicker view, int year, int monthOfYear,
+		                int dayOfMonth) {
+		        	Search_date_start.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+		        	grecal = new GregorianCalendar(year,monthOfYear,dayOfMonth);
+		        	c.set(year, monthOfYear, dayOfMonth);
+		        	baseadapter=null;
+	            	
+	            	madeAdapter();
+	            	baseadapter.notifyDataSetChanged();
+	            	mListView.setAdapter(baseadapter);
+		        	
+		        }
+		    };
+	private DatePickerDialog.OnDateSetListener dateListenerfinish = 
+			        new DatePickerDialog.OnDateSetListener() {
+			         
+			        @Override
+			        public void onDateSet(DatePicker view, int year, int monthOfYear,
+			                int dayOfMonth) {
+			        	Search_date_fin.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+			        	grecal = new GregorianCalendar(year,monthOfYear,dayOfMonth);
+			        	c.set(year, monthOfYear, dayOfMonth);
+			        	baseadapter=null;
+		            	
+		            	madeAdapter();
+		            	baseadapter.notifyDataSetChanged();
+		            	mListView.setAdapter(baseadapter);
+			        	
+			        }
+			    };
 	 private DatePickerDialog.OnDateSetListener dateListener = 
 		        new DatePickerDialog.OnDateSetListener() {
 		         
@@ -510,6 +549,12 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        case DIALOG_TIME_edt:
 	        	Calendar c3 = Calendar.getInstance();
 	        	return new TimePickerDialog(this, edt_timeListener,c3.get(Calendar.HOUR_OF_DAY),c3.get(Calendar.MINUTE),false);
+	        case DIALOG_DATE_start:
+	        	Calendar c4 = Calendar.getInstance();
+	        	return new DatePickerDialog(this, dateListenerstart,c4.get(Calendar.YEAR),c4.get(Calendar.MONTH),c4.get(Calendar.DAY_OF_MONTH));
+	        case DIALOG_DATE_fin:
+	        	Calendar c5 = Calendar.getInstance();
+	        	return new DatePickerDialog(this, dateListenerfinish,c5.get(Calendar.YEAR),c5.get(Calendar.MONTH),c5.get(Calendar.DAY_OF_MONTH));
 	    }
 	        return null;
 	 }
@@ -1155,9 +1200,11 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		 AlertDialog.Builder ab = new AlertDialog.Builder(this);
 	        ab.setTitle("지출 내역 검색");
 	        
-	        EditText editText = (EditText)innerView.findViewById(R.id.dialog_searche_word);
-	        Button b1 = (Button)innerView.findViewById(R.id.dialog_searchs_startdate);
-	        b1.setOnClickListener(new OnClickListener() {
+	        final EditText editText_1 = (EditText)innerView.findViewById(R.id.dialog_searchs_word);
+	        //editText_1.setHint("검색어를 입력해 주세요");
+	        
+	        Search_date_start = (Button)innerView.findViewById(R.id.dialog_searchs_startdate);
+	        Search_date_start.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
@@ -1169,7 +1216,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					    	if(util.searchdate[item].equals("전체 기간")){
 					    		
 					    	}else if(util.searchdate[item].equals("기간 설정")){
-					    		
+					    		showDialog(DIALOG_DATE_start);
 					    	}				    	
 					    }
 					    
@@ -1180,8 +1227,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					alert.show();
 				}
 			});
-	        Button b2 = (Button)innerView.findViewById(R.id.dialog_searchs_enddate);
-	        b2.setOnClickListener(new OnClickListener() {
+	        Search_date_fin = (Button)innerView.findViewById(R.id.dialog_searchs_enddate);
+	        Search_date_fin.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
@@ -1193,7 +1240,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					    	if(util.searchdate[item].equals("전체 기간")){
 					    		
 					    	}else if(util.searchdate[item].equals("기간 설정")){
-					    		
+					    		showDialog(DIALOG_DATE_fin);
 					    	}				    	
 					    }
 					    
@@ -1367,7 +1414,41 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					if(editText_1.getText().toString().equals("")){
+						Toast.makeText(getApplicationContext(), "검색어를 입력해 주세요.",Toast.LENGTH_SHORT).show();
+					}else{
+						if(!Search_date_start.getText().toString().equals("") && !Search_date_fin.getText().toString().equals("")){
+							//날짜 검색
+							Calendar calendar1 = Calendar.getInstance();
+							Calendar calendar2 = Calendar.getInstance();
+							String[] strs1 = Search_date_start.getText().toString().split("\\-");
+							String[] strs2 = Search_date_fin.getText().toString().split("\\-");
+							
+							calendar1.set(Integer.parseInt(strs1[0]),Integer.parseInt(strs1[1])-1,Integer.parseInt(strs1[2]));
+							calendar2.set(Integer.parseInt(strs2[0]),Integer.parseInt(strs2[1])-1,Integer.parseInt(strs2[2]));
+
+
+							
+							/*
+							calendar1.get(Calendar.YEAR)
+							(calendar1.get(Calendar.MONTH)+1)
+							calendar1.get(Calendar.DAY_OF_MONTH)
+							*/
+						}else if(Search_date_start.getText().toString().equals("") && Search_date_fin.getText().toString().equals("")){
+							//전체검색
+							Toast.makeText(getApplicationContext(), "둘다 값 없음.",Toast.LENGTH_SHORT).show();
+						}else{
+							Toast.makeText(getApplicationContext(), "검색 기간을 확인해 주세요.",Toast.LENGTH_SHORT).show();
+						}
+					}
 					
+					 if(!Search_date_start.getText().toString().isEmpty() && !Search_date_fin.getText().toString().isEmpty()){
+						 String[] tmp_arr1 = Search_date_start.getText().toString().split("\\-");
+						 String[] tmp_arr2 = Search_date_fin.getText().toString().split("\\-");
+						 
+						 
+					 }
+					 
 				}
 			});
 	        ab.setNegativeButton("취소",new DialogInterface.OnClickListener() {
@@ -2027,8 +2108,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        		//Log.d("값 있음","");
 	        		//c.moveToNext();
 	        		str_tmp_date+="#0원";
-	        		tmp_Content.add("값없음#값없음#값없음#값없음");
-	        		//mChildListContent.add(c.getString(0));
+	        		//tmp_Content.add("값없음#값없음#값없음#값없음");	        		//mChildListContent.add(c.getString(0));
 	        		
 	        	}
 	        	mGroupList.add(str_tmp_date);

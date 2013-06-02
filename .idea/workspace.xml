@@ -23,6 +23,9 @@
       </GlobalState>
     </option>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/com/suchangko/moneybook/SearcheActivity.java" line="14" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="af1010f9-1206-4064-bb00-c049de98efd1" name="Default" comment="" />
     <ignored path="MoneyBook.iws" />
@@ -30,13 +33,13 @@
     <file path="/Dummy.txt" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1369326037450" ignored="false" />
     <file path="/fragment.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1369326622047" ignored="false" />
     <file path="/activity_login.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364667119755" ignored="false" />
-    <file path="/a.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364063509856" ignored="false" />
+    <file path="/a.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1370191962494" ignored="false" />
     <file path="/LoginActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364739345815" ignored="false" />
     <file path="/AccountDB.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364228772695" ignored="false" />
     <file path="/MainActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364997358590" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/plugins/android/lib/android.jar!/org/jetbrains/android/android.xsd" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364297624093" ignored="false" />
     <file path="/tab_indicator.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364669447922" ignored="false" />
-    <file path="/Tab_OneActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364393341759" ignored="false" />
+    <file path="/Tab_OneActivity.java" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1370191047783" ignored="false" />
     <file path="/activity_tab1.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1365002202883" ignored="false" />
     <file path="/activity_main.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364667786186" ignored="false" />
     <file path="/strings.xml" changelist="af1010f9-1206-4064-bb00-c049de98efd1" time="1364425441158" ignored="false" />
@@ -106,13 +109,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Tab_FourActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_FourActivity.java">
+      <file leaf-file-name="Tab_OneActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="1428" column="28" selection-start="55787" selection-end="55787" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearcheActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/SearcheActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="44" selection-start="402" selection-end="402" vertical-scroll-proportion="0.6181818">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,8 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/drawable/tabbackground.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/tab_textcolor.xml" />
         <option value="$PROJECT_DIR$/res/color/tab_textcolor.xml" />
         <option value="$PROJECT_DIR$/res/layout/tab_indicator.xml" />
         <option value="$PROJECT_DIR$/res/menu/main.xml" />
@@ -160,6 +168,8 @@
         <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_FiveActivity.java" />
         <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_tab1.xml" />
+        <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/suchangko/moneybook/SearcheActivity.java" />
       </list>
     </option>
   </component>
@@ -260,8 +270,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -271,16 +281,16 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
     <property name="AndroidLayoutSelectedEditor" value="android-designer" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="ReadonlyStatusHandler">
     <option name="SHOW_DIALOG" value="false" />
@@ -330,19 +340,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -368,6 +365,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -505,21 +515,21 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35928962" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.3287858" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1599" y="0" width="1283" height="1028" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08494209" sideWeight="0.67166215" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15335052" sideWeight="0.64071035" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41572124" sideWeight="0.6662088" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41572124" sideWeight="0.98626375" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947233" sideWeight="0.6593407" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32833788" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
@@ -589,14 +599,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_join.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="32" column="32" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/JoinActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="46" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" />
@@ -610,13 +612,6 @@
     <entry file="file://$PROJECT_DIR$/res/menu/main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="59" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_tab4.xml">
@@ -651,11 +646,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="45" selection-start="5209" selection-end="5209" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_ThreeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="45" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" />
@@ -686,10 +676,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_FourActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="184" selection-start="5400" selection-end="5400" vertical-scroll-proportion="0.0">
+        <state line="178" column="127" selection-start="6278" selection-end="6278" vertical-scroll-proportion="0.53521127">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/Tab_OneActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1428" column="28" selection-start="55787" selection-end="55787" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="52" selection-start="1609" selection-end="1609" vertical-scroll-proportion="0.8972896">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/suchangko/moneybook/SearcheActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="44" selection-start="402" selection-end="402" vertical-scroll-proportion="0.6181818">
+          <folding />
         </state>
       </provider>
     </entry>

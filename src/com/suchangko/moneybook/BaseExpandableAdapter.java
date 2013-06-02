@@ -119,14 +119,24 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder = (ViewHolder)v.getTag();
        }        
        String tmp_String = getChild(groupPosition, childPosition);
-       String[] Text=tmp_String.split("#");
-       
-       
-       viewHolder.tv_childName.setText(Text[0]);
-       viewHolder.tv_childName2.setText(Text[1]);
-       viewHolder.tv_childName3.setText(Text[2]);
-       viewHolder.tv_childName4.setText(Text[3]);
 
+       
+       if(!tmp_String.equals("값없음#값없음#값없음#값없음")){
+           String[] Text=tmp_String.split("#");
+    	   viewHolder.tv_childName.setText(Text[0]);
+           viewHolder.tv_childName2.setText(Text[1]);
+           viewHolder.tv_childName3.setText(Text[2]);
+           viewHolder.tv_childName4.setText(Text[3]);
+   
+       }else{
+    	   viewHolder.tv_childName.setText("");
+           viewHolder.tv_childName2.setText("");
+           viewHolder.tv_childName3.setText("");
+           viewHolder.tv_childName4.setText("");
+           v.setTag(viewHolder);
+    	  
+       }
+       
        return v;
    }
 
