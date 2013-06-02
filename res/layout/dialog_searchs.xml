@@ -35,6 +35,7 @@
         <Button android:textSize="18.0dip" 
             android:textColor="#ff000000" 
             android:gravity="center" 
+             android:text="전체"
             android:id="@+id/dialog_searchs_cate" android:background="@drawable/edittextbackground1" android:layout_width="160.0dip" android:layout_height="32.0dip" android:singleLine="true" />
     </LinearLayout>
     <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="42.0dip">
@@ -43,6 +44,7 @@
         <Button android:textSize="18.0dip" 
             android:textColor="#ff000000" 
             android:gravity="center" 
+             android:text="전체"
             android:id="@+id/dialog_searchs_subcate" android:background="@drawable/edittextbackground1" android:layout_width="160.0dip" android:layout_height="32.0dip" android:singleLine="true" />
     </LinearLayout>
     <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="42.0dip">
@@ -51,6 +53,7 @@
         <Button android:textSize="18.0dip" 
             android:textColor="#ff000000" 
             android:gravity="center" 
+            android:text="전체"
             android:id="@+id/dialog_searchs_card" android:background="@drawable/edittextbackground1" android:layout_width="160.0dip" android:layout_height="32.0dip" android:singleLine="true" />
     </LinearLayout>
 </LinearLayout>

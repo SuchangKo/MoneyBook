@@ -1,6 +1,5 @@
 package com.suchangko.moneybook;
 
-import java.nio.channels.AlreadyConnectedException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,11 +34,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -145,6 +144,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 						    					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
 						    					    public void onClick(DialogInterface dialog, int item) {
 						    					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+						    					    	if(util.fixdel[item].equals("삭제")){
+						    					    		//mdb.
+						    					    	}
 						    					    }
 						    					});
 						    					AlertDialog alert = builder.create();
@@ -1252,6 +1254,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 				}
 			});
 	        final Button b3 = (Button)innerView.findViewById(R.id.dialog_searchs_cate);
+	        final Button b4 = (Button)innerView.findViewById(R.id.dialog_searchs_subcate);
 	        b3.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -1262,13 +1265,17 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					builder.setItems(util.Middleitems1, new DialogInterface.OnClickListener() {
 					    public void onClick(DialogInterface dialog, int item) {
 					    	b3.setText(util.Middleitems1[item]);
+					    	if(b3.getText().toString().equals("전체")){
+					    		b4.setText("전체");	
+					    	}
+					    	
 					    }
 					});
 					AlertDialog alert = builder.create();
 					alert.show();
 				}
 			});
-	       final Button b4 = (Button)innerView.findViewById(R.id.dialog_searchs_subcate);
+	       
 	        b4.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -1386,6 +1393,8 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 						});
 						AlertDialog alert = builder.create();
 						alert.show();
+					}else if(tmp_middle.equals("전체")){						
+						
 					}else{
 						Toast.makeText(getApplicationContext(), "분류를 선택해주세요.",1000).show();
 					}
@@ -1426,7 +1435,38 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 							
 							calendar1.set(Integer.parseInt(strs1[0]),Integer.parseInt(strs1[1])-1,Integer.parseInt(strs1[2]));
 							calendar2.set(Integer.parseInt(strs2[0]),Integer.parseInt(strs2[1])-1,Integer.parseInt(strs2[2]));
-
+							
+							
+							int[] cs = {calendar1.get(Calendar.YEAR),
+									(calendar1.get(Calendar.MONTH)+1),
+									calendar1.get(Calendar.DAY_OF_MONTH)};
+							int[] cf = {calendar2.get(Calendar.YEAR),
+									(calendar2.get(Calendar.MONTH)+1),
+									calendar2.get(Calendar.DAY_OF_MONTH)};
+							Date dates = new Date(cs[0]-1900, cs[1]-1, cs[2]);
+							Date datef = new Date(cf[0]-1900, cf[1]-1, cf[2]);
+							
+							if(dates.getTime() > datef.getTime()){
+								Toast.makeText(getApplicationContext(), "검색 기간을 확인해 주세요.",Toast.LENGTH_SHORT).show();
+							}else{
+							
+							
+							String searchstr = editText_1.getText().toString();
+							String kind1 = b3.getText().toString();
+							String kind2 = b4.getText().toString();
+							String card = b5.getText().toString();
+							
+							
+							Intent i = new Intent(getApplicationContext(),SearcheActivity.class);
+							i.putExtra("cs",cs);
+							i.putExtra("cf",cf);
+							i.putExtra("str",searchstr);
+							i.putExtra("kind",kind1+"+"+kind2);
+							i.putExtra("card",card);
+							startActivity(i);
+							}
+							
+							
 
 							
 							/*
@@ -1436,19 +1476,29 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 							*/
 						}else if(Search_date_start.getText().toString().equals("") && Search_date_fin.getText().toString().equals("")){
 							//전체검색
-							Toast.makeText(getApplicationContext(), "둘다 값 없음.",Toast.LENGTH_SHORT).show();
+							
+							int[] cs = {0,0,0};
+							int[] cf = {0,0,0};
+							
+							String searchstr = editText_1.getText().toString();
+							String kind1 = b3.getText().toString();
+							String kind2 = b4.getText().toString();
+							String card = b5.getText().toString();
+							
+							
+							Intent i = new Intent(getApplicationContext(),SearcheActivity.class);
+							i.putExtra("cs",cs);
+							i.putExtra("cf",cf);
+							i.putExtra("str",searchstr);
+							i.putExtra("kind",kind1+"+"+kind2);
+							i.putExtra("card",card);
+							startActivity(i);
+							
 						}else{
 							Toast.makeText(getApplicationContext(), "검색 기간을 확인해 주세요.",Toast.LENGTH_SHORT).show();
 						}
 					}
 					
-					 if(!Search_date_start.getText().toString().isEmpty() && !Search_date_fin.getText().toString().isEmpty()){
-						 String[] tmp_arr1 = Search_date_start.getText().toString().split("\\-");
-						 String[] tmp_arr2 = Search_date_fin.getText().toString().split("\\-");
-						 
-						 
-					 }
-					 
 				}
 			});
 	        ab.setNegativeButton("취소",new DialogInterface.OnClickListener() {

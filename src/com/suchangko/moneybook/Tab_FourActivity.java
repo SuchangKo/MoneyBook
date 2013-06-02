@@ -149,6 +149,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
 		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 지출"+tmp_spendint);
 		   arrayList2.add("");
+		   arrayList2.add("");
+		   arrayList3.add("");
 		   arrayList3.add("");
 		   
 		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
@@ -217,6 +219,7 @@ class ListViewAdapter extends BaseAdapter{
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return a.size();
+		//return 19;
 	}
 
 	@Override
