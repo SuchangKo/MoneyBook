@@ -96,8 +96,18 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
    // 차일드뷰 ID를 반환한다.
    @Override
    public long getChildId(int groupPosition, int childPosition) {
+	   
        return childPosition;
    }
+   public int getchildintid(int grouppos,int childpos){
+	   int a=0;
+	   String tmp_String = getChild(grouppos, childpos);
+	   String[] Text=tmp_String.split("#");
+	   a = Integer.parseInt(Text[4]);
+	   
+	   return a;
+   }
+   
 
    // 차일드뷰 각각의 ROW
    @Override

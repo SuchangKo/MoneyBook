@@ -135,17 +135,29 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					
 					  if (mListView.getPackedPositionType(arg3) == mListView.PACKED_POSITION_TYPE_CHILD) {
 						 
-						                      int groupPosition = ExpandableListView.getPackedPositionGroup(arg3);
+						                      final int groupPosition = ExpandableListView.getPackedPositionGroup(arg3);
 					
-						                      int childPosition = ExpandableListView.getPackedPositionChild(arg3);
+						                      final int childPosition = ExpandableListView.getPackedPositionChild(arg3);
+						                      //Toast.makeText(getApplicationContext(),""+groupPosition+"."+childPosition ,1000).show();
+						                      //Log.d("groupPosition",""+groupPosition);
+						                      //Log.d("childPosition",""+childPosition);
 						                  	AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
 						    				builder.setTitle("지출 세부 분류 선택");
 						    				
 						    					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
 						    					    public void onClick(DialogInterface dialog, int item) {
-						    					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+						    					    	//Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+						    					    	
 						    					    	if(util.fixdel[item].equals("삭제")){
-						    					    		//mdb.
+						    					    		//Toast.makeText(getApplicationContext(), baseadapter.getchildintid(groupPosition, childPosition)+"ID",1000).show();
+						    					    		mdb.datadel(""+baseadapter.getchildintid(groupPosition, childPosition));
+						    					    		Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+						    					    		madeAdapter();
+						    					    	}else if(util.fixdel[item].equals("수정")){
+						    					    		//수정기능 만들어야함.
+						    					    		AlertDialog aaa = dialog_satus();
+						    					    		aaa.show();
+						    					    		
 						    					    	}
 						    					    }
 						    					});
@@ -634,6 +646,95 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 					dialog.dismiss();
 					AlertDialog alertDialog = dialog_edit_favor();
 					alertDialog.show();
+				}
+			});
+	        ab.setNegativeButton("나가기",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        return ab.create();		 
+	 } 
+	 private AlertDialog dialog_satus(){
+		 final View innerView = getLayoutInflater().inflate(R.layout.dialog_spstatus, null);
+		 final AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("지출 즐겨찾기 편집");
+	        /*
+	        LinearLayout textView =(LinearLayout) innerView.findViewById(R.id.shortcutrow_nodata);
+	        ListView lview =(ListView)innerView.findViewById(R.id.dial_list);	        
+	        
+	        favorSpendDB = new FavorSpendDB(getApplicationContext(), FavorSpendDB.SQL_Create_favorspenddb,FavorSpendDB.SQL_DBname);
+	        favorSpendDB.open();
+	        
+	        
+	        String[] columns={"content","memo","money","kindof","moneykindof","_id"};
+        	String selection="date=?";
+        	
+        	String selectionArgs="";
+        	
+	        Cursor tmpc = favorSpendDB.selectTable(columns,null,null,null,null,null);
+	        if(tmpc.getCount()==0){
+	        	lview.setVisibility(View.GONE);
+	        	textView.setVisibility(View.VISIBLE);
+	        }else{
+	        	
+	        	textView.setVisibility(View.GONE);
+	        	list = new ArrayList<HashMap<String,String>>();
+	        	if(tmpc.moveToNext()){
+	        		do{
+	        			HashMap<String,String> map = new HashMap<String, String>();
+	        			map.put("0",tmpc.getString(0));
+	        			map.put("1",tmpc.getString(1));
+	        			map.put("2",tmpc.getString(2));
+	        			map.put("3",tmpc.getString(3));
+	        			map.put("4",tmpc.getString(4));
+	        			map.put("5",tmpc.getString(5));
+	        			Log.d("0",tmpc.getString(0));
+	        			Log.d("1",tmpc.getString(1));
+	        			Log.d("2",tmpc.getString(2));
+	        			Log.d("3",tmpc.getString(3));
+	        			Log.d("4",tmpc.getString(4));
+	        			Log.d("5",tmpc.getString(5));
+	        			list.add(map);
+	        		}while(tmpc.moveToNext());
+	        	}
+	        	dialogAdapter dAdapter = new dialogAdapter(getApplicationContext(), R.layout.listrow_shortcut,list);
+	        	lview.setAdapter(dAdapter);
+	        	lview.setOnItemClickListener(new OnItemClickListener() {
+	        		
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						//Toast.makeText(getApplicationContext(), list.size() +" dsa"+ arg2,1000).show();
+						//AlertDialog dialog_ = dialog_edit_favor_edit(list.get(arg2));
+						
+						favorlistdialog.dismiss();
+						HashMap<String,String> h = list.get(arg2);
+						AlertDialog dialog_ = dialog_edit_favor_edit(h);
+						dialog_.show();
+						
+						
+					}
+				});
+	        	lview.setVisibility(View.VISIBLE);
+	        }
+	        
+	        
+	        */
+	        ab.setView(innerView);
+	        ab.setPositiveButton("추가",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					/*
+					dialog.dismiss();
+					AlertDialog alertDialog = dialog_edit_favor();
+					alertDialog.show();
+					*/
 				}
 			});
 	        ab.setNegativeButton("나가기",new DialogInterface.OnClickListener() {
@@ -2102,7 +2203,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 	        
 	        	//mChildListContent.clear();
-	        	String[] columns={"content","memo","money","kindof","date","minutetime","moneykindof"};
+	        	String[] columns={"content","memo","money","kindof","date","minutetime","moneykindof","_id"};
 	        	String selection="date=?";
 	        	if(kindof==0){
 	        		
@@ -2147,8 +2248,9 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        		
 	        		if(c.moveToFirst()){
 	        			do{
+	        				Log.d("dddd",""+c.getInt(7));
 	        				tmp_money += Integer.parseInt(c.getString(2));
-	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"; 
+	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"+"#"+c.getInt(7); 
 	    	        		tmp_Content.add(tmp_content_String);	    	  
 			        	}while(c.moveToNext());
 	        		}

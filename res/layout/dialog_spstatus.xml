@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="32.0dip">
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+        <TextView android:text="ddd" android:textSize="15.0dip" android:textColor="#ff000000" android:gravity="center" android:layout_gravity="center" android:id="@+id/dialog_spstatus_date" android:background="@drawable/edittextbackground1" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="32.0dip">
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+        <TextView android:text="ddd" android:textSize="15.0dip" android:textColor="#ff000000" android:gravity="center" android:layout_gravity="center" android:id="@+id/dialog_spstatus_price" android:background="@drawable/edittextbackground1" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="32.0dip">
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+        <TextView android:text="ddd" android:textSize="15.0dip" android:textColor="#ff000000" android:gravity="center" android:layout_gravity="center" android:id="@+id/dialog_spstatus_card" android:background="@drawable/edittextbackground1" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="32.0dip">
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+        <TextView android:text="ddd" android:textSize="15.0dip" android:textColor="#ff000000" android:gravity="center" android:layout_gravity="center" android:id="@+id/dialog_spstatus_cate" android:background="@drawable/edittextbackground1" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="10.0dip" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="32.0dip">
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+        <TextView android:text="ddd" android:textSize="15.0dip" android:textColor="#ff000000" android:gravity="center" android:layout_gravity="center" android:id="@+id/dialog_spstatus_memo" android:background="@drawable/edittextbackground1" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        <View android:layout_width="5.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+</LinearLayout>

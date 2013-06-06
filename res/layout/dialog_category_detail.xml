@@ -13,6 +13,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="30dp"
         android:background="@drawable/edittextbackground1"
+        android:focusable="false"
+            android:focusableInTouchMode="false"
         android:ems="10" >
     </EditText>
 
@@ -25,6 +27,8 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/edittextbackground1"
+        android:focusable="false"
+            android:focusableInTouchMode="false"
         android:ems="10" />
 
 </RelativeLayout>

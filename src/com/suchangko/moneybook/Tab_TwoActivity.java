@@ -21,6 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -73,18 +76,34 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
         lv.setAdapter(adapter);
         Log.d("money",""+tmp_moneyint);
         Log.d("spend",tmp_spendint+"");
-        String tmp_plus="";
-        
-        int tmp_i = tmp_moneyint - tmp_spendint;
-        Log.d("","값"+tmp_i);
-        if((tmp_moneyint-tmp_spendint)>0){
-        	tmp_plus="+";
-        }else{
-        }
-        
-        
-        tv_middle.setText("이번 달 잔여금(수입-지출):"+tmp_plus+(tmp_moneyint-tmp_spendint)+"원");
-        
+        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					final int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				AlertDialog.Builder builder = new AlertDialog.Builder(Tab_TwoActivity.this);
+				builder.setTitle("지출 세부 분류 선택");
+				
+					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+					    	if(util.fixdel[item].equals("삭제")){
+					    		inputDB.datadel(""+adapter.getid(arg2));					    		
+					    		Toast.makeText(getApplicationContext(), "삭제되었습니다.",Toast.LENGTH_SHORT).show();
+					    		madeAdapter();
+					    		lv.setAdapter(adapter);
+					    	}else{
+					    		//수정기능 구현
+					    	}
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				return false;
+			}
+        	
+		}); 
     }
     @Override
 	public void onClick(View arg0) {
@@ -341,6 +360,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 	 public void madeAdapter(){
 			tmp_moneyint=0;
 			tmp_spendint=0;
+			tmp_Content.clear();
 		        LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		        int i=0;
 		        while(i<LastDay){
@@ -357,7 +377,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 		        	//mGroupList.add(year_+"."+month_+"."+(a-i));
 		        
 		        	//mChildListContent.clear();
-		        	String[] columns={"content","memo","money","kindof","date"};
+		        	String[] columns={"content","memo","money","kindof","date","_id"};
 		        	String selection="date=?";
 		        	String[] selectionArgs={
 		        			//"1366708459052"
@@ -378,7 +398,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 		        				
 		        				tmp_money += Integer.parseInt(c.getString(2));
 		        			
-		        				String tmp_contentString =str_tmp_date+"#"+c.getString(3)+"#"+c.getString(0)+"#"+c.getString(2)+"원";
+		        				String tmp_contentString =str_tmp_date+"#"+c.getString(3)+"#"+c.getString(0)+"#"+c.getString(2)+"원"+"#"+c.getInt(5);
 		        				tmp_Content.add(tmp_contentString);	    	  
 				        	}while(c.moveToNext());
 		        		}
@@ -398,7 +418,23 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 		        }
 
 	        	bt_money.setText(""+tmp_moneyint+"원");
+	        	
+	        	String tmp_plus="";
+	            
+	       	 
+	       	 
+	            int tmp_i = tmp_moneyint - tmp_spendint;
+	            Log.d("","값"+tmp_i);
+	            if((tmp_moneyint-tmp_spendint)>0){
+	            	tmp_plus="+";
+	            }else{
+	           	 
+	            }
+	            
+	            
+	            tv_middle.setText("이번 달 잔여금(수입-지출):"+tmp_plus+(tmp_moneyint-tmp_spendint)+"원");
 		}
+	 
 
 	
 }

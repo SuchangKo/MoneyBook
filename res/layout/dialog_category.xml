@@ -27,6 +27,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
+        android:focusable="false"
+            android:focusableInTouchMode="false"
         android:background="@drawable/edittextbackground1"
         android:ems="10" />
 

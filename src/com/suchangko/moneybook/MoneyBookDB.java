@@ -58,6 +58,9 @@ public class MoneyBookDB {
     public void close() {
         mHelper.close();
     }
+    public void datadel(String id){
+    	db.execSQL("DELETE FROM "+Database_Name+" WHERE _id="+id);
+    }
     public long insertTable(ContentValues values) {
         return db.insert(Table_Name, null, values);
     }

@@ -36,6 +36,12 @@ public class InputAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public int getid(int a){
+		int c=0;
+		String[] tmp_Strings = arrayList.get(a).split("#");
+		c=Integer.parseInt(tmp_Strings[4]);
+		return c;
+	}
 
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {

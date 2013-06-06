@@ -20,11 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 /**
  * Created with IntelliJ IDEA.
  * User: SuChang_NT900X
@@ -92,7 +93,30 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         nameArrayList.add("전체 예산");
         budgetArrayList.add(0);
         adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
-        listView.setAdapter(adapter);     
+        listView.setAdapter(adapter);   
+        listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+				builder.setTitle("지출 세부 분류 선택");
+				
+					builder.setItems(util.fixdel1, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	Toast.makeText(getApplicationContext(),util.fixdel1[item],1000).show();
+					    	if(util.fixdel1[item].equals("삭제")){
+					    		//mdb.
+					    	}
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				return false;
+			}
+        	
+		});
     }
    void Startadapter(){
 
@@ -237,6 +261,15 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
 	        ab.setTitle("2013년 05월 예산");
 	        ab.setView(innerView);
+	        EditText edt = (EditText)innerView.findViewById(R.id.editText2);
+	        edt.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 	        ab.setPositiveButton("검색",new OnClickListener() {
 				
 				@Override
