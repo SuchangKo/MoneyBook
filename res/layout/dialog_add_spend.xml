@@ -187,6 +187,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:focusable="false"
+            android:text="-"
             android:focusableInTouchMode="false"
 			android:background="@drawable/edittextbackground1"    
             />

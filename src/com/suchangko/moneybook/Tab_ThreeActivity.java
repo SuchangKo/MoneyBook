@@ -183,7 +183,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			    	if(util.yeosan_category[item].equals("전체 예산")){
-			    		ShowToast("전체 예산");
+			    		ShowToast("전체 예산이 이미 등록되어 있습니다.");
 			    	}else if(util.yeosan_category[item].equals("카테고리 기준")){
 			    		AlertDialog alertDialog = dialog_catecory();
 			    		 alertDialog.show();

@@ -47,7 +47,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	ArrayList<String> arrayList1;
 	ArrayList<String> arrayList2;
 	ArrayList<String> arrayList3;
-	
+	int lastday_1=0;
+	int lastday_2=0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         c = Calendar.getInstance();
@@ -112,7 +113,9 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		   
 		   int year_ = calendar.get(Calendar.YEAR);
 	       int month_ = calendar.get(Calendar.MONTH)+1;
-	      
+	       lastday_1=0;
+		   lastday_2=0;
+		   Log.d("Start","day1="+lastday_1+" and day2="+lastday_2);
 		   while(ii<Lastday){
 			   int a = Lastday;
 		       	
@@ -127,35 +130,60 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		       	Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
 		       	int tmp_count=c.getCount();
 		       	//Log.d("","count"+tmp_count);
+		       	int tmp_money = 0;
 		       	if(tmp_count>0){
-		       		int tmp_money = 0;
+		       		
 		       		
 		       		if(c.moveToFirst()){
 		       			do{tmp_money += Integer.parseInt(c.getString(2));
 		       			}while(c.moveToNext());
 		       		}        		
 		       		tmp_moneyint+=tmp_money;
-		       	}else{
 		       		
+		       		
+			       	
 		       	}
-		       	ii++;
 		       	int tmp_spend=0;
 		       	if(c_money.moveToFirst()){
 		       		do{tmp_spend+=Integer.parseInt(c_money.getString(2));
 		       		}while(c_money.moveToNext());
 		       	}
+		       	
+		       	
 		       	tmp_spendint+=tmp_spend;
+		       	
+		       	
+
+		       	if(tmp_spend>0){
+		       		if(lastday_1<(a-ii))
+		       		lastday_1=(a-ii);
+		       		Log.d("date : "+(a-ii),""+tmp_spend);
+		       	}
+		       	if(tmp_money>0){
+		       		if(lastday_2<(a-ii))
+		       		lastday_2=(a-ii);
+		       		Log.d("date : "+(a-ii),""+tmp_money);
+		       	}
+		       	
+		       	
+		       	ii++;
 		   }
-		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
-		   arrayList1.add(calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 지출"+tmp_spendint);
-		   arrayList2.add("");
-		   arrayList2.add("");
-		   arrayList3.add("");
-		   arrayList3.add("");
-		   
-		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 예산"+tmp_moneyint);
-		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월 : 지출"+tmp_spendint);
-		   
+		   Log.d("",lastday_2+"fd");
+		   if(tmp_moneyint>0){
+			   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_2);
+			   arrayList2.add(String.format("￦%,d",tmp_moneyint));
+			   arrayList3.add(String.format("￦%,d",tmp_moneyint));
+		   }
+		   if(tmp_spendint>0){
+			   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_1);
+			   arrayList2.add(String.format("￦%,d",tmp_spendint));
+			   arrayList3.add(String.format("￦%,d",tmp_spendint));
+		   }
+		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월"+lastday_1+"일"+" : 수입"+tmp_moneyint);
+		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월"+lastday_2+"일"+" : 지출"+tmp_spendint);
+		   Log.d("Fin","day1="+lastday_1+" and day2="+lastday_2);
+		   lastday_1=0;
+		   lastday_2=0;
 		  
 	   }
    }

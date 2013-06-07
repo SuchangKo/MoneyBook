@@ -9,30 +9,35 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_marginLeft="10dp"
+            
             android:id="@+id/textView1"
-            android:layout_width="80dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="2013-05-31"
-            android:layout_marginRight="15dp"/>
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
             android:layout_weight="1"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="TextView" 
             android:gravity="right"
             android:layout_weight="1"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
 
     </LinearLayout>
 
