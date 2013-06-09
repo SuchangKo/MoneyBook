@@ -202,7 +202,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
-		}else if(v.getId()==R.id.button5){
+		}else if(v.getId()==R.id.button6){
 			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
 			builder.setTitle("통계 단위 선택");
 			builder.setItems(util.monthyear, new DialogInterface.OnClickListener() {
@@ -213,7 +213,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 			});
 			AlertDialog alert = builder.create();
 			alert.show();	
-		}else if(v.getId()==R.id.button6){
+		}else if(v.getId()==R.id.button5){
 			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
 			builder.setTitle("통계 분류 선택");
 			builder.setItems(util.allspend, new DialogInterface.OnClickListener() {

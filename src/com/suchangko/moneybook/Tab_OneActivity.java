@@ -909,7 +909,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
      String[] tmp_a=cursor.getString(6).split("/");
      edt_spendhow.setText(tmp_a[0]);
      edt_spend_detail.setText(tmp_a[1]);
-     
+     final String idnumber = cursor.getString(7);
      ab.setPositiveButton("수정", new DialogInterface.OnClickListener() {
          @Override
          public void onClick(DialogInterface arg0, int arg1) {
@@ -936,7 +936,10 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
          	val.put("kindof",edt_middle.getText().toString()+"+"+edt_detail.getText().toString());
          	val.put("moneykindof",edt_spendhow.getText().toString()+"/"+edt_spend_detail.getText().toString());
          	val.put("minutetime",edt_time.getText().toString());
+         	mdb.datadel(idnumber);
          	mdb.insertTable(val);
+         	
+         	
          	Log.d("", "2");
          	baseadapter=null;
          	
