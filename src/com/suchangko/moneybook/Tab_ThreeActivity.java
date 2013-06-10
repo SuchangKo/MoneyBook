@@ -54,6 +54,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	int tmp_spendint=0;
 	boolean moneyview1 = true;
 	boolean moneyview2 = true;
+	
+	boolean allspendviewed = false;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
@@ -73,6 +75,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         Startadapter();
         		
         listView = (ListView)findViewById(R.id.listview1);
+        /*
         listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -84,35 +87,34 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				}
 			}
 		});
+		*/
         wholemoneyarrayList = new ArrayList<Integer>();
         spendmonetArrayList = new ArrayList<Integer>();
         nameArrayList = new ArrayList<String>();
         budgetArrayList = new ArrayList<Integer>();
-        wholemoneyarrayList.add(tmp_moneyint);
-        spendmonetArrayList.add(tmp_spendint);
-        nameArrayList.add("전체 예산");
-        budgetArrayList.add(0);
+        
         adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
-        listView.setAdapter(adapter);   
+        listView.setAdapter(adapter);  
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
+					final int arg2, long arg3) {
 				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
-				builder.setTitle("지출 세부 분류 선택");
-				
-					builder.setItems(util.fixdel1, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	Toast.makeText(getApplicationContext(),util.fixdel1[item],1000).show();
-					    	if(util.fixdel1[item].equals("삭제")){
-					    		//mdb.
+				builder.setTitle("예산 메뉴");				
+				builder.setItems(util.fixdel1, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int item) {
+				   	if(util.fixdel1[item].equals("예산 삭제")){
+				    		dellist(arg2);
+				   		}else if(util.fixdel1[item].equals("예산 수정")){
+				   			AlertDialog editAlertDialog = dialog_editbudget(arg2);
+				   			editAlertDialog.show();
 					    	}
 					    }
 					});
-					AlertDialog alert = builder.create();
-					alert.show();
+				AlertDialog alert = builder.create();
+				alert.show();
 				return false;
 			}
         	
@@ -183,7 +185,17 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			    	if(util.yeosan_category[item].equals("전체 예산")){
-			    		ShowToast("전체 예산이 이미 등록되어 있습니다.");
+			    		if(allspendviewed){
+			    			ShowToast("전체 예산이 이미 등록되어 있습니다.");
+			    		}else{
+			    			allspendviewed=true;
+			    			wholemoneyarrayList.add(tmp_moneyint);
+			    	        spendmonetArrayList.add(tmp_spendint);
+			    	        nameArrayList.add("전체 예산");
+			    	        budgetArrayList.add(0);
+			    	        adapter.notifyDataSetChanged();
+			    		}
+			    		
 			    	}else if(util.yeosan_category[item].equals("카테고리 기준")){
 			    		AlertDialog alertDialog = dialog_catecory();
 			    		 alertDialog.show();
@@ -220,6 +232,29 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     void ShowToast(String toast){
     	Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
     } 
+    void editlist(int index,int obj){
+    	budgetArrayList.set(index, obj);
+    	adapter.notifyDataSetChanged();
+    }
+    void dellist(int num){
+    	
+    	wholemoneyarrayList.remove(num);
+    	spendmonetArrayList.remove(num);
+    	if(nameArrayList.get(num).equals("전체 예산")){
+    		allspendviewed=false;
+    	}
+    	nameArrayList.remove(num);
+    	
+    	budgetArrayList.remove(num);
+    	adapter.notifyDataSetChanged();
+    }
+    void addlist(int wholemoney,int spendmoney,String name,int budget){
+    	wholemoneyarrayList.add(wholemoney);
+        spendmonetArrayList.add(spendmoney);
+        nameArrayList.add(name);
+        budgetArrayList.add(budget);
+        adapter.notifyDataSetChanged();
+    }
     void DialogShow(){
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
@@ -233,17 +268,210 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 		AlertDialog alert = builder.create();
 		alert.show();
     }
-    private AlertDialog dialog_catecory_detail(){
-    	final View innerView = getLayoutInflater().inflate(R.layout.dialog_category_detail, null);
+    
+    private AlertDialog dialog_editbudget(final int index){
+    	final View innerView = getLayoutInflater().inflate(R.layout.dialog_edit_budget, null);
     	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
-	        ab.setTitle("세부 카테고리");
+	        ab.setTitle("예산 설정");
 	        ab.setView(innerView);
-	        ab.setPositiveButton("검색",new OnClickListener() {
+	        final EditText edt = (EditText)innerView.findViewById(R.id.editText2);
+	        
+	        ab.setPositiveButton("설정",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(!edt.getText().toString().equals("")){
+						editlist(index, Integer.parseInt(edt.getText().toString()));
+					}else{
+						ShowToast("카테고리를 선택해 주세요.");
+						}
+				}
+			});
+	        ab.setNegativeButton("취소",new OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					
+				}
+			});
+	        return ab.create();
+    }
+    
+    private AlertDialog dialog_catecory_detail(){
+    	final View innerView = getLayoutInflater().inflate(R.layout.dialog_category_detail, null);
+    	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("세부 카테고리");
+	        final EditText ed1 = (EditText)innerView.findViewById(R.id.editText1);
+	        final EditText ed2 = (EditText)innerView.findViewById(R.id.editText2);
+	        
+	        ed1.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					// TODO Auto-generated method stub
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+					builder.setTitle("예산 설정");
+					builder.setItems(util.Middleitems, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,int which) {
+							ed1.setText(util.Middleitems[which]);
+						}							
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
+	        
+	        ed2.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+					
+					String tmp_str_edt = ed1.getText().toString();
+					if(tmp_str_edt.equals("")){
+						Toast.makeText(getApplicationContext(), "카테고리를 먼저 선택해 주세요.", Toast.LENGTH_SHORT).show();
+					}else{
+						AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+						builder.setTitle("카테고리선택");
+						if(tmp_str_edt.equals("식비")){
+							builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems1[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("교통비")){
+							builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems2[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("교육비")){
+							builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems3[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("건강,의료비")){
+							builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems4[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("통신비")){
+							builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems5[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("가구집기")){
+							builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems6[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("주거비")){
+							builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems7[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("품위유지비")){
+							builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems8[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("교양,오락비")){
+							builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems9[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("보험,저축")){
+							builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems10[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("사업운영비")){
+							builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems11[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("수수료,세금")){
+							builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems12[which]);
+								}							
+							});
+						}else if(tmp_str_edt.equals("기타")){
+							builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,int which) {
+									ed2.setText(util.detailitems13[which]);
+								}							
+							});
+						}
+						AlertDialog alert = builder.create();
+						alert.show();
+					}
+					
+					
+				}
+			});
+	        ab.setView(innerView);
+	        ab.setPositiveButton("추가",new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(!ed1.getText().toString().equals("")&&!ed2.getText().toString().equals("")){
+						
+						GregorianCalendar grecal = new GregorianCalendar();
+						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
+						Date d1 = new Date();
+						d1.setDate(Firstday);
+						Date d2 = new Date();
+						d2.setDate(Lastday);
+						int spendmoney_MONTH=0;
+						
+						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE "+ed1.getText().toString()+"+"+ed2.getText().toString()+" AND date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime());
+						//Log.d("",SQLstr);
+						Cursor c = moneyBookDB.RawQueryString(SQLstr);
+						
+						if(c.getCount()!=0){
+							if(c.moveToFirst()){
+							do{
+								spendmoney_MONTH+=Integer.parseInt(c.getString(0));
+							}while(c.moveToNext());
+							}
+						}
+						
+						
+						
+					addlist(0,spendmoney_MONTH,ed1.getText().toString()+"/"+ed2.getText().toString(),0);
+					}else{
+						ShowToast("카테고리를 선택 해주세요.");
+						}
 				}
 			});
 	        ab.setNegativeButton("취소",new OnClickListener() {
@@ -259,23 +487,57 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     private AlertDialog dialog_catecory(){
     	final View innerView = getLayoutInflater().inflate(R.layout.dialog_category, null);
     	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
-	        ab.setTitle("2013년 05월 예산");
+	        ab.setTitle("예산 설정");
 	        ab.setView(innerView);
-	        EditText edt = (EditText)innerView.findViewById(R.id.editText2);
+	        final EditText edt = (EditText)innerView.findViewById(R.id.editText2);
 	        edt.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
+					builder.setTitle("카테고리선택");
+					builder.setItems(util.Middleitems, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,int which) {
+							edt.setText(util.Middleitems[which]);
+						}							
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
 				}
 			});
-	        ab.setPositiveButton("검색",new OnClickListener() {
+	        ab.setPositiveButton("추가",new OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+					if(!edt.getText().toString().equals("")){
+						GregorianCalendar grecal = new GregorianCalendar();
+						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
+						Date d1 = new Date();
+						d1.setDate(Firstday);
+						Date d2 = new Date();
+						d2.setDate(Lastday);
+						int spendmoney_MONTH=0;
+						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime())+" AND kindof LIKE '"+edt.getText().toString()+"%'";
+						Log.d("",SQLstr);
+						
+						Cursor c = moneyBookDB.RawQueryString(SQLstr);
+						Log.d("",c.getCount()+"");
+						
+						if(c.getCount()>0){
+							if(c.moveToFirst()){
+							do{
+								//Log.d("ds",""+c.getString(0));
+								spendmoney_MONTH+=Integer.parseInt(c.getString(0));
+							}while(c.moveToNext());
+							}
+						}
+						
+						
+					addlist(0,spendmoney_MONTH,edt.getText().toString(),0);}else{ShowToast("카테고리를 선택해 주세요.");}
 				}
 			});
 	        ab.setNegativeButton("취소",new OnClickListener() {
@@ -317,4 +579,6 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			}
 		}
 	}
+	
+	
 }

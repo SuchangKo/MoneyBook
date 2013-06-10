@@ -2,35 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
     >
 
-    <EditText
-        android:id="@+id/editText1"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="110dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editText2"
         android:layout_alignBottom="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/edittextbackground1"
-        android:focusable="false"
-            android:focusableInTouchMode="false"
-        android:ems="10" >
-    </EditText>
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:text="예산 설정">
+    </TextView>
 
     <EditText
-        android:gravity="center"
         android:id="@+id/editText2"
+        android:gravity="center"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
+		android:inputType="numberDecimal"
         android:background="@drawable/edittextbackground1"
-        android:focusable="false"
-            android:focusableInTouchMode="false"
         android:ems="10" />
 
 </RelativeLayout>

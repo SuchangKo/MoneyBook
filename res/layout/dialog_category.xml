@@ -21,6 +21,7 @@
 
     <EditText
         android:id="@+id/editText2"
+        android:gravity="center"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
