@@ -50,8 +50,10 @@ import android.widget.Toast;
  * Date: 13. 3. 27
  * Time: 오후 4:27
  * To change this template use File | Settings | File Template
+ * 수입 수정	탭3 종료시 저장 탭4 눌렀을때 검색 탬3 4 월 이동 월별 연별
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	
+	
 	ArrayList<HashMap<String,String>> list;
 	EditText edt_date; //Dialog
     EditText edt_time; //Dialog
