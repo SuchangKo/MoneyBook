@@ -56,6 +56,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 	InputAdapter adapter;
 	TextView tv_middle;
 	MoneyBookDB mdb;
+	AlertDialog favordiallist;
 	FavorInputDB favorInputDB;
 	private static final int DIALOG_DATE = 0;
 	private static final int DIALOG_DATE_edt = 1;
@@ -64,6 +65,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 	GregorianCalendar grecal;
 	Calendar c;
 	int LastDay=0;
+	AlertDialog dd;
 	Button bt_money;
 	ArrayList<String> tmp_Content = new ArrayList<String>();
 	AlertDialog favorlistdialog;
@@ -75,7 +77,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
         bt_datepick=(Button)findViewById(R.id.button1);
         bt_datepick.setOnClickListener(this);
         tv_middle=(TextView)findViewById(R.id.tv_middletv);
-       
+        AlertDialog dd;
         grecal=new GregorianCalendar();
         c=Calendar.getInstance();
         bt_datepick.setText(c.get(Calendar.YEAR)+"년 "+(c.get(Calendar.MONTH)+1)+"월");
@@ -100,14 +102,15 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 				
 					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
 					    public void onClick(DialogInterface dialog, int item) {
-					    	Toast.makeText(getApplicationContext(),util.fixdel[item],1000).show();
+					    
 					    	if(util.fixdel[item].equals("삭제")){
 					    		inputDB.datadel(""+adapter.getid(arg2));					    		
 					    		Toast.makeText(getApplicationContext(), "삭제되었습니다.",Toast.LENGTH_SHORT).show();
 					    		madeAdapter();
 					    		lv.setAdapter(adapter);
 					    	}else{
-					    		//수정기능 구현
+					    		favordiallist = dialog_editing(adapter.getid(arg2));
+					    		favordiallist.show();
 					    	}
 					    }
 					});
@@ -214,6 +217,125 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
     }
         return null;
  }
+ private AlertDialog dialog_editing(final int num){
+	   final View innerView = getLayoutInflater().inflate(R.layout.dialog_add_input, null);
+       AlertDialog.Builder ab = new AlertDialog.Builder(this);
+       ab.setTitle("수입내역");
+       ab.setView(innerView);
+       edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
+       final EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
+       final EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
+       final EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
+       final EditText edt_middle = (EditText)innerView.findViewById(R.id.dialog_edit_middle);
+       
+       edt_middle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+					
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(Tab_TwoActivity.this);
+				builder.setTitle("수입 분류 선택");
+				builder.setItems(util.Middleitems_input, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	edt_middle.setText(util.Middleitems_input[item]);
+				    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+       //Calendar cc = Calendar.getInstance();
+       //String tmp_date = cc.get(Calendar.YEAR)+"-"+(cc.get(Calendar.MONTH)+1)+"-"+cc.get(Calendar.DAY_OF_MONTH);
+       //String tmp_time =  cc.get(Calendar.HOUR_OF_DAY)+":"+cc.get(Calendar.MINUTE);
+       
+       
+       SimpleDateFormat formatter1 = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+       final Date currentDate = new Date ( );
+       String dDate = formatter1.format ( currentDate );
+       SimpleDateFormat formatter2 = new SimpleDateFormat ( "HH:mm", Locale.KOREA );
+       Date currentTime = new Date ( );
+       String dTime = formatter2.format ( currentTime );
+       
+       edt_date.setText(dDate);
+       
+       edt_date.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showDialog(DIALOG_DATE_edt);
+			}
+		});
+
+		String[] columns={"content","memo","money","kindof","date","_id"};
+		String selection="_id=?";
+		String[] selectionArgs={
+				        			//"1366708459052"
+				        			String.valueOf(num)
+				        			};
+       
+       Cursor cursor = inputDB.selectTable(columns, selection, selectionArgs, null, null, null);
+       cursor.moveToNext();
+       Date datedd = new Date(Long.parseLong(cursor.getString(4)));
+       
+       edt_content.setText(cursor.getString(0));
+       edt_memo.setText(cursor.getString(1));
+       edt_middle.setText(cursor.getString(3));
+       edt_money.setText(cursor.getString(2));
+       edt_date.setText(formatter1.format(datedd));
+       ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface arg0, int arg1) {
+           	Log.d("edt_date",edt_date.getText().toString());
+           	String[] tmp_str_date = edt_date.getText().toString().split("-");
+           	Log.d("Good",tmp_str_date[0]);
+           	Log.d("Good",tmp_str_date[1]);
+           	Log.d("Good",tmp_str_date[2]);
+           	Log.d("Hello", "Good");
+           	
+           
+           	Date tmp_date = new Date(Integer.parseInt(tmp_str_date[0])-1900,Integer.parseInt(tmp_str_date[1])-1,Integer.parseInt(tmp_str_date[2]));
+           	String aaa = String.valueOf(currentDate.getTime());
+           	aaa = ""+tmp_date.getTime();
+           	Log.d("",aaa);
+           	//Date tmp_date_sql = new Date(edt_date.getText().toString());
+           	Log.d("", "1");
+           	ContentValues val = new ContentValues();
+           	val.put("content",edt_content.getText().toString());
+           	val.put("memo",edt_memo.getText().toString());
+           	val.put("money",Integer.parseInt(edt_money.getText().toString()));
+           
+           	val.put("date",aaa);
+           	val.put("kindof",edt_middle.getText().toString());
+           
+           	inputDB.datadel(""+num);
+           	inputDB.insertTable(val);
+           	adapter=null;
+           	tmp_Content.clear();
+           	madeAdapter();
+           	adapter.notifyDataSetChanged();
+           	lv.setAdapter(adapter);
+           }
+       });
+        ab.setNeutralButton("즐겨찾기",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+       ab.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface arg0, int arg1) {
+             //  setDismiss(mDialog);
+           }
+       });
+         
+       return ab.create();
+ }
  private AlertDialog dialog_list_favor(){
 	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_list_favor, null);
 	 final AlertDialog.Builder ab = new AlertDialog.Builder(this);
@@ -297,6 +419,81 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 			}
 		});
         return ab.create();	
+ } private AlertDialog dialog_list_favor_input(){
+	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_list_favor, null);
+	 final AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setTitle("수입 즐겨찾기 편집");
+        LinearLayout textView =(LinearLayout) innerView.findViewById(R.id.shortcutrow_nodata);
+        ListView lview =(ListView)innerView.findViewById(R.id.dial_list);	        
+        
+        
+        
+        String[] columns={"content","memo","money","kindof","_id"};
+    	String selection="date=?";
+    	
+    	String selectionArgs="";
+    	
+        Cursor tmpc = favorInputDB.selectTable(columns,null,null,null,null,null);
+        if(tmpc.getCount()==0){
+        	lview.setVisibility(View.GONE);
+        	textView.setVisibility(View.VISIBLE);
+        }else{
+        	
+        	textView.setVisibility(View.GONE);
+        	list = new ArrayList<HashMap<String,String>>();
+        	if(tmpc.moveToNext()){
+        		do{
+        			HashMap<String,String> map = new HashMap<String, String>();
+        			map.put("0",tmpc.getString(0));
+        			map.put("1",tmpc.getString(1));
+        			map.put("2",tmpc.getString(2));
+        			map.put("3",tmpc.getString(3));
+        			map.put("4",tmpc.getString(4));
+        		//	map.put("5",tmpc.getString(5));
+        			Log.d("0",tmpc.getString(0));
+        			Log.d("1",tmpc.getString(1));
+        			Log.d("2",tmpc.getString(2));
+        			Log.d("3",tmpc.getString(3));
+        			Log.d("4",tmpc.getString(4));
+        			//Log.d("5",tmpc.getString(5));
+        			list.add(map);
+        		}while(tmpc.moveToNext());
+        	}
+        	dialogAdapter dAdapter = new dialogAdapter(getApplicationContext(), R.layout.listrow_shortcut,list);
+        	lview.setAdapter(dAdapter);
+        	lview.setOnItemClickListener(new OnItemClickListener() {
+        		
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					//Toast.makeText(getApplicationContext(), list.size() +" dsa"+ arg2,1000).show();
+					//AlertDialog dialog_ = dialog_edit_favor_edit(list.get(arg2));
+					
+					//favorlistdialog.dismiss();
+				dd.dismiss();
+					HashMap<String,String> h = list.get(arg2);
+					AlertDialog dialog_ = dialog_add_spend(h);
+					dialog_.show();
+					
+					
+				}
+			});
+        	lview.setVisibility(View.VISIBLE);
+        }
+        
+        
+        
+        ab.setView(innerView);
+   
+        ab.setNegativeButton("나가기",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        return ab.create();	
  }
  private AlertDialog dialog_edit_favor_edit(final HashMap<String,String> map){
 	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_add_input, null);
@@ -353,7 +550,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 				showDialog(DIALOG_DATE_edt);
 			}
 		});
-     ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+     ab.setPositiveButton("수정", new DialogInterface.OnClickListener() {
          @Override
          public void onClick(DialogInterface arg0, int arg1) {
          	Log.d("edt_date",edt_date.getText().toString());
@@ -436,6 +633,67 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
         return ab.create();
  }
  private AlertDialog dialog_edit_favor(){
+	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_favorite_input_edit, null);
+	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
+     
+	 final EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
+     final EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
+     final EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
+     final EditText edt_detail =  (EditText)innerView.findViewById(R.id.dialog_edit_detail);
+     
+     
+     edt_detail.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_TwoActivity.this);
+			builder.setTitle("수입 분류 선택");
+			builder.setItems(util.Middleitems_input, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	edt_detail.setText(util.Middleitems_input[item]);
+			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+	});
+	 
+	 ab.setTitle("수입 즐겨찾기 편집");
+        
+     ab.setView(innerView);
+        
+        
+        
+        ab.setPositiveButton("입력",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub
+				ContentValues val = new ContentValues();
+				val.put("content",edt_content.getText().toString());
+            	val.put("memo",edt_memo.getText().toString());
+            	val.put("money",Integer.parseInt(edt_money.getText().toString()));
+            	val.put("kindof",edt_detail.getText().toString());
+            	favorInputDB.insertTable(val);
+				Toast.makeText(getApplicationContext(), "입력되었습니다.",Toast.LENGTH_SHORT).show();
+				favorlistdialog = dialog_list_favor();
+				favorlistdialog.show();
+			}
+		});
+        ab.setNegativeButton("취소",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        return ab.create();
+        
+ } private AlertDialog dialog_edit_favor_input(){
 	 final View innerView = getLayoutInflater().inflate(R.layout.dialog_favorite_input_edit, null);
 	 AlertDialog.Builder ab = new AlertDialog.Builder(this);
      
@@ -587,7 +845,118 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					dd = dialog_list_favor_input();					
+					dd.show();
+				}
+			});
+	        ab.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+	            @Override
+	            public void onClick(DialogInterface arg0, int arg1) {
+	              //  setDismiss(mDialog);
+	            }
+	        });
+	          
+	        return ab.create();
+	    }
+	 private AlertDialog dialog_add_spend(HashMap<String,String> h) {
+	        final View innerView = getLayoutInflater().inflate(R.layout.dialog_add_input, null);
+	        AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	        ab.setTitle("수입내역");
+	        ab.setView(innerView);
+	        edt_date = (EditText)innerView.findViewById(R.id.dialog_edit_date);
+	        final EditText edt_money =(EditText)innerView.findViewById(R.id.dialog_edit_money);
+	        final EditText edt_content = (EditText)innerView.findViewById(R.id.dialog_edit_content);
+	        final EditText edt_memo = (EditText)innerView.findViewById(R.id.dialog_edit_memo);
+	        final EditText edt_middle = (EditText)innerView.findViewById(R.id.dialog_edit_middle);
+	        
+	        edt_middle.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+						
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(Tab_TwoActivity.this);
+					builder.setTitle("수입 분류 선택");
+					builder.setItems(util.Middleitems_input, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	edt_middle.setText(util.Middleitems_input[item]);
+					    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
+	        //Calendar cc = Calendar.getInstance();
+	        //String tmp_date = cc.get(Calendar.YEAR)+"-"+(cc.get(Calendar.MONTH)+1)+"-"+cc.get(Calendar.DAY_OF_MONTH);
+	        //String tmp_time =  cc.get(Calendar.HOUR_OF_DAY)+":"+cc.get(Calendar.MINUTE);
+	        
+	        
+	        SimpleDateFormat formatter1 = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	        final Date currentDate = new Date ( );
+	        String dDate = formatter1.format ( currentDate );
+	        SimpleDateFormat formatter2 = new SimpleDateFormat ( "HH:mm", Locale.KOREA );
+	        Date currentTime = new Date ( );
+	        String dTime = formatter2.format ( currentTime );
+	        
+	        edt_date.setText(dDate);
+	        
+	        edt_money.setText(h.get("2"));
+	        edt_content.setText(h.get("0"));
+	        edt_memo.setText(h.get("1"));
+	        edt_middle.setText(h.get("3"));
+	        
+	        
+	        edt_date.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					showDialog(DIALOG_DATE_edt);
+				}
+			});
+	        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+	            @Override
+	            public void onClick(DialogInterface arg0, int arg1) {
+	            	Log.d("edt_date",edt_date.getText().toString());
+	            	String[] tmp_str_date = edt_date.getText().toString().split("-");
+	            	Log.d("Good",tmp_str_date[0]);
+	            	Log.d("Good",tmp_str_date[1]);
+	            	Log.d("Good",tmp_str_date[2]);
+	            	Log.d("Hello", "Good");
+	            	
+	            
+	            	Date tmp_date = new Date(Integer.parseInt(tmp_str_date[0])-1900,Integer.parseInt(tmp_str_date[1])-1,Integer.parseInt(tmp_str_date[2]));
+	            	String aaa = String.valueOf(currentDate.getTime());
+	            	aaa = ""+tmp_date.getTime();
+	            	Log.d("",aaa);
+	            	//Date tmp_date_sql = new Date(edt_date.getText().toString());
+	            	Log.d("", "1");
+	            	ContentValues val = new ContentValues();
+	            	val.put("content",edt_content.getText().toString());
+	            	val.put("memo",edt_memo.getText().toString());
+	            	val.put("money",Integer.parseInt(edt_money.getText().toString()));
+	            
+	            	val.put("date",aaa);
+	            	val.put("kindof",edt_middle.getText().toString());
+	            
+	     
+	            	inputDB.insertTable(val);
+	            	adapter=null;
+	            	tmp_Content.clear();
+	            	madeAdapter();
+	            	adapter.notifyDataSetChanged();
+	            	lv.setAdapter(adapter);
+	            }
+	        });
+	         ab.setNeutralButton("즐겨찾기",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					AlertDialog dd = dialog_list_favor_input();
 					
+					dd.show();
 				}
 			});
 	        ab.setNegativeButton("취소", new DialogInterface.OnClickListener() {
