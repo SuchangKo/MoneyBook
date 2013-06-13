@@ -35,6 +35,7 @@ import android.widget.Toast;
 public class Tab_FourActivity extends Activity implements OnClickListener {
 	Button bt_next;
 	Button bt_pre;
+	Button btdate;
 	Button bt4;
 	Button bt5;
 	Button bt6;
@@ -57,8 +58,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
         inputDB.open();
         moneyBookDB.open();
         setContentView(R.layout.activity_tab4);
-        bt_next=(Button)findViewById(R.id.button1);
-        bt_pre=(Button)findViewById(R.id.button3);
+        bt_next=(Button)findViewById(R.id.button2);
+        bt_pre=(Button)findViewById(R.id.button1);
+        btdate = (Button)findViewById(R.id.button3);
+        btdate.setOnClickListener(this);
         bt4=(Button)findViewById(R.id.button4);
         bt5=(Button)findViewById(R.id.button5);
         bt6=(Button)findViewById(R.id.button6);
@@ -224,6 +227,11 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 			});
 			AlertDialog alert = builder.create();
 			alert.show();
+		}else if(v.getId()==R.id.button3){
+			Toast.makeText(getApplicationContext(), "새로고침",Toast.LENGTH_SHORT).show();
+			makeAdapter();
+			adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+	        listView.setAdapter(adapter);
 		}
 	}
     

@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
@@ -49,6 +50,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	Calendar c;
 	MoneyInputDB inputDB;
 	MoneyBookDB moneyBookDB;
+	Tabthreesqlite tabthreesqlite;
 	GregorianCalendar grecal;
 	int tmp_moneyint=0;
 	int tmp_spendint=0;
@@ -69,9 +71,14 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         moneyBookDB =  new MoneyBookDB(this,MoneyBookDB.SQL_Create_Moneybook,MoneyBookDB.SQL_DBname);
         inputDB.open();
         moneyBookDB.open();
-        /*
-         * 
-        */
+        tabthreesqlite = new Tabthreesqlite(getApplicationContext(),Tabthreesqlite.SQL_Create_tabthreeview,Tabthreesqlite.SQL_DBname);
+        tabthreesqlite.open();
+       
+        
+        
+        
+        
+        
         Startadapter();
         		
         listView = (ListView)findViewById(R.id.listview1);
@@ -93,10 +100,23 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         nameArrayList = new ArrayList<String>();
         budgetArrayList = new ArrayList<Integer>();
         
+        
+        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname);
+        Log.d("",""+arraycCursor.getCount());
+        if(arraycCursor.getCount()>0){
+        	if(arraycCursor.moveToFirst()){
+        		do{
+        			wholemoneyarrayList.add(0);
+                	spendmonetArrayList.add(arraycCursor.getInt(1));
+                	nameArrayList.add(arraycCursor.getString(2));
+                	budgetArrayList.add(arraycCursor.getInt(3));
+        		}while(arraycCursor.moveToNext());
+        	}	
+        }
+        
         adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
         listView.setAdapter(adapter);  
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int arg2, long arg3) {
@@ -117,7 +137,6 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				alert.show();
 				return false;
 			}
-        	
 		});
     }
    void Startadapter(){
@@ -189,10 +208,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			    			ShowToast("전체 예산이 이미 등록되어 있습니다.");
 			    		}else{
 			    			allspendviewed=true;
-			    			wholemoneyarrayList.add(tmp_moneyint);
-			    	        spendmonetArrayList.add(tmp_spendint);
-			    	        nameArrayList.add("전체 예산");
-			    	        budgetArrayList.add(0);
+			    			addlist(tmp_moneyint,tmp_spendint,"전체 예산",0);
 			    	        adapter.notifyDataSetChanged();
 			    		}
 			    		
@@ -233,11 +249,15 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     	Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
     } 
     void editlist(int index,int obj){
+    	ContentValues values = new ContentValues();
+    	values.put("budget",obj);
+    	tabthreesqlite.updateTable(values,"name",nameArrayList.get(index));
+    	
     	budgetArrayList.set(index, obj);
     	adapter.notifyDataSetChanged();
     }
     void dellist(int num){
-    	
+    	tabthreesqlite.datadel(String.valueOf(spendmonetArrayList.get(num)),nameArrayList.get(num),String.valueOf(budgetArrayList.get(num)));
     	wholemoneyarrayList.remove(num);
     	spendmonetArrayList.remove(num);
     	if(nameArrayList.get(num).equals("전체 예산")){
@@ -246,17 +266,30 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     	nameArrayList.remove(num);
     	
     	budgetArrayList.remove(num);
+    	
     	adapter.notifyDataSetChanged();
     }
     void addlist(int wholemoney,int spendmoney,String name,int budget){
+    	adapter.notifyDataSetChanged();
+    	Log.d("name",name);
     	wholemoneyarrayList.add(wholemoney);
         spendmonetArrayList.add(spendmoney);
         nameArrayList.add(name);
         budgetArrayList.add(budget);
+        
+        Log.d("spendmoney",spendmoney+"");
+        Log.d("name",name);
+        Log.d("budget",budget+"");
+        
+        ContentValues val = new ContentValues();
+        val.put("spendmoney",spendmoney);
+        val.put("name",name);
+        val.put("budget",budget);
+        tabthreesqlite.insertTable(val);
+        
         adapter.notifyDataSetChanged();
     }
     void DialogShow(){
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
 		builder.setTitle("예산 카테고리 추가");
 		builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
@@ -454,7 +487,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 						d2.setDate(Lastday);
 						int spendmoney_MONTH=0;
 						
-						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE "+ed1.getText().toString()+"+"+ed2.getText().toString()+" AND date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime());
+						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+ed1.getText().toString()+"+"+ed2.getText().toString()+"' AND date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime());
 						//Log.d("",SQLstr);
 						Cursor c = moneyBookDB.RawQueryString(SQLstr);
 						
@@ -468,7 +501,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 						
 						
 						
-					addlist(0,spendmoney_MONTH,ed1.getText().toString()+"/"+ed2.getText().toString(),0);
+					addlist(0,spendmoney_MONTH,ed1.getText().toString()+"-"+ed2.getText().toString(),0);
 					}else{
 						ShowToast("카테고리를 선택 해주세요.");
 						}

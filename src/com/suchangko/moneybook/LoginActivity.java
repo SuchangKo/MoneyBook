@@ -1,8 +1,5 @@
 package com.suchangko.moneybook;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
