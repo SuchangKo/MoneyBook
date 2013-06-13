@@ -80,9 +80,7 @@
             android:textColor="#0657b8" />
 
     </RelativeLayout>
-    <ListView
-            android:id="@+id/listview1"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            />
+ <LinearLayout android:layout_marginTop="20dp"   android:id="@+id/chart" android:orientation="horizontal"
+                  android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1"/>
+
 </LinearLayout>
