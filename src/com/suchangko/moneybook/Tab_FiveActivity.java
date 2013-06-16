@@ -232,6 +232,10 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	}
 	@Override
 	public void onClick(View v) {
+		if(popup){
+			  mWindowManager.removeView(popButton);
+    		  popup=false;
+		}
 		// TODO Auto-generated method stub
 		if(v.getId()==R.id.button4){
 		AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FiveActivity.this);
@@ -249,7 +253,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			builder.setTitle("통계 단위 선택");
 			builder.setItems(util.monthyear, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	bt5.setText(util.monthyear[item]);
+			    	bt6.setText(util.monthyear[item]);
 			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
 			    }
 			});
@@ -260,7 +264,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			builder.setTitle("통계 분류 선택");
 			builder.setItems(util.allspend, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	bt6.setText(util.allspend[item]);
+			    	bt5.setText(util.allspend[item]);
 			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
 			    }
 			});
@@ -300,8 +304,8 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			        		 LastXvalue=seriesSelection.getXValue();
 			        		 
 			        		 if(popup){
-				        		  mWindowManager.removeView(popButton);
-				        		  popup=false;
+					        		  mWindowManager.removeView(popButton);
+					        		  popup=false;
 				        	  }else{
 				        		  mWindowManager.addView(popButton, mParams);
 				        		  popup=true;

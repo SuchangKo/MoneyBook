@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -39,6 +40,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	Button bt4;
 	Button bt5;
 	Button bt6;
+	TextView tv_title2;
 	ListView listView;
 	ListViewAdapter adapter;
 	MoneyInputDB inputDB;
@@ -50,6 +52,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	ArrayList<String> arrayList3;
 	int lastday_1=0;
 	int lastday_2=0;
+	int statisticscode=1;
+	//1 = 지출/전체  2=수입/전체
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         c = Calendar.getInstance();
@@ -60,6 +64,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_tab4);
         bt_next=(Button)findViewById(R.id.button2);
         bt_pre=(Button)findViewById(R.id.button1);
+        tv_title2 = (TextView)findViewById(R.id.tv_title_2);
+        tv_title2.setText("지출 금액");
         btdate = (Button)findViewById(R.id.button3);
         btdate.setOnClickListener(this);
         bt4=(Button)findViewById(R.id.button4);
@@ -69,9 +75,23 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
         bt5.setOnClickListener(this);
         bt6.setOnClickListener(this);
         listView = (ListView)findViewById(R.id.listview1);
-        makeAdapter();
+        makeAdapter(statisticscode);
         adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				String datetext = adapter.getDateString(arg2);
+				Intent intent = new Intent(getApplicationContext(),SearchtotalActivity.class);
+				intent.putExtra("datetext",datetext);
+				intent.putExtra("code",statisticscode);
+				startActivity(intent);
+			}
+        	
+		});
     }
     
     @Override
@@ -97,98 +117,149 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-   void makeAdapter(){
+   void makeAdapter(int code){
 	   arrayList1 = new ArrayList<String>();
 	   arrayList2 = new ArrayList<String>();
 	   arrayList3 = new ArrayList<String>();
-	   int month = c.get(Calendar.MONTH);
-	   for(int i=0;i<12;i++){
-		   Calendar calendar;
-		   calendar = Calendar.getInstance();
-		   calendar.set(Calendar.MONTH,month-i);
-		   
-		   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-		   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		   int ii=0;
-		   
-		   int tmp_moneyint=0;
-		   int tmp_spendint=0;
-		   
-		   int year_ = calendar.get(Calendar.YEAR);
-	       int month_ = calendar.get(Calendar.MONTH)+1;
-	       lastday_1=0;
-		   lastday_2=0;
-		   Log.d("Start","day1="+lastday_1+" and day2="+lastday_2);
-		   while(ii<Lastday){
-			   int a = Lastday;
-		       	
-		       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
-		       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
-		       	String[] columns={"content","memo","money","kindof","date"};
-		       	String selection="date=?";
-		       	String[] selectionArgs={
-		       			String.valueOf(tmp_date.getTime())
-		       			};    
-		       	Cursor c = inputDB.selectTable(columns, selection, selectionArgs, null,null,null);
-		       	Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
-		       	int tmp_count=c.getCount();
-		       	//Log.d("","count"+tmp_count);
-		       	int tmp_money = 0;
-		       	if(tmp_count>0){
-		       		
-		       		
-		       		if(c.moveToFirst()){
-		       			do{tmp_money += Integer.parseInt(c.getString(2));
-		       			}while(c.moveToNext());
-		       		}        		
-		       		tmp_moneyint+=tmp_money;
-		       		
-		       		
+	   
+	   if(statisticscode==1){
+		   int month = c.get(Calendar.MONTH);
+		   for(int i=0;i<12;i++){
+			   Calendar calendar;
+			   calendar = Calendar.getInstance();
+			   calendar.set(Calendar.MONTH,month-i);
+			   
+			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			   int ii=0;
+			   
+			 
+			   int tmp_spendint=0;
+			   
+			   int year_ = calendar.get(Calendar.YEAR);
+		       int month_ = calendar.get(Calendar.MONTH)+1;
+		       lastday_1=0;
+			  
+			   
+			  
+			   while(ii<Lastday){
+				   int a = Lastday;
 			       	
-		       	}
-		       	int tmp_spend=0;
-		       	if(c_money.moveToFirst()){
-		       		do{tmp_spend+=Integer.parseInt(c_money.getString(2));
-		       		}while(c_money.moveToNext());
-		       	}
-		       	
-		       	
-		       	tmp_spendint+=tmp_spend;
-		       	
-		       	
+			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
+			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
+			       	String[] columns={"content","memo","money","kindof","date"};
+			       	String selection="date=?";
+			       	String[] selectionArgs={
+			       			String.valueOf(tmp_date.getTime())
+			       			};    
+			       	
+			       	Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
+			       
+			       	//Log.d("","count"+tmp_count);
+			       
+			  
+			       	int tmp_spend=0;
+			       	if(c_money.moveToFirst()){
+			       		do{tmp_spend+=Integer.parseInt(c_money.getString(2));
+			       		}while(c_money.moveToNext());
+			       	}
+			       	
+			       	
+			       	tmp_spendint+=tmp_spend;
+			       	
+			       	
 
-		       	if(tmp_spend>0){
-		       		if(lastday_1<(a-ii))
-		       		lastday_1=(a-ii);
-		       		Log.d("date : "+(a-ii),""+tmp_spend);
-		       	}
-		       	if(tmp_money>0){
-		       		if(lastday_2<(a-ii))
-		       		lastday_2=(a-ii);
-		       		Log.d("date : "+(a-ii),""+tmp_money);
-		       	}
-		       	
-		       	
-		       	ii++;
+			       	if(tmp_spend>0){
+			       		if(lastday_1<(a-ii))
+			       		lastday_1=(a-ii);
+			       		Log.d("date : "+(a-ii),""+tmp_spend);
+			       	}
+			      
+			       	ii++;
+			   }
+			   Log.d("",lastday_2+"fd");
+			 
+			   if(tmp_spendint>0){
+				   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_1);
+				   arrayList2.add(String.format("￦%,d",tmp_spendint));
+				   arrayList3.add(String.format("￦%,d",tmp_spendint));
+			   }
+			   
+			   lastday_1=0;
+			  
+			  
 		   }
-		   Log.d("",lastday_2+"fd");
-		   if(tmp_moneyint>0){
-			   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_2);
-			   arrayList2.add(String.format("￦%,d",tmp_moneyint));
-			   arrayList3.add(String.format("￦%,d",tmp_moneyint));
+	   }else if(statisticscode==2){
+		   int month = c.get(Calendar.MONTH);
+		   for(int i=0;i<12;i++){
+			   Calendar calendar;
+			   calendar = Calendar.getInstance();
+			   calendar.set(Calendar.MONTH,month-i);
+			   
+			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			   int ii=0;
+			   
+			   int tmp_moneyint=0;
+			   
+			   
+			   int year_ = calendar.get(Calendar.YEAR);
+		       int month_ = calendar.get(Calendar.MONTH)+1;
+		      
+			   lastday_2=0;
+			   Log.d("Start","day1="+lastday_1+" and day2="+lastday_2);
+			   
+			  
+			   while(ii<Lastday){
+				   int a = Lastday;
+			       	
+			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
+			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
+			       	String[] columns={"content","memo","money","kindof","date"};
+			       	String selection="date=?";
+			       	String[] selectionArgs={
+			       			String.valueOf(tmp_date.getTime())
+			       			};    
+			       	Cursor c = inputDB.selectTable(columns, selection, selectionArgs, null,null,null);
+			       
+			       	int tmp_count=c.getCount();
+			       	//Log.d("","count"+tmp_count);
+			       	int tmp_money = 0;
+			       	if(tmp_count>0){
+			       		
+			       		
+			       		if(c.moveToFirst()){
+			       			do{tmp_money += Integer.parseInt(c.getString(2));
+			       			}while(c.moveToNext());
+			       		}        		
+			       		tmp_moneyint+=tmp_money;
+			       		
+			       		
+				       	
+			       	}
+			
+			       	if(tmp_money>0){
+			       		if(lastday_2<(a-ii))
+			       		lastday_2=(a-ii);
+			       		Log.d("date : "+(a-ii),""+tmp_money);
+			       	}
+			       	
+			       	
+			       	ii++;
+			   }
+			   Log.d("",lastday_2+"fd");
+			   if(tmp_moneyint>0){
+				   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_2);
+				   arrayList2.add(String.format("￦%,d",tmp_moneyint));
+				   arrayList3.add(String.format("￦%,d",tmp_moneyint));
+			   }
+			   
+			   lastday_2=0;
+			  
 		   }
-		   if(tmp_spendint>0){
-			   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_1);
-			   arrayList2.add(String.format("￦%,d",tmp_spendint));
-			   arrayList3.add(String.format("￦%,d",tmp_spendint));
-		   }
-		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월"+lastday_1+"일"+" : 수입"+tmp_moneyint);
-		   Log.d("",calendar.get(Calendar.YEAR)+"년"+(calendar.get(Calendar.MONTH)+1)+"월"+lastday_2+"일"+" : 지출"+tmp_spendint);
-		   Log.d("Fin","day1="+lastday_1+" and day2="+lastday_2);
-		   lastday_1=0;
-		   lastday_2=0;
-		  
 	   }
+	   
+	   
    }
 
 	@Override
@@ -200,7 +271,22 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		builder.setItems(util.statistics1, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		    	bt4.setText(util.statistics1[item]);
-		    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+		    	if(util.statistics1[item].equals("지출/전체")){
+		    		statisticscode=1;
+		    		tv_title2.setText("지출 금액");
+		    		makeAdapter(statisticscode);
+		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+			        listView.setAdapter(adapter);
+		    	}else if(util.statistics1[item].equals("수입/전체")){
+		    		statisticscode=2;
+		    		tv_title2.setText("수입 금액");
+		    		makeAdapter(statisticscode);
+		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+			        listView.setAdapter(adapter);
+		    	}else{
+		    		Toast.makeText(getApplicationContext(), "'"+util.statistics1[item]+"'는 미구현 기능입니다.", Toast.LENGTH_SHORT).show();
+		    	}
+		    	
 		    }
 		});
 		AlertDialog alert = builder.create();
@@ -229,7 +315,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 			alert.show();
 		}else if(v.getId()==R.id.button3){
 			Toast.makeText(getApplicationContext(), "새로고침",Toast.LENGTH_SHORT).show();
-			makeAdapter();
+			makeAdapter(statisticscode);
 			adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
 	        listView.setAdapter(adapter);
 		}
@@ -263,7 +349,9 @@ class ListViewAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public String getDateString(int arg0){
+		return a.get(arg0);
+	}
 	@Override
 	public long getItemId(int arg0) {
 		// TODO Auto-generated method stub

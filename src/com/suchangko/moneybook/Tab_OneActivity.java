@@ -52,7 +52,7 @@ import android.widget.Toast;
  * To change this template use File | Settings | File Template
  * 수입 수정 fix
  * 탭3 종료시 저장 fix
- * 탭4 눌렀을때 검색 not
+ * 탭4 눌렀을때 검색 fix
  * 탬3 4 월 이동 월별 연별 not
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	

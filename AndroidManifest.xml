@@ -35,6 +35,8 @@
         <activity android:name="Intro3"></activity>
         <activity android:name="Intro4"></activity>
         <activity android:name=".SearcheActivity"/>
+        <activity android:name="SearchsActivity"></activity>
+        <activity android:name="SearchtotalActivity"></activity>
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ public class util {
 	
 	
 	public static final CharSequence[] Middleitems_input = {"없음","월급","이자소득","기타"};
+	public static final CharSequence[] Middleitems_input1 = {"전체","없음","월급","이자소득","기타"};
 	public static final CharSequence[] fixdel = {"수정","삭제"};
 	public static final CharSequence[] fixdel1 = {"예산 수정","예산 삭제"};
 	
