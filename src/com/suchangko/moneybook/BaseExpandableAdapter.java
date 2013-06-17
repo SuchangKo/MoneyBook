@@ -1,5 +1,6 @@
 package com.suchangko.moneybook;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -21,7 +22,9 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
    private ArrayList<ArrayList<String>> childList = null;
    private LayoutInflater inflater = null;
    private ViewHolder viewHolder = null;
-    
+
+	
+	  	 
    public BaseExpandableAdapter(Context c, ArrayList<String> groupList, 
            ArrayList<ArrayList<String>> childList){
        super();
@@ -77,6 +80,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
        String[] tmp_Strings = tmp_String.split("#");
        viewHolder.tv_groupName.setText(tmp_Strings[0]);
        viewHolder.Total_money.setText(tmp_Strings[1]);
+       //viewHolder.Total_money.setText("￦"+df.format(Integer.parseInt(tmp_Strings[1])));
        
        return v;
    }
@@ -137,6 +141,7 @@ public class BaseExpandableAdapter extends BaseExpandableListAdapter{
            viewHolder.tv_childName2.setText(Text[1]);
            viewHolder.tv_childName3.setText(Text[2]);
            viewHolder.tv_childName4.setText(Text[3]);
+          // viewHolder.tv_childName4.setText("￦"+df.format(Integer.parseInt(Text[3])));
    
        }else{
     	   viewHolder.tv_childName.setText("");

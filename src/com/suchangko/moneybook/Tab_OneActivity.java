@@ -1,5 +1,6 @@
 package com.suchangko.moneybook;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,7 +57,7 @@ import android.widget.Toast;
  * 탬3 4 월 이동 월별 연별 not
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	
-	
+	DecimalFormat df = new DecimalFormat("#,##0");
 	ArrayList<HashMap<String,String>> list;
 	EditText edt_date; //Dialog
     EditText edt_time; //Dialog
@@ -2529,11 +2530,14 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 	        			do{
 	        				Log.d("dddd",""+c.getInt(7));
 	        				tmp_money += Integer.parseInt(c.getString(2));
-	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+c.getString(2)+"원"+"#"+c.getInt(7); 
+	        				int dfmoney=Integer.parseInt(c.getString(2));
+	        				
+	        				String tmp_content_String = c.getString(5)+"#"+c.getString(6)+"#"+c.getString(1)+"#"+df.format(dfmoney)+"원"+"#"+c.getInt(7); 
 	    	        		tmp_Content.add(tmp_content_String);	    	  
 			        	}while(c.moveToNext());
 	        		}
-	        		str_tmp_date+="#"+tmp_money+"원";
+	        		
+	        		str_tmp_date+="#"+"￦"+df.format(tmp_money);
 	        		tmp_moneyint+=tmp_money;
 	        	}else{
 	        		//Log.d("값 있음","");
@@ -2596,6 +2600,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 		//	String strings[] = hashMap.get("3").split("+");
 			t2.setText(hashMap.get("3"));
 			//t2.setText(strings[0]);
+			
 			t3.setText(hashMap.get("2")+"원");
 			//t4.setText(hashMap.get("0"));
 			return arg1;
