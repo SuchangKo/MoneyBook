@@ -1,5 +1,6 @@
 package com.suchangko.moneybook;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,6 +41,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	Button bt4;
 	Button bt5;
 	Button bt6;
+	Button bt_next;
+	
+	Button bt_pre;
 	TabthreeAdapter adapter;
 	ListView listView;
 	ArrayList<Integer> wholemoneyarrayList;
@@ -56,12 +60,110 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	int tmp_spendint=0;
 	boolean moneyview1 = true;
 	boolean moneyview2 = true;
+	Calendar calendar_1_bt;
+	Calendar calendar_2_bt;
+	 GregorianCalendar gregorianCalendar;
 	
 	boolean allspendviewed = false;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
+       gregorianCalendar = new GregorianCalendar();
+        calendar_1_bt =  Calendar.getInstance();
+        calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
+        calendar_2_bt =  Calendar.getInstance();
+        calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        
+        Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+        Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
+        
+        
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+        bt_date = (Button)findViewById(R.id.button2);
+        bt_date.setText(dateString);
+        bt_pre = (Button)findViewById(R.id.button1);
+        bt_next=(Button)findViewById(R.id.button3);
+        
+        bt_pre.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				calendar_1_bt.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH)-1);
+				calendar_2_bt.set(calendar_1_bt.get(Calendar.YEAR),calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+				gregorianCalendar.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH));
+				calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+				Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+				Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));		        
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+			  
+			    bt_date.setText(dateString);
+			    
+			    
+		        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname +" WHERE date= '"+ddate1.getTime()+"'");
+		        Log.d("",""+arraycCursor.getCount());
+		        if(arraycCursor.getCount()>0){
+		        	if(arraycCursor.moveToFirst()){
+		        		do{
+		        			wholemoneyarrayList.add(0);
+		                	spendmonetArrayList.add(arraycCursor.getInt(1));
+		                	nameArrayList.add(arraycCursor.getString(2));
+		                	if(arraycCursor.getString(2).equals("전체 예산")){
+		                		allspendviewed=true;
+		                	}
+		                	budgetArrayList.add(arraycCursor.getInt(3));
+		        		}while(arraycCursor.moveToNext());
+		        	}	
+		        }
+		        Startadapter();
+		        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+		        listView.setAdapter(adapter);  
+				
+			}
+		});
+        
+        bt_next.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				calendar_1_bt.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH)+1);
+				calendar_2_bt.set(calendar_1_bt.get(Calendar.YEAR),calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+				gregorianCalendar.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH));
+				calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+				Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+				Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));		        
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+			   
+			    bt_date.setText(dateString);
+			    
+			    
+		        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname +" WHERE date= '"+ddate1.getTime()+"'");
+		        Log.d("",""+arraycCursor.getCount());
+		        if(arraycCursor.getCount()>0){
+		        	if(arraycCursor.moveToFirst()){
+		        		do{
+		        			wholemoneyarrayList.add(0);
+		                	spendmonetArrayList.add(arraycCursor.getInt(1));
+		                	nameArrayList.add(arraycCursor.getString(2));
+		                	if(arraycCursor.getString(2).equals("전체 예산")){
+		                		allspendviewed=true;
+		                	}
+		                	budgetArrayList.add(arraycCursor.getInt(3));
+		        		}while(arraycCursor.moveToNext());
+		        	}	
+		        }
+		        Startadapter();
+		        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+		        listView.setAdapter(adapter);  
+			}
+		});
         bt4 = (Button)findViewById(R.id.button4);
+       // bt4.setText(dateString);
         bt5 = (Button)findViewById(R.id.button5);
         bt5.setOnClickListener(this);
         bt6 = (Button)findViewById(R.id.button6);
@@ -75,7 +177,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         tabthreesqlite.open();
        
         
-        
+         
         
         
         
@@ -101,7 +203,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         budgetArrayList = new ArrayList<Integer>();
         
         
-        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname);
+        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname +" WHERE date= '"+ddate1.getTime()+"'");
         Log.d("",""+arraycCursor.getCount());
         if(arraycCursor.getCount()>0){
         	if(arraycCursor.moveToFirst()){
@@ -140,15 +242,15 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 		});
     }
    void Startadapter(){
-
-       grecal=new GregorianCalendar();
+	   
+       grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
        int i=0;
        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
        
        while(i<LastDay){
        	int a = LastDay;
-       	int year_ = c.get(Calendar.YEAR);
-       	int month_ = c.get(Calendar.MONTH)+1;
+       	int year_ =  calendar_1_bt.get(Calendar.YEAR);
+       	int month_ =  calendar_1_bt.get(Calendar.MONTH)+1;
        	Date tmp_date = new Date(year_-1900, month_-1, a-i);
        	String[] columns={"content","memo","money","kindof","date"};
        	String selection="date=?";
@@ -185,11 +287,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
     	menu.add(0,0,0,"예산 추가").setIcon(R.drawable.ic_menu_add);
-    	menu.add(0,1,0,"예산 복사").setIcon(android.R.drawable.ic_menu_share);
-    	menu.add(0,2,0,"예산 붙여넣기").setIcon(android.R.drawable.ic_menu_set_as);
-    	menu.add(1,3,0,"상위 예산 분배").setIcon(android.R.drawable.ic_menu_search);
-    	menu.add(1,4,0,"회사소개").setIcon(android.R.drawable.ic_menu_help);
-    	menu.add(1,5,0,"환경설정").setIcon(R.drawable.ic_menu_more);	
+    	menu.add(0,1,0,"더보기").setIcon(R.drawable.ic_menu_more);	
 	return true;
 	}
     
@@ -208,6 +306,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			    			ShowToast("전체 예산이 이미 등록되어 있습니다.");
 			    		}else{
 			    			allspendviewed=true;
+			    			tmp_moneyint=0;
+			    			tmp_spendint=0;
+			    			Startadapter();
 			    			addlist(tmp_moneyint,tmp_spendint,"전체 예산",0);
 			    	        adapter.notifyDataSetChanged();
 			    		}
@@ -226,20 +327,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 
 			alert.show();
 			break;
+		
 		case 1:
-			Toast.makeText(this,"이전문자등록",100).show();
-			break;
-		case 2:
-			Toast.makeText(this,"즐겨찾기편집",100).show();
-			break;
-		case 3:
-			Toast.makeText(this,"지출내역검색",100).show();
-			break;
-		case 4:
-			Intent i = new Intent(this,CompanyIntro.class);
-			startActivity(i);
-			break;
-		case 5:
 			Toast.makeText(this,"더보기",100).show();
 			break;
 				}
@@ -251,7 +340,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
     void editlist(int index,int obj){
     	ContentValues values = new ContentValues();
     	values.put("budget",obj);
-    	tabthreesqlite.updateTable(values,"name",nameArrayList.get(index));
+    	Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+    	tabthreesqlite.updateTable(values,"name",nameArrayList.get(index),"date",ddate1.getTime()+"");
     	
     	budgetArrayList.set(index, obj);
     	adapter.notifyDataSetChanged();
@@ -280,8 +370,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         Log.d("spendmoney",spendmoney+"");
         Log.d("name",name);
         Log.d("budget",budget+"");
-        
+        Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
         ContentValues val = new ContentValues();
+        val.put("date",ddate1.getTime());
         val.put("spendmoney",spendmoney);
         val.put("name",name);
         val.put("budget",budget);
@@ -478,12 +569,12 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 					// TODO Auto-generated method stub
 					if(!ed1.getText().toString().equals("")&&!ed2.getText().toString().equals("")){
 						
-						GregorianCalendar grecal = new GregorianCalendar();
+						GregorianCalendar grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
-						Date d1 = new Date();
+						Date d1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						d1.setDate(Firstday);
-						Date d2 = new Date();
+						Date d2 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						d2.setDate(Lastday);
 						int spendmoney_MONTH=0;
 						
@@ -546,12 +637,13 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					if(!edt.getText().toString().equals("")){
-						GregorianCalendar grecal = new GregorianCalendar();
+						
+						GregorianCalendar grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
-						Date d1 = new Date();
+						Date d1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						d1.setDate(Firstday);
-						Date d2 = new Date();
+						Date d2 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						d2.setDate(Lastday);
 						int spendmoney_MONTH=0;
 						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime())+" AND kindof LIKE '"+edt.getText().toString()+"%'";

@@ -19,7 +19,8 @@ public class Tabthreesqlite {
            "create table tabthreeview (_id integer primary key autoincrement,"
                    +"spendmoney integer not null,"
                    +"name text not null,"
-                   +"budget integer not null"
+                   +"budget integer not null,"
+                   +"date text not null"
                    +")";
    private final Context cxt;
 
@@ -75,7 +76,7 @@ public class Tabthreesqlite {
     public boolean updateTable(ContentValues values, String pkColumn, long pkData) {
         return db.update(Table_Name, values, pkColumn+"="+pkData, null)>0;
     }
-    public boolean updateTable(ContentValues values, String pkColumn, String pkData) {
-        return db.update(Table_Name, values, pkColumn+"="+"'"+pkData+"'", null)>0;
+    public boolean updateTable(ContentValues values, String pkColumn, String pkData,String pkColumn1, String pkData1) {
+        return db.update(Table_Name, values, pkColumn+"="+"'"+pkData+"'"+" AND "+pkColumn1+"='"+pkData1+"'", null)>0;
     }
 }

@@ -1,8 +1,10 @@
 package com.suchangko.moneybook;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -72,6 +74,8 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		    TextView tv1,tv2,tv3,tv4;
 		    boolean popup=false;
 		    double LastXvalue=0;
+			Calendar calendar_1_bt;
+			Calendar calendar_2_bt;
 
 	 @Override
 	  protected void onSaveInstanceState(Bundle outState) {
@@ -112,6 +116,21 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
        bt_next=(Button)findViewById(R.id.button2);
        bt_pre=(Button)findViewById(R.id.button1);
        btdate = (Button)findViewById(R.id.button3);
+       GregorianCalendar gregorianCalendar = new GregorianCalendar();
+       calendar_1_bt =  Calendar.getInstance();
+       calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
+       calendar_2_bt =  Calendar.getInstance();
+       calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+       
+       Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+       Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
+       
+       
+       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+       
+       String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+      
+       btdate.setText(dateString);
        btdate.setOnClickListener(this);
        bt4=(Button)findViewById(R.id.button4);
        bt5=(Button)findViewById(R.id.button5);
@@ -150,7 +169,9 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
        r.setFillPoints(true);
        r.setDisplayChartValues(true);
        r.setDisplayChartValuesDistance(10);
-       r.setColor(Color.RED);
+       
+       
+       r.setColor(Color.parseColor("#1482f9"));
        r.setLineWidth(3);
        
        
@@ -175,17 +196,22 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	       Calendar c1 = Calendar.getInstance();
 	       Calendar c2 = Calendar.getInstance();
 	       c2.set(Calendar.YEAR,c1.get(Calendar.YEAR)-1);
+	       c2.set(Calendar.MONTH,c2.get(Calendar.MONTH));
 	       
 	       
 	       boolean prezero=false;
 	       boolean notzero=false;
 	      	Log.d("1","1");
 	      	 int cnt=1;
-	       for(int i=0;i<13;i++){
+	       for(int i=0;i<12;i++){
 	    	   int money_fin = 0;
-	    	   Date tmp1 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH)-1,c2.get(Calendar.DAY_OF_MONTH));
-	    	   c2.set(Calendar.MONTH,c2.get(Calendar.MONTH)+1);
-	    	   Date tmp2 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH)-1,c2.get(Calendar.DAY_OF_MONTH));
+	    	   Date tmp1 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH)+1,1);
+	    	   GregorianCalendar gregorianCalendar = new GregorianCalendar(c2.get(Calendar.YEAR),c2.get(Calendar.MONTH)-1,c2.get(Calendar.DAY_OF_MONTH));
+	    	   
+	    	   Date tmp2 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH)+1,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	    	  
+	    	   
+	    	   
 	    	   
 	    	   String queryStr = "SELECT money,date FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime());
 	    	   Log.d("QUERY", queryStr);
@@ -217,7 +243,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	    		   
 		    	   add(cnt,money_fin);
 		    	   
-		    	   mRenderer.addTextLabel(cnt,(c2.get(Calendar.MONTH)+1)+"월");
+		    	   mRenderer.addTextLabel(cnt,(c2.get(Calendar.MONTH)+2)+"월");
 		    	   cnt++;
 	    	   }
 	    	   
@@ -226,7 +252,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	    	   if(maxmoney<money_fin){
 	    		   maxmoney=money_fin;
 	    	   }
-
+	    	   c2.set(Calendar.MONTH,c2.get(Calendar.MONTH)+1);
 	    	   
 	       }
 	}
@@ -404,7 +430,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		        	  }
 	        		 
 	        	  }else{
-	        		  
+	        		  LastXvalue=seriesSelection.getXValue();
 	        		  if(popup){
 		        		  mWindowManager.removeView(popButton);
 		        		  popup=false;

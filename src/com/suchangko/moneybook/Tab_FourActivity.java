@@ -1,5 +1,6 @@
 package com.suchangko.moneybook;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,13 +35,15 @@ import android.widget.Toast;
  * To change this template use File | Settings | File Templates.
  */
 public class Tab_FourActivity extends Activity implements OnClickListener {
+	
 	Button bt_next;
+	
 	Button bt_pre;
 	Button btdate;
 	Button bt4;
 	Button bt5;
 	Button bt6;
-	TextView tv_title2;
+	TextView tv_title2,tv_title3;
 	ListView listView;
 	ListViewAdapter adapter;
 	MoneyInputDB inputDB;
@@ -53,6 +56,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	int lastday_1=0;
 	int lastday_2=0;
 	int statisticscode=1;
+	Calendar calendar_1_bt;
+	Calendar calendar_2_bt;
 	//1 = 지출/전체  2=수입/전체
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +70,26 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
         bt_next=(Button)findViewById(R.id.button2);
         bt_pre=(Button)findViewById(R.id.button1);
         tv_title2 = (TextView)findViewById(R.id.tv_title_2);
+        tv_title3 = (TextView)findViewById(R.id.tv_title_3);
         tv_title2.setText("지출 금액");
         btdate = (Button)findViewById(R.id.button3);
+        
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        calendar_1_bt =  Calendar.getInstance();
+        calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
+        calendar_2_bt =  Calendar.getInstance();
+        calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        
+        Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+        Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
+        
+        
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+      
+        btdate.setText(dateString);
+        
         btdate.setOnClickListener(this);
         bt4=(Button)findViewById(R.id.button4);
         bt5=(Button)findViewById(R.id.button5);
@@ -121,7 +144,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	   arrayList1 = new ArrayList<String>();
 	   arrayList2 = new ArrayList<String>();
 	   arrayList3 = new ArrayList<String>();
-	   
+	   int allllllll=0;
 	   if(statisticscode==1){
 		   int month = c.get(Calendar.MONTH);
 		   for(int i=0;i<12;i++){
@@ -257,6 +280,113 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 			   lastday_2=0;
 			  
 		   }
+	   }else if(statisticscode==3){
+		   ArrayList<Integer> tmpaArrayList = new ArrayList<Integer>();
+		   ArrayList<Integer> tmpaArrayList1 = new ArrayList<Integer>();
+		   int month = c.get(Calendar.MONTH);
+		   for(int i=0;i<12;i++){
+			   Calendar calendar;
+			   calendar = Calendar.getInstance();
+			   calendar.set(Calendar.MONTH,month-i);
+			   
+			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			   int ii=0;
+			   
+			 
+			   int tmp_spendint=0;
+			   int tmp_moneyint=0;
+			   
+			   int year_ = calendar.get(Calendar.YEAR);
+		       int month_ = calendar.get(Calendar.MONTH)+1;
+		       lastday_1=0;
+		       lastday_2=0;
+			   
+			  
+			   while(ii<Lastday){
+				   int a = Lastday;
+			       	
+			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
+			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
+			       	String[] columns={"content","memo","money","kindof","date"};
+			       	String selection="date=?";
+			       	String[] selectionArgs={
+			       			String.valueOf(tmp_date.getTime())
+			       			};    
+			       	
+			       	Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
+			      	Cursor c = inputDB.selectTable(columns, selection, selectionArgs, null,null,null);
+			       	//Log.d("","count"+tmp_count);
+			       
+			  
+			       	int tmp_spend=0;
+			       	if(c_money.moveToFirst()){
+			       		do{tmp_spend+=Integer.parseInt(c_money.getString(2));
+			       		}while(c_money.moveToNext());
+			       	}
+			       	
+			       	
+			       	tmp_spendint+=tmp_spend;
+			       	
+			       	
+
+			       	if(tmp_spend>0){
+			       		if(lastday_1<(a-ii))
+			       		lastday_1=(a-ii);
+			       		Log.d("date : "+(a-ii),""+tmp_spend);
+			       	}
+			      
+			       	int tmp_count=c.getCount();
+			       	//Log.d("","count"+tmp_count);
+			       	int tmp_money = 0;
+			       	if(tmp_count>0){
+			       		
+			       		
+			       		if(c.moveToFirst()){
+			       			do{tmp_money += Integer.parseInt(c.getString(2));
+			       			}while(c.moveToNext());
+			       		}        		
+			       		tmp_moneyint+=tmp_money;
+			       		
+			       		
+				       	
+			       	}
+			
+			       	if(tmp_money>0){
+			       		if(lastday_2<(a-ii))
+			       		lastday_2=(a-ii);
+			       		Log.d("date : "+(a-ii),""+tmp_money);
+			       	}
+			       	
+			       	
+			       	ii++;
+			   }
+			   Log.d("",lastday_2+"fd");
+			   if(tmp_spendint>0 || tmp_moneyint>0){
+				   if(lastday_1<=lastday_2){
+					   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_2);
+				   }else{
+					   arrayList1.add(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+lastday_1);
+				   }
+				   int ems = tmp_moneyint-tmp_spendint;
+				   allllllll+=ems;
+				   arrayList2.add(String.format("￦%,d",ems));
+				   tmpaArrayList.add(allllllll);
+				   tmpaArrayList1.add(ems);
+				   arrayList3.add(String.format("￦%,d",allllllll));
+				   
+			   }
+			   /*
+			   for(int aaa=0;aaa<tmpaArrayList.size()-1;aaa++){
+				   allllllll-=tmpaArrayList.get(tmpaArrayList.size()-2-aaa);
+				   arrayList3.add(String.format("￦%,d",allllllll));
+			   }
+			   */
+			   lastday_2=0;
+			   lastday_1=0;
+			  
+			  
+		   }
 	   }
 	   
 	   
@@ -284,7 +414,14 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
 			        listView.setAdapter(adapter);
 		    	}else{
-		    		Toast.makeText(getApplicationContext(), "'"+util.statistics1[item]+"'는 미구현 기능입니다.", Toast.LENGTH_SHORT).show();
+		    		//Toast.makeText(getApplicationContext(), "'"+util.statistics1[item]+"'는 미구현 기능입니다.", Toast.LENGTH_SHORT).show();
+		    		tv_title2.setText("수입-지출");
+		    		tv_title3.setText("누적 금액");
+		    		statisticscode=3;
+		    		makeAdapter(3);
+		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+			        listView.setAdapter(adapter);
+		    		
 		    	}
 		    	
 		    }
