@@ -9,9 +9,11 @@ import java.util.GregorianCalendar;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.CategorySeries;
 import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
@@ -55,7 +57,14 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	  /** The most recently created renderer, customizing the current series. */
 	  private XYSeriesRenderer mCurrentRenderer;
 	  private GraphicalView mChartView;
-	  private WindowManager mWindowManager;   
+	  private WindowManager mWindowManager;
+	  /** Colors to be used for the pie slices. */
+	  private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
+	  /** The main series that will include all the data. */
+	  private CategorySeries mSeries = new CategorySeries("");
+	  /** The main renderer for the main dataset. */
+	  private DefaultRenderer PiemRenderer = new DefaultRenderer();
+	  
 		Button bt_next;
 		Button bt_pre;
 		Button btdate;
@@ -85,6 +94,8 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	    outState.putSerializable("renderer", mRenderer);
 	    outState.putSerializable("current_series", mCurrentSeries);
 	    outState.putSerializable("current_renderer", mCurrentRenderer);
+	    outState.putSerializable("current_series", mSeries);
+	    outState.putSerializable("current_renderer", PiemRenderer);
 	  }
 
 	  @Override
@@ -92,6 +103,10 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	    super.onRestoreInstanceState(savedState);
 	    // restore the current data, for instance when changing the screen
 	    // orientation
+	    mSeries = (CategorySeries) savedState.getSerializable("current_series");
+	    PiemRenderer = (DefaultRenderer) savedState.getSerializable("current_renderer");
+	  
+	    
 	    mDataset = (XYMultipleSeriesDataset) savedState.getSerializable("dataset");
 	    mRenderer = (XYMultipleSeriesRenderer) savedState.getSerializable("renderer");
 	    mCurrentSeries = (XYSeries) savedState.getSerializable("current_series");
@@ -269,7 +284,15 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		builder.setItems(util.statistics1, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		    	bt4.setText(util.statistics1[item]);
-		    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(getApplicationContext(), util.statistics1[item],Toast.LENGTH_SHORT).show();
+		    	if(util.statistics1[item].equals("지출/전체")){
+		    		
+		    	}else if(util.statistics1[item].equals("수입/전체")){
+		    		
+		    	}else if(util.statistics1[item].equals("합산 통계")){
+		    		
+		    	}
+		    	
 		    }
 		});
 		AlertDialog alert = builder.create();
