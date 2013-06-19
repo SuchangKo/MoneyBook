@@ -33,6 +33,7 @@ import android.widget.Toast;
  * Date: 13. 4. 3
  * Time: 오후 8:55
  * To change this template use File | Settings | File Templates.
+ * 년단위, 월단위 작업 / 합산통계 버그체크 / 자료통계  눌렀을때 값 속성
  */
 public class Tab_FourActivity extends Activity implements OnClickListener {
 	

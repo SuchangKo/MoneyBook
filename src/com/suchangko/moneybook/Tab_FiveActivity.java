@@ -45,6 +45,7 @@ import android.widget.Toast;
  * Date: 13. 4. 3
  * Time: 오후 8:55
  * To change this template use File | Settings | File Templates.
+ * 파이그래프, 꺾은선 그래프 완료시킬것.
  */
 @SuppressLint("NewApi")
 public class Tab_FiveActivity extends Activity implements OnClickListener {
