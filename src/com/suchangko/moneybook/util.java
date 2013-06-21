@@ -42,7 +42,7 @@ public class util {
 	public static final CharSequence[] yeosan_category = {"전체 예산","카테고리 기준","세부 카테고리 기준"};
 	
 	public static final CharSequence[]  statistics1= {"지출/전체","수입/전체","합산 통계"};
-	public static final CharSequence[]  monthyear= {"월 단위","주 단위"};
+	public static final CharSequence[]  monthyear= {"월 단위","년 단위"};
 	public static final CharSequence[]  searchdate= {"전체 기간","기간 설정"};
 	public static final CharSequence[]  searchcard= {"전체","현금","카드"};
 	public static final CharSequence[]  allspend={"전 체","없음","식비","교통비","교육비","건강,의료비","통신비","가구집기","주거비","품위유지비","교양,오락비","보험,저축","사업운영비","수수료,세금","기타"};

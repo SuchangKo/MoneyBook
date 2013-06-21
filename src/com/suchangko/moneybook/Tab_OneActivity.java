@@ -51,10 +51,10 @@ import android.widget.Toast;
  * Date: 13. 3. 27
  * Time: 오후 4:27
  * To change this template use File | Settings | File Template
- * 수입 수정 fix
- * 탭3 종료시 저장 fix
- * 탭4 눌렀을때 검색 fix
- * 탬3 4 월 이동 월별 연별 not
+ * 탭4 년/월단위  
+ * 탭4 합산통계 버그 fix. // don't know that.
+ * 탭4 클릭 -> 클릭 아이템디테일보여주기
+ * 그래프작업완료시킬것.
  */
 public class Tab_OneActivity extends Activity implements OnClickListener {	
 	DecimalFormat df = new DecimalFormat("#,##0");
@@ -148,7 +148,7 @@ public class Tab_OneActivity extends Activity implements OnClickListener {
 						                      //Log.d("groupPosition",""+groupPosition);
 						                      //Log.d("childPosition",""+childPosition);
 						                  	AlertDialog.Builder builder = new AlertDialog.Builder(Tab_OneActivity.this);
-						    				builder.setTitle("지출 세부 분류 선택");
+						    				builder.setTitle("선택");
 						    				
 						    					builder.setItems(util.fixdel, new DialogInterface.OnClickListener() {
 						    					    public void onClick(DialogInterface dialog, int item) {
