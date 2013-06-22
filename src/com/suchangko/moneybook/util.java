@@ -42,6 +42,7 @@ public class util {
 	public static final CharSequence[] yeosan_category = {"전체 예산","카테고리 기준","세부 카테고리 기준"};
 	
 	public static final CharSequence[]  statistics1= {"지출/전체","수입/전체","합산 통계"};
+	public static final CharSequence[]  statistics2= {"지출/전체","수입/전체","지출/분류","수입/분류"};
 	public static final CharSequence[]  monthyear= {"월 단위","년 단위"};
 	public static final CharSequence[]  searchdate= {"전체 기간","기간 설정"};
 	public static final CharSequence[]  searchcard= {"전체","현금","카드"};
