@@ -91,6 +91,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			ArrayList<String> dateArrayList;
 			SimpleDateFormat simpleDateFormat;
 			boolean kind_month=true;
+			String kindofString="";
 
 	 @Override
 	  protected void onSaveInstanceState(Bundle outState) {
@@ -576,9 +577,15 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	    	   Cursor tc = null;
 	    	   if(code==1){
 	    		   String queryStr = "SELECT money,date FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   if(!kindofString.equals("")){
+	    			   queryStr="SELECT money,date FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   }
 	    		   tc = moneyBookDB.RawQueryString(queryStr);
 	    	   }else if(code==2){
 	    		   String queryStr = "SELECT money,date FROM "+inputDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   if(!kindofString.equals("")){
+	    			   queryStr="SELECT money,date FROM "+inputDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   }
 	    		   tc = inputDB.RawQueryString(queryStr);
 	    	   }
 	    	   String date ="";
@@ -616,7 +623,7 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		    	   Log.d("firstdate",firstdate);
 		    	   Log.d("date",date);
 		    	   Log.d("d",cnt+"::"+(((c2.get(Calendar.MONTH)+2)%13)+1)+"월");
-		    	   mRenderer.addTextLabel(cnt,(((c2.get(Calendar.MONTH)+2)%12)+1)+"월");
+		    	   mRenderer.addTextLabel(cnt,(((c2.get(Calendar.MONTH)+1)%12)+1)+"월");
 		    	   cnt++;
 	    	   }
 	    	   
@@ -648,10 +655,11 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		builder.setItems(util.statistics2, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		    	bt4.setText(util.statistics2[item]);
+		    	bt5.setText(util.allspend[0]);
 		    	//Toast.makeText(getApplicationContext(), util.statistics2[item],Toast.LENGTH_SHORT).show();
 		    	if(util.statistics2[item].equals("지출/전체")){
 		    		statisticscode=1; 
-
+		    		
 		    		layout.removeView(mChartView);		    		
 		    		mChartView=null;
 		    		 makelinechart(statisticscode);
@@ -793,12 +801,39 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			builder.setTitle("통계 분류 선택");
 			builder.setItems(util.allspend, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	bt5.setText(util.allspend[item]);
-			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
+			    	
+			    	if(statisticscode==1){
+			    		bt5.setText(util.allspend[item]);
+			    		if(item==0){
+			    			kindofString="";
+			    		}else{
+			    			kindofString=util.allspend[item].toString();
+			    		}
+			    		statisticscode=1; 
+			    		
+			    		layout.removeView(mChartView);		    		
+			    		mChartView=null;
+			    		 makelinechart(statisticscode);
+			    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
+				   	      mChartView.setBackgroundColor(Color.WHITE);
+				   	      // enable the chart click events
+				   	      mRenderer.setClickEnabled(true);
+				   	      mRenderer.setSelectableBuffer(10);
+				   	      mRenderer.setInScroll(true);
+				   	      mRenderer.setZoomEnabled(true);
+				   	      
+				   	    //  mChartView.invalidate();
+				   	   //mChartView.repaint();
+				   	    layout.addView(mChartView);
+				   	   addchartlistener();
+			    	}else{
+			    		Toast.makeText(getApplicationContext(),"통계 분류는 지출/전체에서만 지원됩니다.", Toast.LENGTH_SHORT).show();
+			    	}
+			    	
 			    }
 			});
 			AlertDialog alert = builder.create();
-			//alert.show();
+			alert.show();
 		}else if(v.getId()==R.id.button3){
 			Toast.makeText(getApplicationContext(), "새로고침",Toast.LENGTH_SHORT).show();
 			if(statisticscode==1 || statisticscode==2){
@@ -914,8 +949,10 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
    	        	  DecimalFormat df = new DecimalFormat("#,##0");
    	        	  
    	        	  String datetext = dateArrayList.get((int)seriesSelection.getXValue()-1);
+   	        	  Log.d("dsd",datetext);
    	        	  String datearr[] = datetext.split("-");
-   	        	  if(datearr.length>2){
+   	        	Log.d("dsd",datearr.length+"");
+   	        	  if(datearr.length>=2){
    	        		 Date first = new Date(Long.parseLong(datearr[1]));
       	        	  Date Last = new Date(Long.parseLong(datearr[0]));
       	        	tv1.setText(simpleDateFormat.format(first));

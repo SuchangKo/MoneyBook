@@ -59,6 +59,9 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	Calendar calendar_1_bt;
 	Calendar calendar_2_bt;
 	boolean kind_month = true;
+	String kindofString="";
+	
+	
 	SimpleDateFormat simpleDateFormat;
 	//1 = 지출/전체  2=수입/전체
     public void onCreate(Bundle savedInstanceState) {
@@ -178,7 +181,13 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 				   int a = Lastday;
 				   Date d1= new Date(year_-1900, month_-1,1);
 				   Date d2= new Date(year_-1900, month_-1,Lastday);
+				   
 				   String QUERYSTR = "SELECT * FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+d1.getTime()+" AND "+d2.getTime()+" ORDER BY date ASC";
+				   
+				   if(!kindofString.equals("")){
+					   QUERYSTR = "SELECT * FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+d1.getTime()+" AND "+d2.getTime()+" ORDER BY date ASC";
+				   }
+				   Log.d("",QUERYSTR);
 			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
 			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
 			       	String[] columns={"content","memo","money","kindof","date"};
@@ -481,6 +490,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 				   Date d2= new Date(year_-1900,11,Lastday);
 				   String QUERYSTR = "SELECT * FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+d1.getTime()+" AND "+d2.getTime()+" ORDER BY date ASC";
 			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
+				   if(!kindofString.equals("")){
+					   QUERYSTR = "SELECT * FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+d1.getTime()+" AND "+d2.getTime()+" ORDER BY date ASC";
+				   }
+				   Log.d("",QUERYSTR);
 			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
 			       	String[] columns={"content","memo","money","kindof","date"};
 			       	String selection="date=?";
@@ -773,6 +786,7 @@ calendar.set(Calendar.YEAR,year-i);
 		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
 			        listView.setAdapter(adapter);
 		    	}else if(util.statistics1[item].equals("수입/전체")){
+		    		bt5.setText(util.allspend[0]);
 		    		statisticscode=2;
 		    		tv_title2.setText("수입 금액");
 		    		if(kind_month){
@@ -786,6 +800,7 @@ calendar.set(Calendar.YEAR,year-i);
 		    		//Toast.makeText(getApplicationContext(), "'"+util.statistics1[item]+"'는 미구현 기능입니다.", Toast.LENGTH_SHORT).show();
 		    		tv_title2.setText("수입-지출");
 		    		tv_title3.setText("누적 금액");
+		    		bt5.setText(util.allspend[0]);
 		    		statisticscode=3;
 		    		if(kind_month){
 		    			makeAdapter(statisticscode);
@@ -815,15 +830,10 @@ calendar.set(Calendar.YEAR,year-i);
 			    	        calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
 			    	        calendar_2_bt =  Calendar.getInstance();
 			    	        calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-			    	        
-			    	      
-			    	        
-			    	        
 			    	        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			    	        Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 			    	        Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
 			    	        String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
-			    	      
 			    	        btdate.setText(dateString);
 			    		makeAdapter(statisticscode);
 			    	}else if(util.monthyear[item].equals("년 단위")){
@@ -833,21 +843,14 @@ calendar.set(Calendar.YEAR,year-i);
 			            calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
 			            calendar_2_bt =  Calendar.getInstance();
 			            calendar_2_bt.set(Calendar.DAY_OF_MONTH,calendar_2_bt.getActualMaximum(Calendar.DAY_OF_MONTH));
-			            
-			          
-			            
-			            
 			            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			            Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 			            Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
 			            String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
-			          
 			            btdate.setText(dateString);
-			    		
 			    		makeAdapter1(statisticscode);
 			    	}
-			    	
-		    		adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+			    	adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
 			        listView.setAdapter(adapter);
 			    }
 			});
@@ -858,12 +861,42 @@ calendar.set(Calendar.YEAR,year-i);
 			builder.setTitle("통계 분류 선택");
 			builder.setItems(util.allspend, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
-			    	bt5.setText(util.allspend[item]);
-			    	Toast.makeText(getApplicationContext(),"미구현 기능입니다.",Toast.LENGTH_SHORT).show();
+			    	if(statisticscode==1){
+			    		bt5.setText(util.allspend[item]);
+			    		if(item==0){
+				    		kindofString="";
+				    		if(statisticscode==1){
+				    			if(kind_month){
+					    			makeAdapter(statisticscode);
+					    		}else{
+					    			makeAdapter1(statisticscode);
+					    		}
+				    			adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+						        listView.setAdapter(adapter);
+				    		}
+				    	}else{
+				    		kindofString=util.allspend[item].toString();
+				    		
+				    		if(statisticscode==1){
+				    			if(kind_month){
+					    			makeAdapter(statisticscode);
+					    		}else{
+					    			makeAdapter1(statisticscode);
+					    		}
+				    			adapter = new ListViewAdapter(getApplicationContext(), R.layout.layout4,arrayList1,arrayList2,arrayList3);
+						        listView.setAdapter(adapter);
+				    		}
+				    	}
+			    	}else{
+			    		Toast.makeText(getApplicationContext(),"분류는 지출에서만 지원합니다.",Toast.LENGTH_SHORT).show();
+			    	}
+			    	
+			    	
+			    	
 			    }
 			});
 			AlertDialog alert = builder.create();
-			//alert.show();
+			alert.show();
 		}else if(v.getId()==R.id.button3){
 			Toast.makeText(getApplicationContext(), "새로고침",Toast.LENGTH_SHORT).show();
 			if(kind_month){
@@ -887,7 +920,6 @@ calendar.set(Calendar.YEAR,year-i);
 		        Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 		        Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
 		        String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
-		      
 		        btdate.setText(dateString);
 			}else{
 				Toast.makeText(getApplicationContext(), "년 단위에서는 지원하지 않습니다.",Toast.LENGTH_SHORT).show();
