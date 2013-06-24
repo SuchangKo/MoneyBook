@@ -78,14 +78,14 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		int getx;
 		int gety;
 		private float mTouchX, mTouchY;
-		 private WindowManager.LayoutParams mParams; 
-		 private LayoutInflater inflater;
-		    private LinearLayout popButton;
-		    TextView tv1,tv2,tv3,tv4;
-		    boolean popup=false;
-		    double LastXvalue=0;
-			Calendar calendar_1_bt;
-			Calendar calendar_2_bt;
+		private WindowManager.LayoutParams mParams; 
+		private LayoutInflater inflater;
+		private LinearLayout popButton;
+		TextView tv1,tv2,tv3,tv4;
+		boolean popup=false;
+		double LastXvalue=0;
+		Calendar calendar_1_bt;
+		Calendar calendar_2_bt;
 
 	 @Override
 	  protected void onSaveInstanceState(Bundle outState) {

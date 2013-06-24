@@ -6,12 +6,19 @@ import java.util.HashMap;
 import android.content.Context;
 
 public class util {
+	KinofDB kinddb;
+	DetailKindofDB detaildb;
 	public final String Name="name";
 	public final String Kindof="kindof";
 	public final String Money="money";
 	final ArrayList<HashMap<String, String>> headerData = new ArrayList<HashMap<String, String>>();
-	final ArrayList<ArrayList<HashMap<String, Object>>> childData = new ArrayList<ArrayList<HashMap<String, Object>>>();
-	
+	final ArrayList<ArrayList<HashMap<String, Object>>> childData = new ArrayList<ArrayList<HashMap<String, Object>>>(); 
+	public util(Context c){
+		kinddb  = new KinofDB(c,kinddb.SQL_Create_kindofdb,kinddb.SQL_DBname);
+		detaildb = new DetailKindofDB(c,detaildb.SQL_Create_detailkindofdb,detaildb.SQL_DBname);
+		kinddb.open();
+		detaildb.open();
+	}
 	public static final CharSequence[] Middleitems = {"식비","교통비","교육비","건강,의료비","통신비","가구집기","주거비","품위유지비","교양,오락비","보험,저축","사업운영비","수수료,세금","기타"};
 	public static final CharSequence[] Middleitems1 = {"전체","식비","교통비","교육비","건강,의료비","통신비","가구집기","주거비","품위유지비","교양,오락비","보험,저축","사업운영비","수수료,세금","기타"};
 	public static final CharSequence[] detailitems1={"외식비","간식비","급식비","주부식비","주류비"};
