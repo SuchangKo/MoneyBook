@@ -92,7 +92,17 @@ public class TabthreeAdapter extends BaseAdapter {
 		}else{
 			long percentlong = spendmoney*100/budgeti;
 			Log.d("",percentlong+"");
-			progressBar.setProgress((int)percentlong);
+			int tmpt = (int)percentlong;
+			int first=0;
+			int second=0;
+			first=tmpt;
+			if(tmpt>101){
+				second=tmpt-100;
+				first=100;
+			}
+			progressBar.setSecondaryProgress(first);
+			progressBar.setProgress(second);
+			
 		}
 		//long percentlong = spendmoney/budgeti*100;
 		
