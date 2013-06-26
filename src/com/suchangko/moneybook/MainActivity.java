@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity{
-    TabHost tabHost;
+    TabHost tabHost;    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);		
         tabHost = getTabHost();
         setTabs();
-	}
+	}	
     private void setTabs(){
         addTab("지출내역",R.drawable.tab_icon_1,Tab_OneActivity.class);
         addTab("수입내역",R.drawable.tab_icon_3,Tab_TwoActivity.class);
@@ -36,7 +36,6 @@ public class MainActivity extends TabActivity{
         tv_title.setText(title);
         ImageView icon = (ImageView)TabIndicator.findViewById(R.id.icon);
         icon.setImageResource(img_drawable);
-
         spec.setIndicator(TabIndicator);
         spec.setContent(i);
         tabHost.addTab(spec);

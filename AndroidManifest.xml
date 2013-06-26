@@ -37,6 +37,7 @@
         <activity android:name=".SearcheActivity"/>
         <activity android:name="SearchsActivity"></activity>
         <activity android:name="SearchtotalActivity"></activity>
+        <activity android:name="EditCategory"></activity>
     </application>
 
 </manifest>

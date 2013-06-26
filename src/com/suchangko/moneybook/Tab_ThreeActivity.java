@@ -329,7 +329,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			break;
 		
 		case 1:
-			Toast.makeText(this,"더보기",100).show();
+			Intent ddd = new Intent(getApplicationContext(),EditCategory.class);
+			startActivity(ddd);
 			break;
 				}
 		return super.onOptionsItemSelected(item);

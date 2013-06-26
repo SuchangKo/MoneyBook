@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+	<TextView
+	    android:layout_marginTop="20dp" 
+	    android:text="카테고리 설정" 
+	    android:textSize="20dp" 
+	    android:textStyle="bold" 
+	    android:layout_width="fill_parent" 
+	    android:gravity="center" 
+	    android:layout_height="wrap_content"/>
+	<TextView
+	    android:layout_marginTop="10dp" 
+	    android:text="삭제하거나 순서를 바꾸려면 길게 터치하세요" 
+	    android:textSize="14dp" 
+	    android:layout_width="fill_parent" 
+	    android:gravity="center" 
+	    android:layout_height="wrap_content"/>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:orientation="horizontal">
+
+	    <EditText
+	        android:id="@+id/editText1"
+	        android:layout_width="fill_parent"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:hint="추가할 카테고리 이름 입력"/>
+
+	    <Button
+	        android:id="@+id/button1"
+	        android:layout_weight="0"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="15dp"
+	        android:text="추가" />
+
+	</LinearLayout>
+	<TextView 	
+	    android:layout_marginLeft="10dp"
+	    android:text="(현재 카테고리 : \\\ )"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/tv_status"/>
+
+	<ListView
+	    android:id="@+id/listView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	</ListView>
+		
+</LinearLayout>
