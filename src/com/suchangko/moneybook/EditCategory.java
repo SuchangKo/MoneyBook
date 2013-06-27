@@ -3,6 +3,8 @@ package com.suchangko.moneybook;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class EditCategory extends Activity {
 	KinofDB kindDB;
@@ -37,6 +40,23 @@ public class EditCategory extends Activity {
 	    String[] arrStrings = arrayList.toArray(new String[arrayList.size()]);
 	   arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_simple, arrStrings);
 	    lv.setAdapter(arrayAdapter);
+	    lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+		      	AlertDialog.Builder builder = new AlertDialog.Builder(EditCategory.this);
+				builder.setTitle("선택");
+					String[] items1={"위로","아래로","수정","삭제"};
+					builder.setItems(items1, new DialogInterface.OnClickListener() {
+					    public void onClick(DialogInterface dialog, int item) {
+					    	
+					    }
+					});
+					AlertDialog alert = builder.create();
+					alert.show();   
+				return false;
+				}	    	
+		});
 	    lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
