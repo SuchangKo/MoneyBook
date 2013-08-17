@@ -134,8 +134,8 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
 	// Inflate the menu; this adds items to the action bar if it is present.
     	menu.add(0,0,0,"GPS").setIcon(android.R.drawable.ic_menu_compass);
-    	menu.add(0,1,0,"도움말").setIcon(android.R.drawable.ic_menu_help);
-    	
+    	//menu.add(0,1,0,"도움말").setIcon(android.R.drawable.ic_menu_help);
+    	menu.add(0,1,0,"더보기").setIcon(R.drawable.ic_menu_more);	
 	return true;
 	}
     
@@ -145,10 +145,27 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		int itemid =item.getItemId();
 		switch (itemid) {
 		case 0:
-			//Toast.makeText(this,"수입입력",100).show();
+			Toast.makeText(this,"추후 업데이트 예정입니다.",1000).show();
 			break;
 		case 1:
-			//Toast.makeText(this,"이전문자등록",100).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_FourActivity.this);
+			builder.setTitle("카테고리선택");
+			String[] aaa ={"카테고리편집","환경설정"};
+			builder.setItems(aaa, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(which==0){
+						Intent ddd = new Intent(getApplicationContext(),EditCategory.class);
+						startActivity(ddd);
+					}else{
+						Toast.makeText(getApplicationContext(), "추후 업데이트 예정입니다.",1000).show();
+					}
+				}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -160,10 +177,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 	   int allllllll=0;
 	   if(statisticscode==1){
 		   int month = c.get(Calendar.MONTH);
+		   Calendar calendar;
+		   calendar = (Calendar) calendar_2_bt.clone();
 		   for(int i=0;i<12;i++){
-			   Calendar calendar;
-			   calendar = (Calendar) calendar_2_bt.clone();
-			   calendar.set(Calendar.MONTH,month-i);
+			   calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
 			   
 			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
 			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -178,11 +195,11 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 			  
 			   
 			  
-			 //  while(ii<Lastday){
-				   int a = Lastday;
+		
 				   Date d1= new Date(year_-1900, month_-1,1);
 				   Date d2= new Date(year_-1900, month_-1,Lastday);
-				   
+				   Log.d("dd",simpleDateFormat.format(d1));
+				   Log.d("dd",simpleDateFormat.format(d2));
 				   String QUERYSTR = "SELECT * FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+d1.getTime()+" AND "+d2.getTime()+" ORDER BY date ASC";
 				   
 				   if(!kindofString.equals("")){
@@ -190,12 +207,7 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 				   }
 				   Log.d("",QUERYSTR);
 			       	//Log.d("",year_+"년"+month_+"월"+(a-ii)+"일");
-			       	Date tmp_date = new Date(year_-1900, month_-1, a-ii);
-			       	String[] columns={"content","memo","money","kindof","date"};
-			       	String selection="date=?";
-			       	String[] selectionArgs={
-			       			String.valueOf(tmp_date.getTime())
-			       			};    
+			  
 			       	
 			       	//Cursor c_money = moneyBookDB.selectTable(columns, selection, selectionArgs, null,null,null);
 			       	Cursor c_money = moneyBookDB.RawQueryString(QUERYSTR);
@@ -246,10 +258,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		   }
 	   }else if(statisticscode==2){
 		   int month = c.get(Calendar.MONTH);
+		   Calendar calendar;
+		   calendar = (Calendar) calendar_2_bt.clone();
 		   for(int i=0;i<12;i++){
-			   Calendar calendar;
-			   calendar = (Calendar) calendar_2_bt.clone();
-			   calendar.set(Calendar.MONTH,month-i);
+			   calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
 			   
 			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
 			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -322,10 +334,10 @@ public class Tab_FourActivity extends Activity implements OnClickListener {
 		   ArrayList<Integer> tmpaArrayList = new ArrayList<Integer>();
 		   ArrayList<Integer> tmpaArrayList1 = new ArrayList<Integer>();
 		   int month = c.get(Calendar.MONTH);
+		   Calendar calendar;
+		   calendar = (Calendar) calendar_2_bt.clone();
 		   for(int i=0;i<12;i++){
-			   Calendar calendar;
-			   calendar = (Calendar) calendar_2_bt.clone();
-			   calendar.set(Calendar.MONTH,month-i);
+			   calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
 			   
 			   grecal = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
 			   int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);

@@ -56,6 +56,9 @@ public class DetailKindofDB {
     public void datadel(String id){
     	db.execSQL("DELETE FROM "+Database_Name+" WHERE _id="+id);
     }
+    public void datadel1(String item){
+    	db.execSQL("DELETE FROM "+Database_Name+" WHERE detail='"+item+"'");
+    }
     public long insertTable(ContentValues values) {
         return db.insert(Table_Name, null, values);
     }
@@ -67,6 +70,9 @@ public class DetailKindofDB {
     }
     public Cursor selectTable(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return db.query(Table_Name, columns, selection, selectionArgs, groupBy, having, orderBy);
+    }
+    public void update(ContentValues values,String Filter){
+    	db.update(Table_Name, values,Filter,null);
     }
     public boolean updateTable(ContentValues values, String pkColumn, long pkData) {
         return db.update(Table_Name, values, pkColumn+"="+pkData, null)>0;

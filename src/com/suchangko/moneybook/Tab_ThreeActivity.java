@@ -42,7 +42,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	Button bt5;
 	Button bt6;
 	Button bt_next;
-	
+	 DetailKindofDB detailKindofDB;
 	Button bt_pre;
 	TabthreeAdapter adapter;
 	ListView listView;
@@ -63,7 +63,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	Calendar calendar_1_bt;
 	Calendar calendar_2_bt;
 	 GregorianCalendar gregorianCalendar;
-	
+
 	boolean allspendviewed = false;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
         calendar_2_bt =  Calendar.getInstance();
         calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-        
+        detailKindofDB=new DetailKindofDB(getApplicationContext(), DetailKindofDB.SQL_Create_detailkindofdb,DetailKindofDB.SQL_DBname);
+        detailKindofDB.open();
         Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
         Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
         
@@ -87,10 +88,14 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         bt_next=(Button)findViewById(R.id.button3);
         
         bt_pre.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				wholemoneyarrayList.clear();
+				spendmonetArrayList.clear();
+				nameArrayList.clear();
+				budgetArrayList.clear();
 				calendar_1_bt.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH)-1);
 				calendar_2_bt.set(calendar_1_bt.get(Calendar.YEAR),calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 				gregorianCalendar.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH));
@@ -99,10 +104,10 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));		        
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			    String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
-			  
+
 			    bt_date.setText(dateString);
-			    
-			    
+
+
 		        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname +" WHERE date= '"+ddate1.getTime()+"'");
 		        Log.d("",""+arraycCursor.getCount());
 		        if(arraycCursor.getCount()>0){
@@ -118,18 +123,23 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 		        		}while(arraycCursor.moveToNext());
 		        	}	
 		        }
+		        listView.setAdapter(null);
 		        Startadapter();
-		        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+		        adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 		        listView.setAdapter(adapter);  
-				
+
 			}
 		});
         
         bt_next.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				wholemoneyarrayList.clear();
+				spendmonetArrayList.clear();
+				nameArrayList.clear();
+				budgetArrayList.clear();
 				calendar_1_bt.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH)+1);
 				calendar_2_bt.set(calendar_1_bt.get(Calendar.YEAR),calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 				gregorianCalendar.set(Calendar.MONTH,calendar_1_bt.get(Calendar.MONTH));
@@ -138,10 +148,10 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));		        
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			    String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
-			   
+
 			    bt_date.setText(dateString);
-			    
-			    
+
+
 		        Cursor arraycCursor = tabthreesqlite.RawQueryString("SELECT * FROM "+tabthreesqlite.SQL_DBname +" WHERE date= '"+ddate1.getTime()+"'");
 		        Log.d("",""+arraycCursor.getCount());
 		        if(arraycCursor.getCount()>0){
@@ -158,7 +168,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 		        	}	
 		        }
 		        Startadapter();
-		        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+		        listView.setAdapter(null);
+		        adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 		        listView.setAdapter(adapter);  
 			}
 		});
@@ -175,14 +186,8 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         moneyBookDB.open();
         tabthreesqlite = new Tabthreesqlite(getApplicationContext(),Tabthreesqlite.SQL_Create_tabthreeview,Tabthreesqlite.SQL_DBname);
         tabthreesqlite.open();
-       
-        
-         
-        
-        
-        
         Startadapter();
-        		
+        	
         listView = (ListView)findViewById(R.id.listview1);
         /*
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -216,7 +221,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
         	}	
         }
         
-        adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+        adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
         listView.setAdapter(adapter);  
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
@@ -234,15 +239,17 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				   			editAlertDialog.show();
 					    	}
 					    }
+				
 					});
 				AlertDialog alert = builder.create();
 				alert.show();
 				return false;
 			}
 		});
+        
     }
    void Startadapter(){
-	   
+
        grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
        int i=0;
        int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -312,7 +319,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			    			addlist(tmp_moneyint,tmp_spendint,"전체 예산",0);
 			    	        adapter.notifyDataSetChanged();
 			    		}
-			    		
+
 			    	}else if(util.yeosan_category[item].equals("카테고리 기준")){
 			    		AlertDialog alertDialog = dialog_catecory();
 			    		 alertDialog.show();
@@ -320,17 +327,33 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			    		AlertDialog alertDialog = dialog_catecory_detail();
 			    		alertDialog.show();
 			    	}
-			    	
+
 			    }			    
 			});
 			AlertDialog alert = builder.create();
 
 			alert.show();
 			break;
-		
+
 		case 1:
-			Intent ddd = new Intent(getApplicationContext(),EditCategory.class);
-			startActivity(ddd);
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(Tab_ThreeActivity.this);
+			builder1.setTitle("카테고리선택");
+			String[] aaa ={"카테고리편집","환경설정"};
+			builder1.setItems(aaa, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(which==0){
+						Intent ddd = new Intent(getApplicationContext(),EditCategory.class);
+						startActivity(ddd);
+					}else{
+						Toast.makeText(getApplicationContext(), "추후 업데이트 예정입니다.",1000).show();
+					}
+				}
+			});
+			AlertDialog alert1 = builder1.create();
+			alert1.show();
 			break;
 				}
 		return super.onOptionsItemSelected(item);
@@ -387,7 +410,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 		builder.setItems(util.yeosan_category, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog,int which) {
-				
+
 			}							
 		});
 		AlertDialog alert = builder.create();
@@ -400,9 +423,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	        ab.setTitle("예산 설정");
 	        ab.setView(innerView);
 	        final EditText edt = (EditText)innerView.findViewById(R.id.editText2);
-	        
+
 	        ab.setPositiveButton("설정",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
@@ -414,11 +437,11 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				}
 			});
 	        ab.setNegativeButton("취소",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 	        return ab.create();
@@ -430,9 +453,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	        ab.setTitle("세부 카테고리");
 	        final EditText ed1 = (EditText)innerView.findViewById(R.id.editText1);
 	        final EditText ed2 = (EditText)innerView.findViewById(R.id.editText2);
-	        
+
 	        ed1.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -449,127 +472,50 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 					alert.show();
 				}
 			});
-	        
+
 	        ed2.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
-					
+
+
 					String tmp_str_edt = ed1.getText().toString();
 					if(tmp_str_edt.equals("")){
 						Toast.makeText(getApplicationContext(), "카테고리를 먼저 선택해 주세요.", Toast.LENGTH_SHORT).show();
 					}else{
 						AlertDialog.Builder builder = new AlertDialog.Builder(Tab_ThreeActivity.this);
 						builder.setTitle("카테고리선택");
-						if(tmp_str_edt.equals("식비")){
-							builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems1[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("교통비")){
-							builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems2[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("교육비")){
-							builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems3[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("건강,의료비")){
-							builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems4[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("통신비")){
-							builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems5[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("가구집기")){
-							builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems6[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("주거비")){
-							builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems7[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("품위유지비")){
-							builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems8[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("교양,오락비")){
-							builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems9[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("보험,저축")){
-							builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems10[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("사업운영비")){
-							builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems11[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("수수료,세금")){
-							builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems12[which]);
-								}							
-							});
-						}else if(tmp_str_edt.equals("기타")){
-							builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,int which) {
-									ed2.setText(util.detailitems13[which]);
-								}							
-							});
-						}
+						Cursor ccc = detailKindofDB.RawQueryString("SELECT * FROM "+detailKindofDB.SQL_DBname+" WHERE kindof='"+tmp_str_edt+"'");
+						
+						ArrayList<String> aaarrayList = new ArrayList<String>();
+					    if(ccc.moveToFirst()){
+					    	do{
+					    		aaarrayList.add(ccc.getString(2));
+					    	}while(ccc.moveToNext());
+					    }
+					    final String[] argss = aaarrayList.toArray(new String[aaarrayList.size()]);
+					    builder.setItems(argss, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,int which) {
+								ed2.setText(argss[which]);
+							}							
+						});
 						AlertDialog alert = builder.create();
 						alert.show();
 					}
-					
-					
+
+
 				}
 			});
 	        ab.setView(innerView);
 	        ab.setPositiveButton("추가",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					if(!ed1.getText().toString().equals("")&&!ed2.getText().toString().equals("")){
-						
+
 						GregorianCalendar grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
@@ -578,11 +524,11 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 						Date d2 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						d2.setDate(Lastday);
 						int spendmoney_MONTH=0;
-						
+
 						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+ed1.getText().toString()+"+"+ed2.getText().toString()+"' AND date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime());
 						//Log.d("",SQLstr);
 						Cursor c = moneyBookDB.RawQueryString(SQLstr);
-						
+
 						if(c.getCount()!=0){
 							if(c.moveToFirst()){
 							do{
@@ -590,9 +536,9 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 							}while(c.moveToNext());
 							}
 						}
-						
-						
-						
+
+
+
 					addlist(0,spendmoney_MONTH,ed1.getText().toString()+"-"+ed2.getText().toString(),0);
 					}else{
 						ShowToast("카테고리를 선택 해주세요.");
@@ -600,11 +546,11 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				}
 			});
 	        ab.setNegativeButton("취소",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 	        return ab.create();
@@ -616,7 +562,7 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 	        ab.setView(innerView);
 	        final EditText edt = (EditText)innerView.findViewById(R.id.editText2);
 	        edt.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -633,12 +579,12 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 				}
 			});
 	        ab.setPositiveButton("추가",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					if(!edt.getText().toString().equals("")){
-						
+
 						GregorianCalendar grecal=new GregorianCalendar( calendar_1_bt.get(Calendar.YEAR), calendar_1_bt.get(Calendar.MONTH), calendar_1_bt.get(Calendar.DAY_OF_MONTH));
 						int Lastday = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
 						int Firstday = grecal.getActualMinimum(Calendar.DAY_OF_MONTH);
@@ -649,10 +595,10 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 						int spendmoney_MONTH=0;
 						String SQLstr = "SELECT money FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(d1.getTime())+" AND "+String.valueOf(d2.getTime())+" AND kindof LIKE '"+edt.getText().toString()+"%'";
 						Log.d("",SQLstr);
-						
+
 						Cursor c = moneyBookDB.RawQueryString(SQLstr);
 						Log.d("",c.getCount()+"");
-						
+
 						if(c.getCount()>0){
 							if(c.moveToFirst()){
 							do{
@@ -661,17 +607,17 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 							}while(c.moveToNext());
 							}
 						}
-						
-						
+
+
 					addlist(0,spendmoney_MONTH,edt.getText().toString(),0);}else{ShowToast("카테고리를 선택해 주세요.");}
 				}
 			});
 	        ab.setNegativeButton("취소",new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 	        return ab.create();
@@ -683,28 +629,28 @@ public class Tab_ThreeActivity extends Activity implements android.view.View.OnC
 			if(moneyview1){
 				bt5.setText("금액 숨김");
 				moneyview1=false; 
-				adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+				adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 		        listView.setAdapter(adapter);     
 			}else{
 				bt5.setText("금액 표시");
 				moneyview1=true;
-				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+				 adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 			        listView.setAdapter(adapter);     
 				}
 		}else if(v.getId()==R.id.button6){
 			if(moneyview2){
 				bt6.setText("가능액 숨김");
 				moneyview2=false;
-				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+				 adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 			     listView.setAdapter(adapter);     
 			}else{
 				bt6.setText("가능액 표시");
 				moneyview2=true;
-				 adapter = new TabthreeAdapter(getApplicationContext(),c, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
+				 adapter = new TabthreeAdapter(getApplicationContext(),calendar_1_bt, R.layout.tab3_layout,wholemoneyarrayList,spendmonetArrayList,nameArrayList,budgetArrayList,moneyview1,moneyview2);
 			     listView.setAdapter(adapter);     
 			}
 		}
 	}
-	
-	
+
+
 }

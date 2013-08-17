@@ -62,7 +62,8 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	  private GraphicalView mChartView;
 	  private WindowManager mWindowManager;
 	  /** Colors to be used for the pie slices. */
-	  private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
+	  //private static int[] COLORS = new int[] { Color.GREEN, Color.BLUE, Color.MAGENTA, Color.CYAN };
+	  private static int[] COLORS = new int[] {Color.parseColor("#8dff84"), Color.parseColor("#feff78"), Color.parseColor("#1482f9"),Color.parseColor("#ffd284"),Color.parseColor("#b3ff84"), Color.parseColor("#849eff"), Color.parseColor("#84fbff"), Color.parseColor("#ff84ef"), Color.parseColor("#ff8484"),Color.parseColor("#9084ff"),Color.parseColor("#84c1ff") };
 	  /** The main series that will include all the data. */
 	  private CategorySeries mSeries = new CategorySeries("");
 	  /** The main renderer for the main dataset. */
@@ -168,7 +169,11 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		        if(statisticscode==1 || statisticscode==2){
 		        	layout.removeView(mChartView);		    		
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			makelinechart_year(statisticscode);
+		    		}
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -228,7 +233,11 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		        if(statisticscode==1 || statisticscode==2){
 		        	layout.removeView(mChartView);		    		
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			makelinechart_year(statisticscode);
+		    		}
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -301,7 +310,12 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		        if(statisticscode==1 || statisticscode==2){
 		        	layout.removeView(mChartView);		    		
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			makelinechart_year(statisticscode);
+		    		}
+		    		 
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -362,7 +376,11 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		        if(statisticscode==1 || statisticscode==2){
 		        	layout.removeView(mChartView);		    		
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			makelinechart_year(statisticscode);
+		    		}
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -445,8 +463,9 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
                PixelFormat.TRANSLUCENT );      
            mParams.gravity = Gravity.LEFT  | Gravity.TOP; 
     }
+	
 	void makepiechart(int code ){
-		
+		//PiemRenderer = null;
 		PiemRenderer.setZoomButtonsVisible(true);
 	    PiemRenderer.setStartAngle(180);
 	    PiemRenderer.setDisplayValues(true);
@@ -458,11 +477,22 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		
 		Calendar c1 = (Calendar) calendar_1_bt.clone();
 		Calendar c2 = (Calendar) calendar_1_bt.clone();
-	    c2.set(Calendar.YEAR,c1.get(Calendar.YEAR)-1);
-	    c2.set(Calendar.MONTH,c2.get(Calendar.MONTH));
-	    Date tmp1 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH)+1,1);
+		Date tmp1,tmp2;
+		if(kind_month){
+			c2.set(Calendar.YEAR,c1.get(Calendar.YEAR));
+		    c2.set(Calendar.MONTH,c2.get(Calendar.MONTH));
+		}else{
+			c2.set(Calendar.YEAR,c1.get(Calendar.YEAR));
+		    c2.set(Calendar.MONTH,c2.get(Calendar.MONTH));
+		    c1.set(Calendar.MONTH,11);
+		    c1.set(Calendar.DAY_OF_MONTH,31);
+		}
+	    
+	    tmp1 = new Date(c2.get(Calendar.YEAR)-1900,c2.get(Calendar.MONTH),1);
  	   	GregorianCalendar gregorianCalendar = new GregorianCalendar(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH)-1,c1.get(Calendar.DAY_OF_MONTH));   
- 	   	Date tmp2 = new Date(c1.get(Calendar.YEAR)-1900,c1.get(Calendar.MONTH)+1,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+ 	   	tmp2 = new Date(c1.get(Calendar.YEAR)-1900,c1.get(Calendar.MONTH),gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+ 	   Log.d("d",simpleDateFormat.format(tmp1));
+ 	  Log.d("d",simpleDateFormat.format(tmp2));
  	   	String dbname="";
  	   Cursor c = null;
  	   	if(code==3){
@@ -519,8 +549,10 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	void makelinechart(int code){ 
 		mRenderer=new XYMultipleSeriesRenderer();
 		mRenderer.clearTextLabels();
-		
+		mCurrentSeries=null;
 		mDataset.clear();
+		mRenderer.clearTextLabels();
+		mRenderer.clearXTextLabels();
 		dateArrayList= new ArrayList<String>();
 		mRenderer.setApplyBackgroundColor(true);
 	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
@@ -645,6 +677,136 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 	       mRenderer.setYAxisMax(maxmoney+(maxmoney/6));
 	       mRenderer.setXLabelsAlign(Align.CENTER);
 	}
+	void makelinechart_year(int code){ 
+		mRenderer=new XYMultipleSeriesRenderer();
+		mRenderer.clearTextLabels();
+		mCurrentSeries=null;
+		mDataset.clear();
+		mCurrentRenderer=null;
+		mRenderer.clearTextLabels();
+		mRenderer.clearXTextLabels();
+		dateArrayList= new ArrayList<String>();
+		mRenderer.setApplyBackgroundColor(true);
+	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
+	    mRenderer.setBackgroundColor(Color.WHITE);
+	    mRenderer.setBarSpacing(1);
+	    mRenderer.setAxisTitleTextSize(17);
+	    mRenderer.setChartTitleTextSize(20);
+	    mRenderer.setLabelsTextSize(20);
+	    mRenderer.setZoomEnabled(true);
+	    mRenderer.setXLabelsPadding(30);       
+	    mRenderer.setLegendTextSize(0);
+	    
+	    mRenderer.setXAxisMin(0);
+	    mRenderer.setXAxisMax(14);
+	    mRenderer.setMargins(new int[] { 20, 50, 15, 50 });
+	    mRenderer.setZoomButtonsVisible(true);
+	    mRenderer.setPointSize(10);
+	    mRenderer.setGridColor(Color.WHITE);
+	    mRenderer.setXLabels(0);
+	    mRenderer.setMarginsColor(Color.WHITE);
+	    String Title = "Helloworld";
+	    XYSeries ss = new XYSeries(Title);
+	    mDataset.addSeries(ss);
+	    mCurrentSeries = ss;
+	    XYSeriesRenderer r = new XYSeriesRenderer();
+	    mRenderer.addSeriesRenderer(r);
+	    r.setPointStyle(PointStyle.CIRCLE);
+	    r.setPointStrokeWidth(10);
+	    r.setFillPoints(true);
+	    r.setDisplayChartValues(true);
+	    r.setDisplayChartValuesDistance(10);
+	    
+	    
+	    r.setColor(Color.parseColor("#1482f9"));
+	    r.setLineWidth(3);
+	    
+	    
+	    mCurrentRenderer = r;
+    
+		 //ArrayList<Integer> integers = new ArrayList<Integer>();
+	       Calendar c1 = (Calendar) calendar_1_bt.clone();
+	       Calendar c2 = (Calendar) calendar_1_bt.clone();
+	       c2.set(Calendar.YEAR,c1.get(Calendar.YEAR)-11);
+	       c2.set(Calendar.MONTH,c2.get(Calendar.MONTH));
+	       
+	       
+	       boolean prezero=false;
+	       boolean notzero=false;
+	      	Log.d("1","1");
+	      	 int cnt=1;
+	       for(int i=0;i<12;i++){
+	    	   int money_fin = 0;
+	    	   Date tmp1 = new Date(c2.get(Calendar.YEAR)-1900,1,1);	    	  
+	    	   Date tmp2 = new Date(c2.get(Calendar.YEAR)-1900,12,31);
+	    	   Cursor tc = null;
+	    	   if(code==1){
+	    		   String queryStr = "SELECT money,date FROM "+moneyBookDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   if(!kindofString.equals("")){
+	    			   queryStr="SELECT money,date FROM "+moneyBookDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   }
+	    		   tc = moneyBookDB.RawQueryString(queryStr);
+	    	   }else if(code==2){
+	    		   String queryStr = "SELECT money,date FROM "+inputDB.SQL_DBname+" WHERE date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   if(!kindofString.equals("")){
+	    			   queryStr="SELECT money,date FROM "+inputDB.SQL_DBname+" WHERE kindof LIKE '"+kindofString+"%' AND date BETWEEN "+String.valueOf(tmp1.getTime())+" AND "+String.valueOf(tmp2.getTime())+" ORDER BY date ASC";
+	    		   }
+	    		   tc = inputDB.RawQueryString(queryStr);
+	    	   }
+	    	   String date ="";
+	    	   String firstdate="";
+	    	   if(tc.getCount()>0){
+	    		   if(tc.moveToFirst()){
+	    			   do{
+	    				   int money = Integer.parseInt(tc.getString(0));
+	    				   money_fin+=money;
+	    				   date = tc.getString(1);
+	    				   if(firstdate.equals("")){
+	    					   firstdate=tc.getString(1);
+	    				   }
+	    			   }while(tc.moveToNext());
+	    		   }
+	    	   }
+	    	   if(i==0){
+		    	   if(money_fin==0){
+		    		   prezero=true;
+		    	   }else if(money_fin>0){
+		    		   notzero=true;
+		    	   }
+	    	   }
+	    	   
+	    	   if(money_fin>0){
+	    		   if(prezero){
+	    			   notzero=true;
+	    		   }
+	    	   }
+	    	  
+	    	   if(notzero){
+	    		   
+		    	   add(cnt,money_fin);
+		    	   dateArrayList.add(date+"-"+firstdate);
+		    	   Log.d("firstdate",firstdate);
+		    	   Log.d("date",date);
+		    	   Log.d("d",cnt+"::"+(((c2.get(Calendar.MONTH)+2)%13)+1)+"월");
+		    	   mRenderer.addTextLabel(cnt,c2.get(Calendar.YEAR)+"년");
+		    	   cnt++;
+	    	   }
+	    	   
+	    	   
+	    	   
+	    	   if(maxmoney<money_fin){
+	    		   maxmoney=money_fin;
+	    	   }
+	    	   c2.set(Calendar.YEAR,c2.get(Calendar.YEAR)+1);
+	    	   
+	       }
+	       if(dateArrayList.size()==0){
+	    	   Toast.makeText(getApplicationContext(), "자료가 없습니다.",Toast.LENGTH_SHORT).show();
+	       }
+	       mRenderer.setYAxisMin(-(maxmoney/6));
+	       mRenderer.setYAxisMax(maxmoney+(maxmoney/6));
+	       mRenderer.setXLabelsAlign(Align.CENTER);
+	}
 	@Override
 	public void onClick(View v) {
 		if(popup){
@@ -662,10 +824,13 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		    	//Toast.makeText(getApplicationContext(), util.statistics2[item],Toast.LENGTH_SHORT).show();
 		    	if(util.statistics2[item].equals("지출/전체")){
 		    		statisticscode=1; 
-		    		
-		    		layout.removeView(mChartView);		    		
+		    		layout.removeView(mChartView);
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			makelinechart_year(statisticscode);
+		    		}
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -686,9 +851,15 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		    		//mChartView=null;
 		    		//mChartView.repaint();
 		    		statisticscode=2;
-		    		layout.removeView(mChartView);		    		
+		    		layout.removeView(mChartView);
 		    		mChartView=null;
-		    		 makelinechart(statisticscode);
+		    		if(kind_month){
+		    			
+		    			makelinechart(statisticscode);
+		    		}else{
+		    			
+		    			makelinechart_year(statisticscode);
+		    		}
 		    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 			   	      mChartView.setBackgroundColor(Color.WHITE);
 			   	      // enable the chart click events
@@ -781,17 +952,109 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			    	bt6.setText(util.monthyear[item]);
 			    	if(item==0){
 			    		kind_month=true;
+			    		GregorianCalendar gregorianCalendar = new GregorianCalendar();
+			    	       calendar_1_bt =  Calendar.getInstance();
+			    	       calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
+			    	       calendar_2_bt =  Calendar.getInstance();
+			    	       calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+			    	       
+			    	       Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+			    	       Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
+			    	       
+			    	       
+			    	       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    	       
+			    	       String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+			    	       btdate.setText(dateString);
 			    		
 			    	}else{
 			    		kind_month=false;
+			    		GregorianCalendar gregorianCalendar = new GregorianCalendar();
+			    	       calendar_1_bt =  Calendar.getInstance();
+			    	       calendar_1_bt.set(Calendar.MONTH,0);
+			    	       calendar_1_bt.set(Calendar.DAY_OF_MONTH,1);
+			    	       calendar_2_bt =  Calendar.getInstance();
+			    	       calendar_2_bt.set(Calendar.MONTH,11);
+			    	       calendar_2_bt.set(Calendar.DAY_OF_MONTH,gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+			    	       
+			    	       Date ddate1 = new Date(calendar_1_bt.get(Calendar.YEAR)-1900,calendar_1_bt.get(Calendar.MONTH),calendar_1_bt.get(Calendar.DAY_OF_MONTH));
+			    	       Date ddate2 = new Date(calendar_2_bt.get(Calendar.YEAR)-1900,calendar_2_bt.get(Calendar.MONTH),calendar_2_bt.get(Calendar.DAY_OF_MONTH));
+			    	       
+			    	       
+			    	       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    	       
+			    	       String dateString = simpleDateFormat.format(ddate1) + " ~ "+ simpleDateFormat.format(ddate2);
+			    	       btdate.setText(dateString);
 			    	}
 			    	
 			    	if(statisticscode==1 || statisticscode==2){
-						 makelinechart(statisticscode);
-						 mChartView.repaint();
+			    		if(kind_month){
+			    			layout.removeView(mChartView);
+				    		mChartView=null;
+			    			makelinechart(statisticscode);
+			    			mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
+					   	      mChartView.setBackgroundColor(Color.WHITE);
+					   	      // enable the chart click events
+					   	      mRenderer.setClickEnabled(true);
+					   	      mRenderer.setSelectableBuffer(10);
+					   	      mRenderer.setInScroll(true);
+					   	      mRenderer.setZoomEnabled(true);
+					   	      
+					   	    //  mChartView.invalidate();
+					   	   //mChartView.repaint();
+					   	    layout.addView(mChartView);
+					   	   addchartlistener();
+			    		}else{
+			    			layout.removeView(mChartView);
+				    		mChartView=null;
+			    			makelinechart_year(statisticscode);
+			    			mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
+					   	      mChartView.setBackgroundColor(Color.WHITE);
+					   	      // enable the chart click events
+					   	      mRenderer.setClickEnabled(true);
+					   	      mRenderer.setSelectableBuffer(10);
+					   	      mRenderer.setInScroll(true);
+					   	      mRenderer.setZoomEnabled(true);
+					   	      
+					   	    //  mChartView.invalidate();
+					   	   //mChartView.repaint();
+					   	    layout.addView(mChartView);
+					   	   addchartlistener();
+			    			//layout.addView(mChartView);
+			    			}
+						 //mChartView.repaint();
 					}else{
+						layout.removeView(mChartView);
+			    		mChartView=null;
+			    		
 						makepiechart(statisticscode);
-						mChartView.repaint();
+						mChartView = ChartFactory.getPieChartView(Tab_FiveActivity.this, mSeries, PiemRenderer);
+			    		
+			    	      PiemRenderer.setClickEnabled(true);
+			    	      mChartView.setOnClickListener(new View.OnClickListener() {
+			    	        @Override
+			    	        public void onClick(View v) {
+			    	          SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+			    	          if (seriesSelection == null) {
+			    	            Toast.makeText(getApplicationContext(), "No chart element selected", Toast.LENGTH_SHORT)
+			    	                .show();
+			    	          } else {
+			    	            for (int i = 0; i < mSeries.getItemCount(); i++) {
+			    	              PiemRenderer.getSeriesRendererAt(i).setHighlighted(i == seriesSelection.getPointIndex());
+			    	            }
+			    	            mChartView.repaint();
+			    	            Toast.makeText(
+			    	                getApplicationContext(),
+			    	                "Chart data point index " + seriesSelection.getPointIndex() + " selected"
+			    	                    + " point value=" + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+			    	          }
+			    	        }
+			    	      });
+			    	      
+			    	      layout.addView(mChartView);   
+						
+			    		
+						//mChartView.repaint();
 					}
 			    	//Toast.makeText(getApplicationContext(), util.Middleitems[item], Toast.LENGTH_SHORT).show();
 			    }
@@ -816,7 +1079,39 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 			    		
 			    		layout.removeView(mChartView);		    		
 			    		mChartView=null;
-			    		 makelinechart(statisticscode);
+			    		if(kind_month){
+			    			layout.removeView(mChartView);
+				    		mChartView=null;
+			    			makelinechart(statisticscode);
+			    			mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
+					   	      mChartView.setBackgroundColor(Color.WHITE);
+					   	      // enable the chart click events
+					   	      mRenderer.setClickEnabled(true);
+					   	      mRenderer.setSelectableBuffer(10);
+					   	      mRenderer.setInScroll(true);
+					   	      mRenderer.setZoomEnabled(true);
+					   	      
+					   	    //  mChartView.invalidate();
+					   	   //mChartView.repaint();
+					   	    layout.addView(mChartView);
+					   	   addchartlistener();
+			    		}else{
+			    			layout.removeView(mChartView);
+				    		mChartView=null;
+			    			makelinechart_year(statisticscode);
+			    			mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
+					   	      mChartView.setBackgroundColor(Color.WHITE);
+					   	      // enable the chart click events
+					   	      mRenderer.setClickEnabled(true);
+					   	      mRenderer.setSelectableBuffer(10);
+					   	      mRenderer.setInScroll(true);
+					   	      mRenderer.setZoomEnabled(true);
+					   	      
+					   	    //  mChartView.invalidate();
+					   	   //mChartView.repaint();
+					   	    layout.addView(mChartView);
+					   	   addchartlistener();
+			    		}
 			    		mChartView = ChartFactory.getLineChartView(Tab_FiveActivity.this, mDataset, mRenderer);
 				   	      mChartView.setBackgroundColor(Color.WHITE);
 				   	      // enable the chart click events
@@ -840,88 +1135,18 @@ public class Tab_FiveActivity extends Activity implements OnClickListener {
 		}else if(v.getId()==R.id.button3){
 			Toast.makeText(getApplicationContext(), "새로고침",Toast.LENGTH_SHORT).show();
 			if(statisticscode==1 || statisticscode==2){
+				if(kind_month){
 				 makelinechart(statisticscode);
 				 mChartView.repaint();
+				}else{
+					makelinechart_year(statisticscode);
+					mChartView.repaint();
+				}
+				
 			}else{
 				makepiechart(statisticscode);
 				mChartView.repaint();
 			}
-			/*
-			mCurrentSeries.clear();
-			mDataset.clear();
-			makelinechart(statisticscode);
-			mChartView.repaint();
-			  mChartView.setOnTouchListener(new View.OnTouchListener() {
-					
-					@Override
-					public boolean onTouch(View v, MotionEvent event) {
-						// TODO Auto-generated method stub
-						getx = (int)(event.getRawX() - mTouchX); 
-						gety = (int)(event.getRawY() - mTouchY);   
-						
-						mParams.x = getx+20;
-						mParams.y = gety-120;
-						
-						return false;
-					}
-				});
-			  mChartView.setOnClickListener(new View.OnClickListener() {
-		   	        public void onClick(View v) {
-		   	          // handle the click event on the chart
-		   	          SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-		   	          if (seriesSelection == null) {
-		   	           // Toast.makeText(Tab_FiveActivity.this, "No chart element", Toast.LENGTH_SHORT).show();
-		   	          } else {
-		   	            // display information of the clicked point
-		   	        	//Toast.makeText(getApplicationContext(), "getx ="+getx+" AND gety ="+gety,1000).show();
-		   	        	  DecimalFormat df = new DecimalFormat("#,##0");
-		   	        	  
-		   	        	  String datetext = dateArrayList.get((int)seriesSelection.getXValue()-1);
-		   	        	  String datearr[] = datetext.split("-");
-		   	        	  Date first = new Date(Long.parseLong(datearr[1]));
-		   	        	  Date Last = new Date(Long.parseLong(datearr[0]));
-		   	        	tv1.setText(simpleDateFormat.format(first));
-		   	        	tv2.setText(simpleDateFormat.format(Last));
-		   	        	  
-		   	        	tv3.setText("￦"+df.format((int)seriesSelection.getValue()));
-		   	        	tv4.setText("￦"+df.format((int)seriesSelection.getValue()));
-		   	        	  if(LastXvalue==0 || LastXvalue==seriesSelection.getXValue()){
-		   	        		 LastXvalue=seriesSelection.getXValue();
-		   	        		 
-		   	        		 if(popup){
-		   		        		  mWindowManager.removeView(popButton);
-		   		        		  popup=false;
-		   		        	  }else{
-		   		        		  mWindowManager.addView(popButton, mParams);
-		   		        		  popup=true;
-		   		        	  }
-		   	        		 
-		   	        	  }else{
-		   	        		  LastXvalue=seriesSelection.getXValue();
-		   	        		  if(popup){
-		   		        		  mWindowManager.removeView(popButton);
-		   		        		  popup=false;
-		   		        		  mWindowManager.addView(popButton, mParams);
-		   		        		  popup=true;
-		   		        	  }else{
-		   		        		  
-		   		        	  }
-		   	        		  
-		   	        	  }
-		   	        	  
-		   	        	
-		   	        	
-		   	        	Toast.makeText(
-		   	            		Tab_FiveActivity.this,
-		   	                "Chart element in series index " + seriesSelection.getSeriesIndex()
-		   	                    + " data point index " + seriesSelection.getPointIndex() + " was clicked"
-		   	                    + " closest point value X=" + seriesSelection.getXValue() + ", Y="
-		   	                    + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
-		   	                    
-		   	        	}
-		   	        }
-		   	      });
-			*/
 		}
 	}
 	

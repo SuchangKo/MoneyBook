@@ -64,8 +64,14 @@ public class KinofDB {
     public Cursor RawQueryString(String sql){
     	return db.rawQuery(sql,null);
     }
+    public void datadel1(String item){
+    	db.execSQL("DELETE FROM "+Database_Name+" WHERE kindof='"+item+"'");
+    }
     public Cursor selectTable(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return db.query(Table_Name, columns, selection, selectionArgs, groupBy, having, orderBy);
+    }
+    public void update(ContentValues values,String Filter){
+    	db.update(Table_Name, values,Filter,null);
     }
     public boolean updateTable(ContentValues values, String pkColumn, long pkData) {
         return db.update(Table_Name, values, pkColumn+"="+pkData, null)>0;

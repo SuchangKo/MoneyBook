@@ -2,6 +2,7 @@ package com.suchangko.moneybook;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.content.Context;
@@ -23,9 +24,11 @@ public class TabthreeAdapter extends BaseAdapter {
 	private ArrayList<Integer> budgetArrayList;
 	private boolean moneyview1,moneyview2;
 	Calendar calendar;
+	
 	public TabthreeAdapter(Context c,Calendar calendar,int layout,ArrayList<Integer> wholemoneyarrayList,ArrayList<Integer> spendmonetArrayList,ArrayList<String> nameArrayList,ArrayList<Integer> budgetArrayList,boolean moneyview1,boolean moneyview2){
 		Inflater=(LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		_layout=layout;
+	
 		this.calendar=calendar;
 		this.wholemoneyarrayList = wholemoneyarrayList;
 		this.spendmonetArrayList = spendmonetArrayList;
@@ -58,9 +61,18 @@ public class TabthreeAdapter extends BaseAdapter {
 			arg1=Inflater.inflate(_layout, arg2,false);
 		}
 		GregorianCalendar grecal;
-		grecal=new GregorianCalendar();
+		grecal=new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
 		int Day = calendar.get(Calendar.DAY_OF_MONTH);
 		int LastDay = grecal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		Calendar cc = Calendar.getInstance();
+		
+		Date d1 = new Date(calendar.get(Calendar.YEAR)-1900,calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+		Date d2 = new Date(cc.get(Calendar.YEAR)-1900,cc.get(Calendar.MONTH),cc.get(Calendar.DAY_OF_MONTH));
+		
+		
+		
+		
 		int budgeti = budgetArrayList.get(arg0);
 		ProgressBar progressBar = (ProgressBar)arg1.findViewById(R.id.progressBar1);
 		TextView tv_title = (TextView)arg1.findViewById(R.id.tv_title);
@@ -73,17 +85,21 @@ public class TabthreeAdapter extends BaseAdapter {
 		TextView tv3 = (TextView)arg1.findViewById(R.id.tv3);
 		TextView tv4 = (TextView)arg1.findViewById(R.id.tv4);
 		TextView tv_4 = (TextView)arg1.findViewById(R.id.tv4_1);
-		int moneyperday = (int)budgeti/LastDay;
-		int budgetperday = (budgeti-spendmonetArrayList.get(arg0))/(LastDay-Day);
-		tv_money.setText(budgeti+"원");
+		int moneyperday = (int)budgeti/LastDay;		
+		int days = LastDay-Day;
+		if(days==0){
+			days=1;
+		}
+		
+		
+		int budgetperday = (budgeti-spendmonetArrayList.get(arg0))/days;
+		tv_money.setText(String.format("%,d",budgeti)+"원");
 		tv_title.setText("| "+nameArrayList.get(arg0)+" |");
-		tv_1.setText(moneyperday+"원");
+		tv_1.setText(String.format("%,d",moneyperday)+"원");
 		tv_2.setText(spendmonetArrayList.get(arg0)+"원");
-		tv_3.setText((budgeti-spendmonetArrayList.get(arg0))+"원");
+		tv_3.setText(String.format("%,d",(budgeti-spendmonetArrayList.get(arg0)))+"원");
 		tv3.setText("이번 달 남은 예산(D-"+(LastDay-Day)+")");
-		tv_4.setText(budgetperday+"원");
-		
-		
+		tv_4.setText(String.format("%,d",budgetperday)+"원");
 		int spendmoney = spendmonetArrayList.get(arg0);
 		Log.d("spendmoney",""+spendmoney);
 		Log.d("bugeti",""+budgeti);
@@ -98,24 +114,16 @@ public class TabthreeAdapter extends BaseAdapter {
 			first=tmpt;
 			if(tmpt>101){
 				second=tmpt-100;
-				first=100;
+				first=100;tv_1.setText(0+"원");
+				tv_4.setText(0+"원");
 			}
 			progressBar.setSecondaryProgress(first);
 			progressBar.setProgress(second);
-			
+
 		}
-		//long percentlong = spendmoney/budgeti*100;
-		
-	//	long percentlong = spendmonetArrayList.get(arg0)/budgeti;
-	//	Log.d("",""+percentlong);
-		
-		/*
-		if(budgetArrayList.get(arg0)==0){
-			progressBar.setProgress(0);
-		}else{
-			progressBar.setProgress(percent);
+		if(d1.getTime()<d2.getTime()){
+			tv3.setText("이번 달 남은 예산(D-0)");
 		}
-		*/
 		if(!moneyview1){
 			tv1.setVisibility(View.GONE);
 			tv_1.setVisibility(View.GONE);
@@ -128,7 +136,7 @@ public class TabthreeAdapter extends BaseAdapter {
 			tv4.setVisibility(View.GONE);
 			tv_4.setVisibility(View.GONE);
 		}
-		
+
 		return arg1;
 	}
 

@@ -3,10 +3,10 @@
     <item android:state_pressed="true" android:state_enabled="true">
         <shape>
             <gradient
-                    android:startColor="#fca61d" android:endColor="#fca61d"
+                    android:startColor="#ffffff" android:endColor="#ffffff"
                     android:angle="270" />
             <stroke
-                    android:width="2dip" android:color="#11a8ff"/>
+                    android:width="2dip" android:color="#000000"/>
             <corners android:radius="5dip"/>
             <padding
                     android:left="7dip"
@@ -18,10 +18,10 @@
     <item android:state_focused="true" android:state_enabled="true">
         <shape>
             <gradient
-                    android:startColor="#bbc2b2" android:endColor="#898b75"
+                    android:startColor="#ffffff" android:endColor="#ffffff"
                     android:angle="270" />
             <stroke
-                    android:width="2dip" android:color="#11a8ff"/>
+                    android:width="2dip" android:color="#000000"/>
             <corners android:radius="5dip"/>
             <padding
                     android:left="7dip"
@@ -33,7 +33,7 @@
     <item android:state_enabled="false">
         <shape>
             <gradient
-                    android:startColor="#ffffff" android:endColor="#dce3d1"
+                   android:startColor="#ffffff" android:endColor="#ffffff"
                     android:angle="270" />
             <corners android:radius="5dip"/>
             <padding
@@ -46,11 +46,11 @@
     <item android:state_enabled="true">
         <shape>
             <gradient
-                    android:startColor="#f1f3f5" android:endColor="#adb5bb"
+                    android:startColor="#ffffff" android:endColor="#ffffff"
                     android:angle="270" />
 
             <stroke
-                    android:width="0.5dip" android:color="#11a8ff"/>
+                    android:width="0.5dip" android:color="#000000"/>
 
             <corners android:radius="5dip"/>
 

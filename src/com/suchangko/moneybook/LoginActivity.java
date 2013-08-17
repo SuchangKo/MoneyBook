@@ -151,6 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			ArrayList<String> list1 = new ArrayList<String>();
 			ArrayList<String> list2 = new ArrayList<String>();
 			list1.add("전체");
+			list2.add("전 체");
 			if(c1.moveToFirst()){
 				do{
 					String item = c1.getString(1);					
@@ -191,7 +192,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 					}else if(item.equals("기타")){
 						util.detailitems13 = arrayList.toArray(new CharSequence[arrayList.size()]);
 					}
-					
 				}while(c1.moveToNext());
 			}
 		
@@ -199,7 +199,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			util.Middleitems1 = list1.toArray(new CharSequence[list1.size()]);
 			util.allspend = list2.toArray(new CharSequence[list2.size()]);
 			ok=true;
-			StartMain();
+			//StartMain();
 		}
 
 		@Override

@@ -19,17 +19,6 @@
         android:layout_marginBottom="26dp"
         android:src="@drawable/logintitle" />
         <requestFocus />
-        <EditText
-            android:singleLine="true"
-            android:id="@+id/edit_password"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edit_id"
-            android:layout_below="@+id/edit_id"
-            android:inputType="textPassword"
-            android:hint="Input Password"
-            android:background="@drawable/edittextbackground"
-            android:ems="10" />
         <Button
             android:id="@+id/button_login"
             android:layout_width="75dp"
@@ -37,35 +26,51 @@
             android:layout_alignBottom="@+id/edit_password"
             android:layout_alignTop="@+id/edit_id"
             android:layout_toRightOf="@+id/edit_password"
-            android:textColor="#11a8ff"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="17dp"
             android:text="Login"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/buttonbackground"/>
+
         <EditText
             android:id="@+id/edit_id"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/imageView1"
             android:layout_below="@+id/imageView1"
-            android:layout_marginLeft="19dp"
-            android:layout_marginTop="44dp"
-            android:ems="10"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/edittextbackground"
+            android:ems="10"
             android:hint="Input ID"
-            
+            android:layout_marginBottom="10dp"
             android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edit_id"
+            android:layout_below="@+id/edit_id"
+            android:background="@drawable/edittextbackground"
+            android:ems="10"
+            android:hint="Input Password"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
         <Button
             android:id="@+id/button_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edit_password"
             android:layout_alignRight="@+id/button_login"
-            android:layout_below="@+id/edit_password"
-            android:layout_marginTop="15dp"
-            android:textColor="#11a8ff"
-            android:textStyle="bold"
-            android:textSize="17dp"
+            android:layout_below="@+id/button_login"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/buttonbackground"
             android:text="회원가입"
-            android:background="@drawable/buttonbackground"/>
+            android:textColor="#000000"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
 </RelativeLayout>

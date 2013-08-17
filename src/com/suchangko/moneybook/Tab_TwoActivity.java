@@ -170,7 +170,24 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 			startActivity(i);
 			break;
 		case 5:
-			Toast.makeText(this,"더보기",100).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(Tab_TwoActivity.this);
+			builder.setTitle("카테고리선택");
+			String[] aaa ={"카테고리편집","환경설정"};
+			builder.setItems(aaa, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(which==0){
+						Intent ddd = new Intent(getApplicationContext(),EditCategory.class);
+						startActivity(ddd);
+					}else{
+						Toast.makeText(getApplicationContext(), "추후 업데이트 예정입니다.",1000).show();
+					}
+				}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
 			break;
 				}
 		return super.onOptionsItemSelected(item);
@@ -1208,7 +1225,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 		        				
 		        				tmp_money += Integer.parseInt(c.getString(2));
 		        			
-		        				String tmp_contentString =str_tmp_date+"#"+c.getString(3)+"#"+c.getString(1)+"#"+c.getString(2)+"원"+"#"+c.getInt(5);
+		        				String tmp_contentString =str_tmp_date+"#"+c.getString(3)+"#"+c.getString(1)+"#"+String.format("%,d",Integer.parseInt(c.getString(2)))+"원"+"#"+c.getInt(5);
 		        				tmp_Content.add(tmp_contentString);	    	  
 				        	}while(c.moveToNext());
 		        		}
@@ -1227,7 +1244,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 		        	tmp_spendint+=tmp_spend;
 		        }
 
-	        	bt_money.setText(""+tmp_moneyint+"원");
+	        	bt_money.setText(""+String.format("%,d",tmp_moneyint)+"원");
 	        	
 	        	String tmp_plus="";
 	            
@@ -1242,7 +1259,7 @@ public class Tab_TwoActivity extends Activity implements OnClickListener {
 	            }
 	            
 	            
-	            tv_middle.setText("이번 달 잔여금(수입-지출):"+tmp_plus+(tmp_moneyint-tmp_spendint)+"원");
+	            tv_middle.setText("이번 달 잔여금(수입-지출):"+tmp_plus+String.format("%,d",(tmp_moneyint-tmp_spendint))+"원");
 		}
 	 
 

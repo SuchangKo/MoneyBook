@@ -43,6 +43,7 @@ public class SearchtotalActivity extends Activity {
 	ArrayList<String> idArrayList;
 	MoneyBookDB mdb;
 	MoneyInputDB inputdb;
+	DetailKindofDB detailKindofDB;
 	int searchcnt=0;
 	ListViewAdapter1 adapter1;
 	TextView tv;
@@ -69,6 +70,8 @@ public class SearchtotalActivity extends Activity {
         idArrayList=new ArrayList<String>();
         code_=code;
         datetext_=datetext;
+        detailKindofDB = new DetailKindofDB(getApplicationContext(), DetailKindofDB.SQL_Create_detailkindofdb,DetailKindofDB.SQL_DBname);
+        detailKindofDB.open();
         
         lv = (ListView)findViewById(R.id.listview1);
         
@@ -175,7 +178,8 @@ public class SearchtotalActivity extends Activity {
 				}while(c.moveToNext());
 			}
 		}
-		 tv.setText("지출 검색 결과 : "+searchcnt+"개");
+		tv.setText("검색 결과");
+		// tv.setText("지출 검색 결과 : "+searchcnt+"개");
 		 adapter1 = new ListViewAdapter1(getApplicationContext(), R.layout.listrow_search,dateArrayList,whereArrayList,priceArrayList,idArrayList);
 	        lv.setAdapter(adapter1);
     }
@@ -224,112 +228,27 @@ public class SearchtotalActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(SearchtotalActivity.this);
 				builder.setTitle("지출 세부 분류 선택");
 				String tmp_middle = edt_middle.getText().toString();
-				if(tmp_middle.equals("식비")){
-					builder.setItems(util.detailitems1, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems1[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("교통비")){
-					builder.setItems(util.detailitems2, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems2[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("교육비")){
-					builder.setItems(util.detailitems3, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems3[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("건강,의료비")){
-					builder.setItems(util.detailitems4, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems4[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("통신비")){
-					builder.setItems(util.detailitems5, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems5[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("가구집기")){
-					builder.setItems(util.detailitems6, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems6[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("주거비")){
-					builder.setItems(util.detailitems7, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems7[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("품위유지비")){
-					builder.setItems(util.detailitems8, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems8[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("교양,오락비")){
-					builder.setItems(util.detailitems9, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems9[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("보험,저축비")){
-					builder.setItems(util.detailitems10, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems10[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("사업운영비")){
-					builder.setItems(util.detailitems11, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems11[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("수수료,세금")){
-					builder.setItems(util.detailitems12, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems12[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-				}else if(tmp_middle.equals("기타")){
-					builder.setItems(util.detailitems13, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
-					    	edt_detail.setText(util.detailitems13[item]);
-					    }
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
+			
+				
+				if(tmp_middle.equals("없음")){
+					Toast.makeText(getApplicationContext(), "분류선택을 확인해 주세요",1000).show();
 				}else{
-					Toast.makeText(getApplicationContext(), "분류를 선택해주세요.",1000).show();
+				Cursor ccc = detailKindofDB.RawQueryString("SELECT * FROM "+detailKindofDB.SQL_DBname+" WHERE kindof='"+tmp_middle+"'");
+				ArrayList<String> aaarrayList = new ArrayList<String>();
+			    if(ccc.moveToFirst()){
+			    	do{
+			    		aaarrayList.add(ccc.getString(2));
+			    	}while(ccc.moveToNext());
+			    }
+			    
+			    final String[] argss = aaarrayList.toArray(new String[aaarrayList.size()]);
+			    builder.setItems(argss, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	edt_detail.setText(argss[item]);
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
 				}
 			}
 		});
@@ -702,7 +621,8 @@ private TimePickerDialog.OnTimeSetListener edt_timeListener1 =
     		TextView tv3 = (TextView)arg1.findViewById(R.id.searchrow_where);
     		
     		tv1.setText(a.get(arg0));
-    		tv2.setText("￦"+d.get(arg0));
+    		
+    		tv2.setText(String.format("￦%,d",Integer.parseInt(d.get(arg0))));
     		tv3.setText(b.get(arg0));
     		
     		return arg1;
